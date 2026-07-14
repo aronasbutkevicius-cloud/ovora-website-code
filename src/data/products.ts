@@ -128,6 +128,11 @@ export const products: Product[] = [
     category: "blend",
     popular: true,
     dose: "5+5MG",
+    pack: "pack",
+    theme: "slate",
+  },
+  {
+    slug: "hcg-2000iu",
     name: "HCG",
     alsoKnownAs: ["Human Chorionic Gonadotropin"],
     description:
