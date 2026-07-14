@@ -6,23 +6,23 @@ export const metadata: Metadata = { title: "Membership" };
 
 export default function MembershipPage() {
   return (
-    <section className="py-12 lg:py-16 bg-white">
+    <section className="py-12 lg:py-16 bg-[#fffaf6]">
       <div className="content-container">
         <PageHero
           title="Membership"
-          subtitle="Earn points on every order and unlock researcher perks."
+          subtitle="Unlock researcher perks and priority support for your lab."
         />
         <div className="grid md:grid-cols-3 gap-6 max-w-5xl">
           {[
             {
               name: "Researcher",
               price: "Free",
-              perks: ["Earn points on every order", "Order tracking", "COA access"],
+              perks: ["Member pricing access", "Order tracking", "COA access"],
             },
             {
               name: "Lab+",
               price: "Points unlock",
-              perks: ["2x points events", "Priority support", "Early catalog access"],
+              perks: ["Member-only catalog drops", "Priority support", "Early catalog access"],
             },
             {
               name: "Institution",
@@ -32,14 +32,14 @@ export default function MembershipPage() {
           ].map((tier) => (
             <div
               key={tier.name}
-              className="rounded-3xl border border-gray-100 bg-gray-50 p-8 flex flex-col"
+              className="rounded-3xl border border-[#eadfd4] bg-[#f7efe7] p-8 flex flex-col"
             >
-              <h2 className="text-xl font-semibold text-black mb-1">{tier.name}</h2>
-              <p className="text-sm text-black/50 mb-6">{tier.price}</p>
-              <ul className="space-y-2 text-sm text-black/70 flex-1 mb-8">
+              <h2 className="text-xl font-semibold text-[#2a211c] mb-1">{tier.name}</h2>
+              <p className="text-sm text-[#2a211c]/50 mb-6">{tier.price}</p>
+              <ul className="space-y-2 text-sm text-[#2a211c]/70 flex-1 mb-8">
                 {tier.perks.map((p) => (
                   <li key={p} className="flex gap-2">
-                    <span className="text-green-600">✓</span>
+                    <span className="text-[#c4785a]">✓</span>
                     {p}
                   </li>
                 ))}

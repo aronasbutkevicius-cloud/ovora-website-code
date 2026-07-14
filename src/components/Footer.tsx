@@ -1,23 +1,8 @@
 import Link from "next/link";
 
-export function PromoBanner() {
-  return (
-    <div className="w-full bg-gradient-to-r from-amber-400 via-amber-300 to-violet-400 text-brand-black">
-      <div className="container mx-auto flex flex-wrap items-center justify-center gap-x-2 gap-y-1 px-4 py-2 text-center font-poppins text-sm font-medium">
-        <span className="text-base leading-none">✦</span>
-        <span className="font-bold">Double Points Week</span>
-        <span>—</span>
-        <span>
-          Earn <span className="font-roboto font-bold">2x</span> points on every order
-        </span>
-      </div>
-    </div>
-  );
-}
-
 export function Footer() {
   return (
-    <footer className="bg-[#0a0a0a] text-white">
+    <footer className="bg-[#2a211c] text-white">
       <div className="content-container py-14 lg:py-16">
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-10 mb-12">
           <div className="col-span-2 lg:col-span-1">

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Vial } from "@/components/Vial";
 import { products, formatPrice } from "@/data/products";
 
 export const metadata: Metadata = {
@@ -26,13 +27,13 @@ export default async function StorePage({
     category === "all" ? products : products.filter((p) => p.category === category);
 
   return (
-    <section className="py-12 lg:py-16 bg-white min-h-[60vh]">
+    <section className="py-12 lg:py-16 bg-[#fffaf6] min-h-[60vh]">
       <div className="content-container">
         <div className="max-w-3xl mb-10">
-          <h1 className="text-4xl lg:text-5xl font-semibold text-black tracking-tight mb-3">
+          <h1 className="text-4xl lg:text-5xl font-semibold text-[#2a211c] tracking-tight mb-3">
             All Products
           </h1>
-          <p className="text-black/60 text-lg">
+          <p className="text-[#7a6a5c] text-lg">
             Research-grade peptides with Certificate of Analysis, 99%+ purity verification, and
             lyophilized powder in sterile vials.
           </p>
@@ -48,8 +49,8 @@ export default async function StorePage({
                 href={href}
                 className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
                   active
-                    ? "bg-black text-white"
-                    : "bg-gray-100 text-black/70 hover:bg-gray-200"
+                    ? "bg-[#2a211c] text-[#fffaf6]"
+                    : "bg-[#f7efe7] text-[#5c4a3d] hover:bg-[#f3e6dc]"
                 }`}
               >
                 {f.label}
@@ -58,30 +59,32 @@ export default async function StorePage({
           })}
         </div>
 
-        <p className="text-sm text-black/50 mb-6">{filtered.length} products</p>
+        <p className="text-sm text-[#7a6a5c] mb-6">{filtered.length} products</p>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {filtered.map((p) => (
             <Link
               key={p.slug}
               href={`/products/${p.slug}`}
-              className="group bg-white rounded-2xl border border-gray-100 overflow-hidden hover:shadow-lg transition-shadow"
+              className="group bg-[#fffaf6] rounded-2xl border border-[#eadfd4] overflow-hidden hover:shadow-lg transition-shadow"
             >
-              <div className="aspect-[4/3] bg-gradient-to-b from-gray-50 to-white flex items-center justify-center p-6">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={p.image || "/images/bottle.png"}
-                  alt={p.name}
-                  className="max-h-36 w-auto object-contain group-hover:scale-105 transition-transform duration-500"
+              <div className="aspect-[4/3] bg-gradient-to-b from-[#f7efe7] to-[#fffaf6] flex items-center justify-center p-6">
+                <Vial
+                  name={p.name}
+                  dose={p.dose}
+                  theme={p.theme}
+                  className="h-40 w-auto group-hover:scale-105 transition-transform duration-500"
                 />
               </div>
               <div className="p-5">
-                <p className="text-[11px] uppercase tracking-wider text-black/40 mb-1">
+                <p className="text-[11px] uppercase tracking-wider text-[#a89070] mb-1">
                   {p.category}
                 </p>
-                <h2 className="font-semibold text-black mb-1 group-hover:underline">{p.name}</h2>
-                <p className="text-xs text-black/50 line-clamp-2 mb-3">{p.description}</p>
-                <p className="text-sm font-medium text-black">From {formatPrice(p.price)}</p>
+                <h2 className="font-semibold text-[#2a211c] mb-1 group-hover:underline">
+                  {p.name}
+                </h2>
+                <p className="text-xs text-[#7a6a5c] line-clamp-2 mb-3">{p.description}</p>
+                <p className="text-sm font-medium text-[#2a211c]">From {formatPrice(p.price)}</p>
               </div>
             </Link>
           ))}

@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 export default function ContactPage() {
   return (
-    <section className="py-12 lg:py-16 bg-white min-h-[50vh]">
+    <section className="py-12 lg:py-16 bg-[#fffaf6] min-h-[50vh]">
       <div className="content-container">
         <PageHero
           title="Contact Us"
@@ -16,34 +16,34 @@ export default function ContactPage() {
         />
         <div className="grid lg:grid-cols-2 gap-10 max-w-5xl">
           <div className="space-y-6">
-            <div className="bg-gray-50 rounded-2xl p-6 border border-gray-100">
-              <p className="text-sm text-black/45 mb-1">Email</p>
+            <div className="bg-[#f7efe7] rounded-2xl p-6 border border-[#eadfd4]">
+              <p className="text-sm text-[#2a211c]/45 mb-1">Email</p>
               <a
                 href="mailto:support@ovoralabs.com"
-                className="text-lg font-medium text-black hover:underline"
+                className="text-lg font-medium text-[#2a211c] hover:underline"
               >
                 support@ovoralabs.com
               </a>
             </div>
-            <div className="bg-gray-50 rounded-2xl p-6 border border-gray-100">
-              <p className="text-sm text-black/45 mb-1">Location</p>
-              <p className="text-lg font-medium text-black">United States</p>
+            <div className="bg-[#f7efe7] rounded-2xl p-6 border border-[#eadfd4]">
+              <p className="text-sm text-[#2a211c]/45 mb-1">Location</p>
+              <p className="text-lg font-medium text-[#2a211c]">United States</p>
             </div>
-            <div className="bg-gray-50 rounded-2xl p-6 border border-gray-100">
-              <p className="text-sm text-black/45 mb-1">Hours</p>
-              <p className="text-lg font-medium text-black">Mon–Fri, 9am–6pm ET</p>
+            <div className="bg-[#f7efe7] rounded-2xl p-6 border border-[#eadfd4]">
+              <p className="text-sm text-[#2a211c]/45 mb-1">Hours</p>
+              <p className="text-lg font-medium text-[#2a211c]">Mon–Fri, 9am–6pm ET</p>
             </div>
           </div>
-          <form className="bg-white rounded-3xl border border-gray-100 p-6 lg:p-8 space-y-4 shadow-sm">
+          <form className="bg-[#fffaf6] rounded-3xl border border-[#eadfd4] p-6 lg:p-8 space-y-4 shadow-sm">
             <div>
-              <label className="block text-sm font-medium text-black mb-1.5">Name</label>
+              <label className="block text-sm font-medium text-[#2a211c] mb-1.5">Name</label>
               <input
                 className="w-full h-11 px-4 rounded-xl border border-gray-200 text-sm outline-none focus:ring-2 focus:ring-black/10"
                 placeholder="Your name"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-black mb-1.5">Email</label>
+              <label className="block text-sm font-medium text-[#2a211c] mb-1.5">Email</label>
               <input
                 type="email"
                 className="w-full h-11 px-4 rounded-xl border border-gray-200 text-sm outline-none focus:ring-2 focus:ring-black/10"
@@ -51,7 +51,7 @@ export default function ContactPage() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-black mb-1.5">Message</label>
+              <label className="block text-sm font-medium text-[#2a211c] mb-1.5">Message</label>
               <textarea
                 rows={5}
                 className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm outline-none focus:ring-2 focus:ring-black/10 resize-y"

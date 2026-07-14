@@ -5,7 +5,7 @@ export const metadata: Metadata = { title: "Terms of Service" };
 
 export default function TermsPage() {
   return (
-    <section className="py-12 lg:py-16 bg-white">
+    <section className="py-12 lg:py-16 bg-[#fffaf6]">
       <div className="content-container">
         <PageHero title="Terms of Service" />
         <Prose>

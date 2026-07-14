@@ -1,7 +1,7 @@
 "use client";
 
 import { AgeGate } from "./AgeGate";
-import { Footer, PromoBanner } from "./Footer";
+import { Footer } from "./Footer";
 import { Header } from "./Header";
 import { CtaBand, Newsletter } from "./CtaBand";
 
@@ -15,7 +15,6 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
         Skip to main content
       </a>
       <Header />
-      <PromoBanner />
       <div id="main">{children}</div>
       <CtaBand />
       <Newsletter />

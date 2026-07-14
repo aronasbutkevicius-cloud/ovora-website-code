@@ -19,12 +19,12 @@ export function Header() {
 
   return (
     <header className="sticky top-0 inset-x-0 z-50">
-      <div className="relative h-16 lg:h-[70px] bg-white border-b border-gray-100/80 shadow-[0_1px_3px_rgba(0,0,0,0.05)]">
+      <div className="relative h-16 lg:h-[70px] bg-[#fffaf6]/95 backdrop-blur-md border-b border-[#eadfd4]/80 shadow-[0_1px_3px_rgba(42,33,28,0.05)]">
         <div className="content-container relative flex items-center justify-between w-full h-full">
           <div className="flex items-center gap-3">
             <button
               type="button"
-              className="lg:hidden flex items-center justify-center w-10 h-10 text-black/70 hover:text-black rounded-full hover:bg-black/[0.03] transition-all"
+              className="lg:hidden flex items-center justify-center w-10 h-10 text-[#5c4a3d] hover:text-[#2a211c] rounded-full hover:bg-[#f3e6dc]/60 transition-all"
               aria-label="Open menu"
               onClick={() => setOpen((v) => !v)}
             >
@@ -46,8 +46,8 @@ export function Header() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`relative px-4 py-2 text-[13px] font-medium transition-colors duration-200 rounded-full hover:bg-black/[0.03] ${
-                    active ? "text-black" : "text-black/75 hover:text-black"
+                  className={`relative px-4 py-2 text-[13px] font-medium transition-colors duration-200 rounded-full hover:bg-[#f3e6dc]/60 ${
+                    active ? "text-[#2a211c]" : "text-[#5c4a3d] hover:text-[#2a211c]"
                   }`}
                 >
                   {item.label}
@@ -59,7 +59,7 @@ export function Header() {
           <div className="flex items-center gap-1 lg:gap-2">
             <Link
               href="/store"
-              className="hidden sm:flex items-center justify-center w-10 h-10 text-black/70 hover:text-black rounded-full hover:bg-black/[0.03] transition-all"
+              className="hidden sm:flex items-center justify-center w-10 h-10 text-[#5c4a3d] hover:text-[#2a211c] rounded-full hover:bg-[#f3e6dc]/60 transition-all"
               aria-label="Search products"
             >
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -68,13 +68,13 @@ export function Header() {
             </Link>
             <Link
               href="/store"
-              className="relative flex items-center justify-center w-10 h-10 text-black/70 hover:text-black rounded-full hover:bg-black/[0.03] transition-all"
+              className="relative flex items-center justify-center w-10 h-10 text-[#5c4a3d] hover:text-[#2a211c] rounded-full hover:bg-[#f3e6dc]/60 transition-all"
               aria-label="Cart"
             >
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l3-8H6.4M7 13L5.4 5M7 13l-2 9m12-9l2 9M9 22a1 1 0 100-2 1 1 0 000 2zm8 0a1 1 0 100-2 1 1 0 000 2z" />
               </svg>
-              <span className="absolute -top-0.5 -right-0.5 flex items-center justify-center min-w-[18px] h-[18px] px-1 bg-black text-white text-[10px] font-semibold rounded-full">
+              <span className="absolute -top-0.5 -right-0.5 flex items-center justify-center min-w-[18px] h-[18px] px-1 bg-[#c4785a] text-white text-[10px] font-semibold rounded-full">
                 0
               </span>
             </Link>
@@ -83,14 +83,14 @@ export function Header() {
       </div>
 
       {open && (
-        <div className="lg:hidden bg-white border-b border-gray-100 shadow-lg">
+        <div className="lg:hidden bg-[#fffaf6] border-b border-[#eadfd4] shadow-lg">
           <nav className="content-container py-3 flex flex-col">
             {nav.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
                 onClick={() => setOpen(false)}
-                className="px-3 py-3 text-sm font-medium text-black/80 hover:text-black rounded-xl hover:bg-black/[0.03]"
+                className="px-3 py-3 text-sm font-medium text-[#5c4a3d] hover:text-[#2a211c] rounded-xl hover:bg-[#f3e6dc]/60"
               >
                 {item.label}
               </Link>

@@ -6,7 +6,8 @@ export type Product = {
   price: number;
   category: "peptide" | "blend" | "spray" | "accessory";
   popular?: boolean;
-  image?: string;
+  dose: string;
+  theme: string;
 };
 
 export const products: Product[] = [
@@ -18,6 +19,8 @@ export const products: Product[] = [
       "A 39-amino acid triple agonist peptide targeting GIP, GLP-1, and glucagon receptors, studied for metabolic regulation and body composition in clinical research.",
     price: 69.99,
     category: "peptide",
+    dose: "10MG",
+    theme: "clay",
     popular: true,
   },
   {
@@ -28,8 +31,9 @@ export const products: Product[] = [
       "A 15-amino acid peptide derived from human gastric juice that demonstrates protection and regenerative effects in animal cell models.",
     price: 39.99,
     category: "peptide",
+    dose: "10MG",
+    theme: "amber",
     popular: true,
-    image: "/images/hero/BPC157.webp",
   },
   {
     slug: "ghk-cu",
@@ -39,8 +43,9 @@ export const products: Product[] = [
       "A naturally occurring copper tripeptide that promotes tissue remodeling, wound healing, and collagen synthesis in animal and in vitro studies.",
     price: 29.99,
     category: "peptide",
+    dose: "100MG",
+    theme: "peach",
     popular: true,
-    image: "/images/hero/GHK-Cu.png",
   },
   {
     slug: "tesamorlin",
@@ -50,6 +55,8 @@ export const products: Product[] = [
       "A 44-amino acid GHRH analog that stimulates pituitary gh secretion, studied for visceral adipose tissue reduction in clinical research.",
     price: 69.99,
     category: "peptide",
+    dose: "2MG",
+    theme: "rose",
     popular: true,
   },
   {
@@ -60,8 +67,9 @@ export const products: Product[] = [
       "A 43-amino acid synthetic fragment of thymosin beta-4 that regulates actin polymerization and promotes cell migration in preclinical research.",
     price: 39.99,
     category: "peptide",
+    dose: "10MG",
+    theme: "honey",
     popular: true,
-    image: "/images/hero/TB500.webp",
   },
   {
     slug: "melanotan-ii",
@@ -71,6 +79,8 @@ export const products: Product[] = [
       "A cyclic peptide analog of α-MSH that binds melanocortin receptors, studied for melanogenesis and related pathways in research settings.",
     price: 29.99,
     category: "peptide",
+    dose: "10MG",
+    theme: "copper",
     popular: true,
   },
   {
@@ -81,8 +91,9 @@ export const products: Product[] = [
       "A critical dinucleotide coenzyme that activates sirtuins and supports mitochondrial function, studied for cellular energy metabolism in research models.",
     price: 69.99,
     category: "peptide",
+    dose: "500MG",
+    theme: "sand",
     popular: true,
-    image: "/images/hero/NAD.webp",
   },
   {
     slug: "aod-9604",
@@ -92,6 +103,8 @@ export const products: Product[] = [
       "A 15-amino acid lipolytic peptide that stimulates the breakdown of fat cells (lipolysis) and inhibits the metabolic formation of fat (lipogenesis) in animal studies.",
     price: 49.99,
     category: "peptide",
+    dose: "5MG",
+    theme: "terracotta",
     popular: true,
   },
   {
@@ -102,6 +115,8 @@ export const products: Product[] = [
       "A mitochondrial-derived peptide that modulates metabolic processes, with significant implications for exercise metabolism observed in rodent studies.",
     price: 39.99,
     category: "peptide",
+    dose: "10MG",
+    theme: "apricot",
     popular: true,
   },
   {
@@ -112,6 +127,8 @@ export const products: Product[] = [
       "A strategic peptide combination engineered to enhance gh release through synchronized GHRH and ghrelin receptor activation in experimental research models.",
     price: 59.99,
     category: "blend",
+    dose: "10MG",
+    theme: "taupe",
     popular: true,
   },
   {
@@ -122,6 +139,8 @@ export const products: Product[] = [
       "A synergistic peptide combination designed to support tissue repair and regenerative processes through complementary cellular mechanisms in animal research models.",
     price: 109.99,
     category: "blend",
+    dose: "10MG",
+    theme: "clay",
     popular: true,
   },
   {
@@ -132,6 +151,8 @@ export const products: Product[] = [
       "A triple-peptide combination of BPC-157, TB-500, and GHK-Cu targeting complementary angiogenic, cellular migration, and extracellular matrix remodeling pathways in preclinical research.",
     price: 114.99,
     category: "blend",
+    dose: "10MG",
+    theme: "amber",
     popular: true,
   },
   {
@@ -142,7 +163,8 @@ export const products: Product[] = [
       "A nonapeptide studied for sleep regulation and stress-related pathways in laboratory research models.",
     price: 29.99,
     category: "peptide",
-    image: "/images/hero/DSIP.webp",
+    dose: "5MG",
+    theme: "peach",
   },
   {
     slug: "semax",
@@ -151,6 +173,8 @@ export const products: Product[] = [
       "A synthetic heptapeptide analog studied for cognitive and neuroprotective research applications.",
     price: 29.99,
     category: "peptide",
+    dose: "10MG",
+    theme: "rose",
   },
   {
     slug: "selank",
@@ -160,6 +184,8 @@ export const products: Product[] = [
       "A synthetic peptide analog studied for anxiolytic and nootropic research pathways.",
     price: 29.99,
     category: "peptide",
+    dose: "10MG",
+    theme: "honey",
   },
   {
     slug: "klow",
@@ -169,6 +195,8 @@ export const products: Product[] = [
       "A quad regenerative stack combining BPC-157, TB-500, GHK-Cu, and KPV for multi-pathway preclinical research.",
     price: 129.99,
     category: "blend",
+    dose: "10MG",
+    theme: "copper",
   },
   {
     slug: "kpv",
@@ -178,6 +206,8 @@ export const products: Product[] = [
       "A tripeptide fragment of α-MSH studied for anti-inflammatory pathways in research settings.",
     price: 39.99,
     category: "peptide",
+    dose: "10MG",
+    theme: "sand",
   },
   {
     slug: "pt-141",
@@ -187,6 +217,8 @@ export const products: Product[] = [
       "A melanocortin receptor agonist peptide studied for related signaling pathways in research models.",
     price: 29.99,
     category: "peptide",
+    dose: "10MG",
+    theme: "terracotta",
   },
   {
     slug: "glutathione",
@@ -196,6 +228,8 @@ export const products: Product[] = [
       "A critical endogenous antioxidant tripeptide studied for redox balance and cellular defense mechanisms.",
     price: 59.99,
     category: "peptide",
+    dose: "600MG",
+    theme: "apricot",
   },
   {
     slug: "ipamorelin",
@@ -205,6 +239,8 @@ export const products: Product[] = [
       "A selective ghrelin receptor agonist peptide studied for growth hormone release pathways in research.",
     price: 49.99,
     category: "peptide",
+    dose: "5MG",
+    theme: "taupe",
   },
   {
     slug: "igf-1-lr3",
@@ -214,6 +250,8 @@ export const products: Product[] = [
       "A modified insulin-like growth factor analog studied for cellular growth and metabolic pathways.",
     price: 69.99,
     category: "peptide",
+    dose: "1MG",
+    theme: "clay",
   },
   {
     slug: "amino-h2o",
@@ -222,7 +260,8 @@ export const products: Product[] = [
       "Bacteriostatic water for laboratory reconstitution of lyophilized research peptides.",
     price: 16.99,
     category: "accessory",
-    image: "/images/hero/AminoH2o.png",
+    dose: "10ML",
+    theme: "amber",
   },
   {
     slug: "cagrilintide",
@@ -232,6 +271,8 @@ export const products: Product[] = [
       "An amylin analog peptide studied for appetite and metabolic regulation in research models.",
     price: 69.99,
     category: "peptide",
+    dose: "5MG",
+    theme: "peach",
   },
   {
     slug: "epithalon",
@@ -241,6 +282,8 @@ export const products: Product[] = [
       "A synthetic tetrapeptide studied for telomerase activity and aging-related pathways in research.",
     price: 29.99,
     category: "peptide",
+    dose: "10MG",
+    theme: "rose",
   },
   {
     slug: "5-amino-1mq",
@@ -250,6 +293,8 @@ export const products: Product[] = [
       "A small-molecule NNMT inhibitor studied for metabolic and cellular energy research pathways.",
     price: 49.99,
     category: "peptide",
+    dose: "50MG",
+    theme: "honey",
   },
   {
     slug: "melanotan-i",
@@ -259,6 +304,8 @@ export const products: Product[] = [
       "An α-MSH analog peptide studied for melanogenesis and melanocortin receptor pathways.",
     price: 29.99,
     category: "peptide",
+    dose: "10MG",
+    theme: "copper",
   },
   {
     slug: "thymosin-alpha-1",
@@ -268,6 +315,8 @@ export const products: Product[] = [
       "A 28-amino acid peptide studied for immune modulation pathways in laboratory research.",
     price: 39.99,
     category: "peptide",
+    dose: "5MG",
+    theme: "sand",
   },
   {
     slug: "snap-8",
@@ -277,6 +326,8 @@ export const products: Product[] = [
       "An octapeptide studied for neurotransmitter release and related cosmetic research applications.",
     price: 29.99,
     category: "peptide",
+    dose: "10MG",
+    theme: "terracotta",
   },
   {
     slug: "nad-plus-spray",
@@ -284,6 +335,8 @@ export const products: Product[] = [
     description: "Research-grade NAD+ formulated as a spray for laboratory applications.",
     price: 69.99,
     category: "spray",
+    dose: "30ML",
+    theme: "apricot",
   },
   {
     slug: "selank-spray",
@@ -291,6 +344,8 @@ export const products: Product[] = [
     description: "Research-grade Selank formulated as a spray for laboratory applications.",
     price: 89.99,
     category: "spray",
+    dose: "30ML",
+    theme: "taupe",
   },
   {
     slug: "semax-spray",
@@ -298,6 +353,8 @@ export const products: Product[] = [
     description: "Research-grade Semax formulated as a spray for laboratory applications.",
     price: 89.99,
     category: "spray",
+    dose: "30ML",
+    theme: "clay",
   },
   {
     slug: "ghkcu-spray",
@@ -305,6 +362,8 @@ export const products: Product[] = [
     description: "Research-grade GHK-Cu formulated as a spray for laboratory applications.",
     price: 49.99,
     category: "spray",
+    dose: "30ML",
+    theme: "amber",
   },
   {
     slug: "pt-141-spray",
@@ -312,6 +371,8 @@ export const products: Product[] = [
     description: "Research-grade PT-141 formulated as a spray for laboratory applications.",
     price: 79.99,
     category: "spray",
+    dose: "30ML",
+    theme: "peach",
   },
 ];
 

@@ -1,20 +1,25 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #0a0a0a;
-  --muted: #6b7280;
-  --accent-green: #22c55e;
-  --accent-lime: #b8e03f;
-  --brand-black: #0a0a0a;
-  --surface: #f9fafb;
-  --border: #f3f4f6;
+  --background: #fffaf6;
+  --foreground: #2a211c;
+  --muted: #7a6a5c;
+  --accent: #c4785a;
+  --accent-soft: #e8a87c;
+  --accent-deep: #9a5538;
+  --warm-surface: #f7efe7;
+  --warm-surface-2: #f3e6dc;
+  --brand-black: #2a211c;
+  --border: #eadfd4;
+  --success: #c4785a;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-brand-black: var(--brand-black);
+  --color-accent: var(--accent);
+  --color-warm-surface: var(--warm-surface);
   --font-sans: var(--font-poppins);
   --font-poppins: var(--font-poppins);
   --font-anek: var(--font-anek);
@@ -48,33 +53,107 @@ body {
   }
 }
 
-@keyframes float {
-  0%,
-  100% {
-    transform: translateY(0) rotate(-2deg);
+/* Freestyle vial orbits — elliptical paths + tilt, not identical bobbing */
+@keyframes vial-orbit-a {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(-8deg);
+  }
+  25% {
+    transform: translate3d(18px, -28px, 0) rotate(-2deg);
   }
   50% {
-    transform: translateY(-18px) rotate(2deg);
+    transform: translate3d(-10px, -48px, 0) rotate(6deg);
+  }
+  75% {
+    transform: translate3d(-22px, -18px, 0) rotate(-4deg);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) rotate(-8deg);
   }
 }
 
-@keyframes float-slow {
-  0%,
-  100% {
-    transform: translateY(0) rotate(3deg);
+@keyframes vial-orbit-b {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(10deg) scale(1);
   }
-  50% {
-    transform: translateY(-12px) rotate(-1deg);
+  33% {
+    transform: translate3d(-24px, 20px, 0) rotate(2deg) scale(1.04);
+  }
+  66% {
+    transform: translate3d(14px, -36px, 0) rotate(16deg) scale(0.98);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) rotate(10deg) scale(1);
   }
 }
 
-@keyframes float-delayed {
+@keyframes vial-orbit-c {
   0%,
   100% {
-    transform: translateY(0) rotate(-4deg);
+    transform: translate3d(0, 0, 0) rotate(4deg);
+  }
+  40% {
+    transform: translate3d(30px, -22px, 0) rotate(-6deg);
+  }
+  70% {
+    transform: translate3d(-16px, -40px, 0) rotate(10deg);
+  }
+}
+
+@keyframes vial-orbit-d {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(-14deg);
   }
   50% {
-    transform: translateY(-22px) rotate(1deg);
+    transform: translate3d(-20px, 26px, 0) rotate(-4deg);
+  }
+}
+
+@keyframes vial-orbit-e {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(3deg) translateY(0);
+  }
+  50% {
+    transform: translate3d(12px, 0, 0) rotate(-8deg) translateY(-34px);
+  }
+}
+
+@keyframes vial-orbit-f {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(-6deg);
+  }
+  25% {
+    transform: translate3d(-18px, -12px, 0) rotate(4deg);
+  }
+  75% {
+    transform: translate3d(22px, -30px, 0) rotate(-12deg);
+  }
+}
+
+@keyframes vial-haze-a {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.55;
+  }
+  50% {
+    transform: translate(40px, -30px) scale(1.15);
+    opacity: 0.85;
+  }
+}
+
+@keyframes vial-haze-b {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.45;
+  }
+  50% {
+    transform: translate(-50px, 20px) scale(1.2);
+    opacity: 0.75;
   }
 }
 
@@ -98,16 +177,29 @@ body {
   }
 }
 
-.animate-float {
-  animation: float 7s ease-in-out infinite;
+.vial-orbit-a {
+  animation: vial-orbit-a 11s ease-in-out infinite;
 }
-
-.animate-float-slow {
-  animation: float-slow 9s ease-in-out infinite;
+.vial-orbit-b {
+  animation: vial-orbit-b 14s ease-in-out infinite;
 }
-
-.animate-float-delayed {
-  animation: float-delayed 8s ease-in-out infinite 1.2s;
+.vial-orbit-c {
+  animation: vial-orbit-c 12.5s ease-in-out infinite 0.4s;
+}
+.vial-orbit-d {
+  animation: vial-orbit-d 9.5s ease-in-out infinite 0.8s;
+}
+.vial-orbit-e {
+  animation: vial-orbit-e 13s ease-in-out infinite 0.2s;
+}
+.vial-orbit-f {
+  animation: vial-orbit-f 15s ease-in-out infinite 1s;
+}
+.vial-haze-a {
+  animation: vial-haze-a 16s ease-in-out infinite;
+}
+.vial-haze-b {
+  animation: vial-haze-b 18s ease-in-out infinite 2s;
 }
 
 .animate-fade-up {
@@ -137,8 +229,19 @@ body {
 
 .hero-glow {
   background:
-    radial-gradient(ellipse 80% 60% at 50% 40%, rgba(184, 224, 63, 0.18), transparent 60%),
-    radial-gradient(ellipse 50% 40% at 20% 80%, rgba(167, 243, 208, 0.25), transparent 50%),
-    radial-gradient(ellipse 40% 50% at 85% 20%, rgba(196, 181, 253, 0.2), transparent 50%),
-    linear-gradient(180deg, #fafafa 0%, #ffffff 100%);
+    radial-gradient(ellipse 70% 55% at 50% 35%, rgba(232, 168, 124, 0.28), transparent 62%),
+    radial-gradient(ellipse 45% 40% at 15% 75%, rgba(212, 163, 115, 0.22), transparent 55%),
+    radial-gradient(ellipse 40% 45% at 88% 20%, rgba(196, 120, 90, 0.16), transparent 50%),
+    linear-gradient(180deg, #fffaf6 0%, #fff 55%, #fffaf6 100%);
+}
+
+/* keep old float names as aliases for age gate / research pages */
+.animate-float {
+  animation: vial-orbit-b 12s ease-in-out infinite;
+}
+.animate-float-slow {
+  animation: vial-orbit-a 14s ease-in-out infinite;
+}
+.animate-float-delayed {
+  animation: vial-orbit-c 13s ease-in-out infinite 1s;
 }

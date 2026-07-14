@@ -35,7 +35,7 @@ const faqs = [
 
 export default function FaqPage() {
   return (
-    <section className="py-12 lg:py-16 bg-gray-50 min-h-[50vh]">
+    <section className="py-12 lg:py-16 bg-[#f7efe7] min-h-[50vh]">
       <div className="content-container">
         <PageHero
           title="FAQ"

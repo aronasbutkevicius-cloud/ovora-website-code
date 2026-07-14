@@ -7,7 +7,7 @@ export const metadata: Metadata = {
 
 export default function ShippingPage() {
   return (
-    <section className="py-12 lg:py-16 bg-white">
+    <section className="py-12 lg:py-16 bg-[#fffaf6]">
       <div className="content-container">
         <PageHero
           title="Shipping Information"
