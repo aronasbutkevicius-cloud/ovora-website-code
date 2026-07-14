@@ -1,0 +1,144 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #0a0a0a;
+  --muted: #6b7280;
+  --accent-green: #22c55e;
+  --accent-lime: #b8e03f;
+  --brand-black: #0a0a0a;
+  --surface: #f9fafb;
+  --border: #f3f4f6;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-brand-black: var(--brand-black);
+  --font-sans: var(--font-poppins);
+  --font-poppins: var(--font-poppins);
+  --font-anek: var(--font-anek);
+  --font-roboto: var(--font-roboto);
+  --font-marcellus: var(--font-marcellus);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-poppins), system-ui, sans-serif;
+}
+
+.content-container {
+  width: 100%;
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+}
+
+@media (min-width: 1024px) {
+  .content-container {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-2deg);
+  }
+  50% {
+    transform: translateY(-18px) rotate(2deg);
+  }
+}
+
+@keyframes float-slow {
+  0%,
+  100% {
+    transform: translateY(0) rotate(3deg);
+  }
+  50% {
+    transform: translateY(-12px) rotate(-1deg);
+  }
+}
+
+@keyframes float-delayed {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-4deg);
+  }
+  50% {
+    transform: translateY(-22px) rotate(1deg);
+  }
+}
+
+@keyframes underline-grow {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-float {
+  animation: float 7s ease-in-out infinite;
+}
+
+.animate-float-slow {
+  animation: float-slow 9s ease-in-out infinite;
+}
+
+.animate-float-delayed {
+  animation: float-delayed 8s ease-in-out infinite 1.2s;
+}
+
+.animate-fade-up {
+  animation: fade-up 0.7s ease-out both;
+}
+
+.animate-underline {
+  animation: underline-grow 1s ease-out 0.4s both;
+  transform-origin: left;
+}
+
+.font-anek {
+  font-family: var(--font-anek), sans-serif;
+}
+
+.font-poppins {
+  font-family: var(--font-poppins), sans-serif;
+}
+
+.font-roboto {
+  font-family: var(--font-roboto), sans-serif;
+}
+
+.font-marcellus {
+  font-family: var(--font-marcellus), serif;
+}
+
+.hero-glow {
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 40%, rgba(184, 224, 63, 0.18), transparent 60%),
+    radial-gradient(ellipse 50% 40% at 20% 80%, rgba(167, 243, 208, 0.25), transparent 50%),
+    radial-gradient(ellipse 40% 50% at 85% 20%, rgba(196, 181, 253, 0.2), transparent 50%),
+    linear-gradient(180deg, #fafafa 0%, #ffffff 100%);
+}
