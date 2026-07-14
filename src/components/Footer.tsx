@@ -22,8 +22,8 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/membership" className="hover:text-white transition-colors">
-                  Membership
+                <Link href="/research-use" className="hover:text-white transition-colors">
+                  Research Use Only
                 </Link>
               </li>
             </ul>
@@ -92,11 +92,6 @@ export function Footer() {
               <li>
                 <Link href="/terms" className="hover:text-white transition-colors">
                   Terms of Service
-                </Link>
-              </li>
-              <li>
-                <Link href="/partners" className="hover:text-white transition-colors">
-                  Affiliate Terms
                 </Link>
               </li>
               <li>

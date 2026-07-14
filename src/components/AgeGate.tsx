@@ -47,16 +47,16 @@ export function AgeGate({ children }: { children: React.ReactNode }) {
     <div className="min-h-screen bg-[#f7efe7] flex items-center justify-center px-4 py-10 relative overflow-hidden">
       <div className="absolute inset-0 pointer-events-none opacity-70">
         <div className="absolute left-[6%] top-[12%] w-20 vial-orbit-a">
-          <Vial name="BPC-157" dose="10MG" theme="amber" tilt={-10} className="w-full h-auto" />
+          <Vial name="BPC-157" dose="10MG" theme="seafoam" tilt={-10} className="w-full h-auto" />
         </div>
         <div className="absolute right-[8%] top-[16%] w-24 vial-orbit-b">
-          <Vial name="TB-500" dose="10MG" theme="terracotta" tilt={12} className="w-full h-auto" />
+          <Vial name="Retatrutide" dose="10MG" theme="mist" tilt={12} className="w-full h-auto" />
         </div>
         <div className="absolute left-[16%] bottom-[8%] w-28 vial-orbit-c">
-          <Vial name="NAD+" dose="500MG" theme="honey" tilt={6} className="w-full h-auto" />
+          <Vial name="NAD+" dose="250MG" theme="peach" tilt={6} className="w-full h-auto" />
         </div>
         <div className="absolute right-[12%] bottom-[14%] w-20 vial-orbit-d">
-          <Vial name="GHK-Cu" dose="100MG" theme="copper" tilt={-14} className="w-full h-auto" />
+          <Vial name="GHK-Cu" dose="50MG" theme="lilac" tilt={-14} className="w-full h-auto" />
         </div>
       </div>
 

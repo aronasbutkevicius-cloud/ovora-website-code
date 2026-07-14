@@ -76,7 +76,7 @@ export default async function ProductPage({
               <div className="bg-[#f7efe7] rounded-xl p-4 border border-[#eadfd4]">
                 <dt className="text-[#7a6a5c] mb-1">Form</dt>
                 <dd className="font-semibold text-[#2a211c]">
-                  {product.category === "spray" ? "Spray" : "Lyophilized powder"}
+                  {product.category === "accessory" ? "Solution" : "Lyophilized powder"}
                 </dd>
               </div>
               <div className="bg-[#f7efe7] rounded-xl p-4 border border-[#eadfd4]">
@@ -84,13 +84,13 @@ export default async function ProductPage({
                 <dd className="font-semibold text-[#2a211c]">{product.dose}</dd>
               </div>
               <div className="bg-[#f7efe7] rounded-xl p-4 border border-[#eadfd4]">
-                <dt className="text-[#7a6a5c] mb-1">Use</dt>
-                <dd className="font-semibold text-[#2a211c]">Research only</dd>
+                <dt className="text-[#7a6a5c] mb-1">Pack</dt>
+                <dd className="font-semibold text-[#2a211c]">{product.pack ?? "pack"}</dd>
               </div>
             </dl>
 
             <p className="text-3xl font-semibold text-[#2a211c] mb-6">
-              From {formatPrice(product.price)}{" "}
+              {formatPrice(product.price)}{" "}
               <span className="text-base font-normal text-[#7a6a5c]">USD</span>
             </p>
 

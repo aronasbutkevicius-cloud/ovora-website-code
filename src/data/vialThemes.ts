@@ -1,4 +1,4 @@
-/** Warm vial color themes — soft label bg + deeper accent (Amino Club style, warm palette). */
+/** Soft monotone vial themes — matte pastel label + deeper text/accent (sleek Amino-style). */
 export type VialTheme = {
   id: string;
   label: string;
@@ -8,75 +8,96 @@ export type VialTheme = {
 };
 
 export const vialThemes: Record<string, VialTheme> = {
-  clay: {
-    id: "clay",
-    label: "#F3E6DC",
-    accent: "#C4785A",
-    text: "#3D2A22",
-    glass: "#F8F1EB",
+  lilac: {
+    id: "lilac",
+    label: "#E8E0F0",
+    accent: "#3D3550",
+    text: "#2A2438",
+    glass: "#F4F0F8",
   },
-  amber: {
-    id: "amber",
-    label: "#F7EDD8",
-    accent: "#D4923A",
-    text: "#3F2E14",
-    glass: "#FAF6EC",
+  blush: {
+    id: "blush",
+    label: "#F0E4E8",
+    accent: "#4A3038",
+    text: "#322028",
+    glass: "#F8F2F4",
   },
-  peach: {
-    id: "peach",
-    label: "#FCE8DF",
-    accent: "#E08A6A",
-    text: "#3C2418",
-    glass: "#FDF6F2",
+  mauve: {
+    id: "mauve",
+    label: "#E6DCE4",
+    accent: "#3E2E3A",
+    text: "#2C2028",
+    glass: "#F3EEF2",
   },
-  rose: {
-    id: "rose",
-    label: "#F7E4E6",
-    accent: "#C46B78",
-    text: "#3A1F24",
-    glass: "#FBF3F4",
+  mist: {
+    id: "mist",
+    label: "#E2E6EE",
+    accent: "#2E3648",
+    text: "#222836",
+    glass: "#F0F2F6",
   },
-  honey: {
-    id: "honey",
-    label: "#F6EFD4",
-    accent: "#C9A227",
-    text: "#3A3010",
-    glass: "#FAF7EA",
+  sage: {
+    id: "sage",
+    label: "#E2E8E2",
+    accent: "#2E3A32",
+    text: "#222A26",
+    glass: "#F0F4F0",
   },
-  copper: {
-    id: "copper",
-    label: "#F1E4D8",
-    accent: "#B8734A",
-    text: "#3A2418",
-    glass: "#F7F0EA",
+  seafoam: {
+    id: "seafoam",
+    label: "#DEE8E6",
+    accent: "#2A3A38",
+    text: "#1E2A28",
+    glass: "#EEF4F3",
   },
   sand: {
     id: "sand",
-    label: "#EFE8DC",
-    accent: "#A89070",
-    text: "#35291C",
-    glass: "#F6F2EB",
+    label: "#EDE6DC",
+    accent: "#3A3228",
+    text: "#2A241C",
+    glass: "#F6F2EC",
   },
-  terracotta: {
-    id: "terracotta",
-    label: "#F0DDD4",
-    accent: "#C45C3A",
-    text: "#3A2018",
-    glass: "#F8F0EB",
+  clay: {
+    id: "clay",
+    label: "#EBE0D8",
+    accent: "#3C2E28",
+    text: "#2A201C",
+    glass: "#F5F0EC",
   },
-  apricot: {
-    id: "apricot",
-    label: "#FCEBD8",
-    accent: "#E09A5A",
-    text: "#3D2814",
-    glass: "#FDF7EF",
+  slate: {
+    id: "slate",
+    label: "#E0E2E6",
+    accent: "#2C3038",
+    text: "#1E2228",
+    glass: "#EEEFF2",
+  },
+  ivory: {
+    id: "ivory",
+    label: "#F0EBE4",
+    accent: "#383028",
+    text: "#28241E",
+    glass: "#F7F4F0",
   },
   taupe: {
     id: "taupe",
-    label: "#EBE6DF",
-    accent: "#8F7A6A",
-    text: "#2F2620",
-    glass: "#F5F2EE",
+    label: "#E6E2DC",
+    accent: "#36322C",
+    text: "#26221E",
+    glass: "#F2F0EC",
+  },
+  peach: {
+    id: "peach",
+    label: "#F0E6E0",
+    accent: "#3E302A",
+    text: "#2C221E",
+    glass: "#F7F2EE",
+  },
+  rose: {
+    id: "rose",
+    label: "#EDE0E4",
+    accent: "#3A2830",
+    text: "#2A1E24",
+    glass: "#F5EEF1",
   },
 };
 

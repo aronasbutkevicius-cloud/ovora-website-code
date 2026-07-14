@@ -9,10 +9,9 @@ export const metadata: Metadata = {
 };
 
 const filters = [
-  { id: "all", label: "All Peptides" },
-  { id: "peptide", label: "Singles" },
+  { id: "all", label: "All Products" },
+  { id: "peptide", label: "Peptides" },
   { id: "blend", label: "Blends" },
-  { id: "spray", label: "Sprays" },
   { id: "accessory", label: "Accessories" },
 ] as const;
 
@@ -83,8 +82,12 @@ export default async function StorePage({
                 <h2 className="font-semibold text-[#2a211c] mb-1 group-hover:underline">
                   {p.name}
                 </h2>
+                <p className="text-xs text-[#a89070] mb-2">
+                  {p.dose}
+                  {p.pack ? ` · ${p.pack}` : ""}
+                </p>
                 <p className="text-xs text-[#7a6a5c] line-clamp-2 mb-3">{p.description}</p>
-                <p className="text-sm font-medium text-[#2a211c]">From {formatPrice(p.price)}</p>
+                <p className="text-sm font-medium text-[#2a211c]">{formatPrice(p.price)}</p>
               </div>
             </Link>
           ))}
