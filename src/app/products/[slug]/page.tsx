@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Vial } from "@/components/Vial";
+import { NasalSpray } from "@/components/NasalSpray";
 import { products, getProduct, formatPrice } from "@/data/products";
 
 export function generateStaticParams() {
@@ -31,6 +32,8 @@ export default async function ProductPage({
   const product = getProduct(slug);
   if (!product) notFound();
 
+  const isSpray = product.form === "nasal";
+
   return (
     <section className="py-12 lg:py-16 bg-[#fffaf6]">
       <div className="content-container">
@@ -44,17 +47,30 @@ export default async function ProductPage({
 
         <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-start">
           <div className="bg-gradient-to-b from-[#f7efe7] to-[#fffaf6] rounded-3xl border border-[#eadfd4] aspect-square flex items-center justify-center p-10">
-            <Vial
-              name={product.name}
-              dose={product.dose}
-              theme={product.theme}
-              className="max-h-[85%] w-auto"
-            />
+            {isSpray ? (
+              <NasalSpray
+                name={product.name}
+                dose={product.dose}
+                theme={product.theme}
+                className="max-h-[85%] w-auto"
+              />
+            ) : (
+              <Vial
+                name={product.name}
+                dose={product.dose}
+                theme={product.theme}
+                className="max-h-[85%] w-auto"
+              />
+            )}
           </div>
 
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#f7efe7] text-[#c4785a] text-xs font-medium mb-4 border border-[#eadfd4]">
-              Premium Research Peptide
+              {isSpray
+                ? "Nasal Spray · Research Use"
+                : product.form === "accessory"
+                  ? "Laboratory Accessory"
+                  : "Injectable Vial · Research Use"}
             </div>
             <h1 className="text-3xl lg:text-5xl font-semibold text-[#2a211c] tracking-tight mb-4">
               {product.name}
@@ -76,7 +92,11 @@ export default async function ProductPage({
               <div className="bg-[#f7efe7] rounded-xl p-4 border border-[#eadfd4]">
                 <dt className="text-[#7a6a5c] mb-1">Form</dt>
                 <dd className="font-semibold text-[#2a211c]">
-                  {product.category === "accessory" ? "Solution" : "Lyophilized powder"}
+                  {isSpray
+                    ? "Nasal spray"
+                    : product.form === "accessory"
+                      ? "Solution"
+                      : "Lyophilized powder"}
                 </dd>
               </div>
               <div className="bg-[#f7efe7] rounded-xl p-4 border border-[#eadfd4]">

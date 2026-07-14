@@ -4,7 +4,8 @@ export type Product = {
   alsoKnownAs?: string[];
   description: string;
   price: number;
-  category: "peptide" | "blend" | "accessory";
+  category: "peptide" | "blend" | "accessory" | "spray";
+  form: "injectable" | "nasal" | "accessory";
   popular?: boolean;
   dose: string;
   pack?: string;
@@ -21,6 +22,7 @@ export const products: Product[] = [
       "Naturally occurring copper tripeptide studied for tissue remodeling and collagen pathways in research models.",
     price: 25,
     category: "peptide",
+    form: "injectable",
     popular: true,
     dose: "50MG",
     pack: "10-pack",
@@ -35,6 +37,7 @@ export const products: Product[] = [
       "Cyclic α-MSH analog studied for melanocortin receptor pathways in research settings.",
     price: 24,
     category: "peptide",
+    form: "injectable",
     popular: true,
     dose: "5MG",
     pack: "10-pack",
@@ -49,6 +52,7 @@ export const products: Product[] = [
       "Cyclic α-MSH analog studied for melanocortin receptor pathways in research settings.",
     price: 45,
     category: "peptide",
+    form: "injectable",
     dose: "10MG",
     pack: "10-pack",
     stock: 1,
@@ -62,6 +66,7 @@ export const products: Product[] = [
       "α-MSH analog peptide studied for melanogenesis and melanocortin receptor pathways.",
     price: 45,
     category: "peptide",
+    form: "injectable",
     dose: "10MG",
     pack: "10-pack",
     stock: 1,
@@ -75,6 +80,7 @@ export const products: Product[] = [
       "15-amino acid peptide studied for protective and regenerative effects in animal cell models.",
     price: 35,
     category: "peptide",
+    form: "injectable",
     popular: true,
     dose: "5MG",
     pack: "10-pack",
@@ -88,6 +94,7 @@ export const products: Product[] = [
       "15-amino acid peptide studied for protective and regenerative effects in animal cell models.",
     price: 50,
     category: "peptide",
+    form: "injectable",
     popular: true,
     dose: "10MG",
     pack: "pack",
@@ -101,6 +108,7 @@ export const products: Product[] = [
       "Dual GIP/GLP-1 receptor agonist peptide studied for metabolic regulation in research.",
     price: 45,
     category: "peptide",
+    form: "injectable",
     popular: true,
     dose: "10MG",
     pack: "pack",
@@ -114,6 +122,7 @@ export const products: Product[] = [
       "Dual GIP/GLP-1 receptor agonist peptide studied for metabolic regulation in research.",
     price: 65,
     category: "peptide",
+    form: "injectable",
     dose: "20MG",
     pack: "pack",
     theme: "clay",
@@ -126,6 +135,7 @@ export const products: Product[] = [
       "CJC-1295 without DAC (5mg) + Ipamorelin (5mg) blend for synchronized GHRH and ghrelin pathway research.",
     price: 90,
     category: "blend",
+    form: "injectable",
     popular: true,
     dose: "5+5MG",
     pack: "pack",
@@ -139,6 +149,7 @@ export const products: Product[] = [
       "Glycoprotein hormone studied for reproductive and endocrine research applications.",
     price: 40,
     category: "peptide",
+    form: "injectable",
     dose: "2000IU",
     pack: "pack",
     theme: "ivory",
@@ -151,6 +162,7 @@ export const products: Product[] = [
       "Glycoprotein hormone studied for reproductive and endocrine research applications.",
     price: 65,
     category: "peptide",
+    form: "injectable",
     dose: "5000IU",
     pack: "pack",
     theme: "taupe",
@@ -163,6 +175,7 @@ export const products: Product[] = [
       "Modified insulin-like growth factor analog studied for cellular growth pathways.",
     price: 35,
     category: "peptide",
+    form: "injectable",
     dose: "0.1MG",
     pack: "pack",
     theme: "peach",
@@ -175,6 +188,7 @@ export const products: Product[] = [
       "Modified insulin-like growth factor analog studied for cellular growth pathways.",
     price: 175,
     category: "peptide",
+    form: "injectable",
     dose: "1MG",
     pack: "pack",
     theme: "rose",
@@ -187,6 +201,7 @@ export const products: Product[] = [
       "44-amino acid GHRH analog studied for pituitary gh secretion pathways in research.",
     price: 175,
     category: "peptide",
+    form: "injectable",
     popular: true,
     dose: "10MG",
     pack: "pack",
@@ -200,6 +215,7 @@ export const products: Product[] = [
       "Tripeptide fragment of α-MSH studied for anti-inflammatory pathways in research.",
     price: 55,
     category: "peptide",
+    form: "injectable",
     dose: "10MG",
     pack: "pack",
     theme: "blush",
@@ -212,6 +228,7 @@ export const products: Product[] = [
       "Mitochondrial-derived peptide studied for metabolic and exercise-related pathways.",
     price: 60,
     category: "peptide",
+    form: "injectable",
     popular: true,
     dose: "10MG",
     pack: "pack",
@@ -225,6 +242,7 @@ export const products: Product[] = [
       "Triple agonist peptide targeting GIP, GLP-1, and glucagon receptors in metabolic research.",
     price: 50,
     category: "peptide",
+    form: "injectable",
     popular: true,
     dose: "5MG",
     pack: "pack",
@@ -238,6 +256,7 @@ export const products: Product[] = [
       "Triple agonist peptide targeting GIP, GLP-1, and glucagon receptors in metabolic research.",
     price: 70,
     category: "peptide",
+    form: "injectable",
     popular: true,
     dose: "10MG",
     pack: "pack",
@@ -251,6 +270,7 @@ export const products: Product[] = [
       "Triple agonist peptide targeting GIP, GLP-1, and glucagon receptors in metabolic research.",
     price: 90,
     category: "peptide",
+    form: "injectable",
     dose: "15MG",
     pack: "pack",
     theme: "seafoam",
@@ -263,6 +283,7 @@ export const products: Product[] = [
       "Triple agonist peptide targeting GIP, GLP-1, and glucagon receptors in metabolic research.",
     price: 110,
     category: "peptide",
+    form: "injectable",
     dose: "20MG",
     pack: "pack",
     theme: "slate",
@@ -275,6 +296,7 @@ export const products: Product[] = [
       "Triple agonist peptide targeting GIP, GLP-1, and glucagon receptors in metabolic research.",
     price: 150,
     category: "peptide",
+    form: "injectable",
     dose: "30MG",
     pack: "pack",
     theme: "clay",
@@ -287,6 +309,7 @@ export const products: Product[] = [
       "Endogenous antioxidant tripeptide studied for redox balance and cellular defense mechanisms.",
     price: 45,
     category: "peptide",
+    form: "injectable",
     dose: "1200MG",
     pack: "pack",
     theme: "ivory",
@@ -299,6 +322,7 @@ export const products: Product[] = [
       "Bacteriostatic water for laboratory reconstitution of lyophilized research peptides.",
     price: 50,
     category: "accessory",
+    form: "accessory",
     dose: "10ML",
     pack: "pack",
     stock: 5,
@@ -312,6 +336,7 @@ export const products: Product[] = [
       "Bacteriostatic water for laboratory reconstitution of lyophilized research peptides.",
     price: 18,
     category: "accessory",
+    form: "accessory",
     dose: "5ML",
     pack: "pack",
     stock: 2,
@@ -325,10 +350,91 @@ export const products: Product[] = [
       "Critical dinucleotide coenzyme studied for sirtuin activation and cellular energy metabolism.",
     price: 40,
     category: "peptide",
+    form: "injectable",
     popular: true,
     dose: "250MG",
     pack: "pack",
     theme: "peach",
+  },
+  {
+    slug: "semax-10mg",
+    name: "Semax",
+    alsoKnownAs: ["Met-Glu-His-Phe-Pro-Gly-Pro"],
+    description:
+      "Synthetic heptapeptide analog studied for cognitive and neuroprotective research applications.",
+    price: 35,
+    category: "peptide",
+    form: "injectable",
+    popular: true,
+    dose: "10MG",
+    pack: "pack",
+    theme: "mist",
+  },
+  {
+    slug: "selank-10mg",
+    name: "Selank",
+    alsoKnownAs: ["TP-7", "Thr-Lys-Pro-Arg-Pro-Gly-Pro"],
+    description:
+      "Synthetic peptide analog studied for anxiolytic and nootropic research pathways.",
+    price: 35,
+    category: "peptide",
+    form: "injectable",
+    popular: true,
+    dose: "10MG",
+    pack: "pack",
+    theme: "lilac",
+  },
+  {
+    slug: "5-amino-1mq-10mg",
+    name: "5-Amino-1MQ",
+    alsoKnownAs: ["5-Amino-1-Methylquinolinium", "5A1MQ", "NNMTi"],
+    description:
+      "Small-molecule NNMT inhibitor studied for metabolic and cellular energy research pathways.",
+    price: 50,
+    category: "peptide",
+    form: "injectable",
+    dose: "10MG",
+    pack: "pack",
+    theme: "sand",
+  },
+  {
+    slug: "mt2-spray",
+    name: "MT-2 Spray",
+    alsoKnownAs: ["Melanotan II Nasal Spray", "MT-II"],
+    description:
+      "Research-grade Melanotan II formulated as a nasal spray for laboratory applications.",
+    price: 55,
+    category: "spray",
+    form: "nasal",
+    dose: "10MG",
+    pack: "spray",
+    theme: "blush",
+  },
+  {
+    slug: "selank-spray",
+    name: "Selank Spray",
+    alsoKnownAs: ["TP-7 Nasal Spray"],
+    description:
+      "Research-grade Selank formulated as a nasal spray for laboratory applications.",
+    price: 55,
+    category: "spray",
+    form: "nasal",
+    dose: "10MG",
+    pack: "spray",
+    theme: "mauve",
+  },
+  {
+    slug: "semax-spray",
+    name: "Semax Spray",
+    alsoKnownAs: ["Semax Nasal Spray"],
+    description:
+      "Research-grade Semax formulated as a nasal spray for laboratory applications.",
+    price: 55,
+    category: "spray",
+    form: "nasal",
+    dose: "10MG",
+    pack: "spray",
+    theme: "seafoam",
   },
 ];
 
@@ -338,4 +444,16 @@ export function getProduct(slug: string) {
 
 export function formatPrice(price: number) {
   return `$${price.toFixed(2)}`;
+}
+
+export function injectableProducts() {
+  return products.filter((p) => p.form === "injectable");
+}
+
+export function nasalProducts() {
+  return products.filter((p) => p.form === "nasal");
+}
+
+export function accessoryProducts() {
+  return products.filter((p) => p.form === "accessory");
 }
