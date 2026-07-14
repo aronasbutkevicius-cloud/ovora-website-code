@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Anek_Telugu, Marcellus, Poppins, Roboto } from "next/font/google";
 import { SiteShell } from "@/components/SiteShell";
+import { TidioChat } from "@/components/TidioChat";
 import "./globals.css";
 
 const anek = Anek_Telugu({
@@ -43,10 +44,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" data-mode="light">
+      <head>
+        <link rel="preconnect" href="https://code.tidio.co" />
+      </head>
       <body
         className={`${anek.variable} ${poppins.variable} ${roboto.variable} ${marcellus.variable} font-sans antialiased`}
       >
         <SiteShell>{children}</SiteShell>
+        <TidioChat />
       </body>
     </html>
   );
