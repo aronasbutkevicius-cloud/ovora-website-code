@@ -206,6 +206,47 @@ body {
   animation: fade-up 0.7s ease-out both;
 }
 
+@keyframes demon-laugh-shake {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0deg) scale(1.08);
+  }
+  20% {
+    transform: translate3d(-10px, 4px, 0) rotate(-4deg) scale(1.12);
+  }
+  40% {
+    transform: translate3d(12px, -3px, 0) rotate(5deg) scale(1.14);
+  }
+  60% {
+    transform: translate3d(-8px, 6px, 0) rotate(-3deg) scale(1.1);
+  }
+  80% {
+    transform: translate3d(9px, -2px, 0) rotate(3deg) scale(1.13);
+  }
+}
+
+@keyframes demon-ha-float {
+  0% {
+    opacity: 0;
+    transform: translateY(12px) scale(0.8);
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-80px) scale(1.25);
+  }
+}
+
+.demon-laugh {
+  animation: demon-laugh-shake 0.35s ease-in-out infinite;
+}
+
+.demon-ha {
+  animation: demon-ha-float 1.4s ease-out infinite;
+}
+
 .animate-underline {
   animation: underline-grow 1s ease-out 0.4s both;
   transform-origin: left;

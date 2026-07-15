@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
+import { DarkModeButton } from "./DarkModeGate";
 import { Logo } from "./Logo";
 
 const nav = [
@@ -55,6 +56,7 @@ export function Header() {
           </nav>
 
           <div className="flex items-center gap-1 lg:gap-2">
+            <DarkModeButton />
             <Link
               href="/store"
               className="hidden sm:flex items-center justify-center w-10 h-10 text-[#4a5168] hover:text-[#1e2235] rounded-full hover:bg-[#e4e8f5]/60 transition-all"
