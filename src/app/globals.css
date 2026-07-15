@@ -1,17 +1,17 @@
 @import "tailwindcss";
 
 :root {
-  --background: #fffaf6;
-  --foreground: #2a211c;
-  --muted: #7a6a5c;
-  --accent: #c4785a;
-  --accent-soft: #e8a87c;
-  --accent-deep: #9a5538;
-  --warm-surface: #f7efe7;
-  --warm-surface-2: #f3e6dc;
-  --brand-black: #2a211c;
-  --border: #eadfd4;
-  --success: #c4785a;
+  --background: #f7f8fc;
+  --foreground: #1e2235;
+  --muted: #6b7189;
+  --accent: #7a8fd4;
+  --accent-soft: #a8b6e8;
+  --accent-deep: #5c6fbf;
+  --warm-surface: #eef0f8;
+  --warm-surface-2: #e4e8f5;
+  --brand-black: #1e2235;
+  --border: #d5dbed;
+  --success: #7a8fd4;
 }
 
 @theme inline {
@@ -229,10 +229,10 @@ body {
 
 .hero-glow {
   background:
-    radial-gradient(ellipse 70% 55% at 50% 35%, rgba(232, 168, 124, 0.28), transparent 62%),
-    radial-gradient(ellipse 45% 40% at 15% 75%, rgba(212, 163, 115, 0.22), transparent 55%),
-    radial-gradient(ellipse 40% 45% at 88% 20%, rgba(196, 120, 90, 0.16), transparent 50%),
-    linear-gradient(180deg, #fffaf6 0%, #fff 55%, #fffaf6 100%);
+    radial-gradient(ellipse 70% 55% at 50% 35%, rgba(168, 182, 232, 0.35), transparent 62%),
+    radial-gradient(ellipse 45% 40% at 15% 75%, rgba(186, 198, 240, 0.28), transparent 55%),
+    radial-gradient(ellipse 40% 45% at 88% 20%, rgba(122, 143, 212, 0.18), transparent 50%),
+    linear-gradient(180deg, #f7f8fc 0%, #ffffff 55%, #f4f5fb 100%);
 }
 
 /* keep old float names as aliases for age gate / research pages */

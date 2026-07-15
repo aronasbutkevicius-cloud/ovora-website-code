@@ -35,8 +35,8 @@ export function AgeGate({ children }: { children: React.ReactNode }) {
 
   if (!ready) {
     return (
-      <div className="min-h-screen bg-[#fffaf6] flex items-center justify-center">
-        <div className="h-8 w-8 rounded-full border-2 border-[#c4785a]/30 border-t-[#c4785a] animate-spin" />
+      <div className="min-h-screen bg-[#f7f8fc] flex items-center justify-center">
+        <div className="h-8 w-8 rounded-full border-2 border-[#7a8fd4]/30 border-t-[#7a8fd4] animate-spin" />
       </div>
     );
   }
@@ -44,7 +44,7 @@ export function AgeGate({ children }: { children: React.ReactNode }) {
   if (verified) return <>{children}</>;
 
   return (
-    <div className="min-h-screen bg-[#f7efe7] flex items-center justify-center px-4 py-10 relative overflow-hidden">
+    <div className="min-h-screen bg-[#eef0f8] flex items-center justify-center px-4 py-10 relative overflow-hidden">
       <div className="absolute inset-0 pointer-events-none opacity-70">
         <div className="absolute left-[6%] top-[12%] w-20 vial-orbit-a">
           <Vial name="BPC-157" dose="10MG" theme="seafoam" tilt={-10} className="w-full h-auto" />
@@ -60,14 +60,14 @@ export function AgeGate({ children }: { children: React.ReactNode }) {
         </div>
       </div>
 
-      <div className="relative z-10 w-full max-w-lg bg-[#fffaf6] rounded-3xl shadow-[0_20px_60px_rgba(42,33,28,0.1)] border border-[#eadfd4] p-8 sm:p-10 animate-fade-up">
+      <div className="relative z-10 w-full max-w-lg bg-[#f7f8fc] rounded-3xl shadow-[0_20px_60px_rgba(30,34,53,0.1)] border border-[#d5dbed] p-8 sm:p-10 animate-fade-up">
         <div className="flex justify-center mb-6">
           <Logo className="h-9 w-auto" />
         </div>
-        <h1 className="text-2xl sm:text-3xl font-semibold text-center text-[#2a211c] mb-3 tracking-tight">
+        <h1 className="text-2xl sm:text-3xl font-semibold text-center text-[#1e2235] mb-3 tracking-tight">
           Researcher verification
         </h1>
-        <p className="text-center text-[#5c4a3d] text-[15px] leading-relaxed mb-8">
+        <p className="text-center text-[#4a5168] text-[15px] leading-relaxed mb-8">
           Ovora Labs sells research peptides exclusively to qualified researchers and
           laboratories for in vitro and laboratory use. Please confirm before continuing.
         </p>
@@ -78,9 +78,9 @@ export function AgeGate({ children }: { children: React.ReactNode }) {
               type="checkbox"
               checked={ageOk}
               onChange={(e) => setAgeOk(e.target.checked)}
-              className="mt-1 h-4 w-4 rounded border-[#eadfd4] accent-[#c4785a]"
+              className="mt-1 h-4 w-4 rounded border-[#d5dbed] accent-[#7a8fd4]"
             />
-            <span className="text-sm text-[#5c4a3d] leading-relaxed group-hover:text-[#2a211c]">
+            <span className="text-sm text-[#4a5168] leading-relaxed group-hover:text-[#1e2235]">
               I am at least <strong>21 years of age</strong>
             </span>
           </label>
@@ -89,9 +89,9 @@ export function AgeGate({ children }: { children: React.ReactNode }) {
               type="checkbox"
               checked={researcherOk}
               onChange={(e) => setResearcherOk(e.target.checked)}
-              className="mt-1 h-4 w-4 rounded border-[#eadfd4] accent-[#c4785a]"
+              className="mt-1 h-4 w-4 rounded border-[#d5dbed] accent-[#7a8fd4]"
             />
-            <span className="text-sm text-[#5c4a3d] leading-relaxed group-hover:text-[#2a211c]">
+            <span className="text-sm text-[#4a5168] leading-relaxed group-hover:text-[#1e2235]">
               I confirm I am a <strong>qualified researcher</strong> purchasing for{" "}
               <strong>in vitro / laboratory research</strong> only — not for human or
               veterinary use.
@@ -103,23 +103,23 @@ export function AgeGate({ children }: { children: React.ReactNode }) {
           type="button"
           onClick={enter}
           disabled={!ageOk || !researcherOk}
-          className="w-full h-12 rounded-full bg-[#2a211c] text-[#fffaf6] font-medium text-sm disabled:opacity-40 disabled:cursor-not-allowed hover:bg-[#3d2f26] transition-colors"
+          className="w-full h-12 rounded-full bg-[#1e2235] text-[#f7f8fc] font-medium text-sm disabled:opacity-40 disabled:cursor-not-allowed hover:bg-[#2a3148] transition-colors"
         >
           Enter Ovora Labs
         </button>
 
-        <p className="mt-5 text-xs text-[#7a6a5c] leading-relaxed text-center">
+        <p className="mt-5 text-xs text-[#6b7189] leading-relaxed text-center">
           By proceeding you affirm the statements above are true. Products are not for human
           or veterinary use, not for use in diagnostic procedures, and have not been evaluated
           by the U.S. FDA.{" "}
-          <Link href="/disclaimer" className="underline hover:text-[#2a211c]">
+          <Link href="/disclaimer" className="underline hover:text-[#1e2235]">
             Full disclaimer
           </Link>
         </p>
 
-        <p className="mt-6 text-center text-sm text-[#7a6a5c]">
+        <p className="mt-6 text-center text-sm text-[#6b7189]">
           Not a researcher?{" "}
-          <a href="https://www.google.com" className="underline hover:text-[#2a211c]">
+          <a href="https://www.google.com" className="underline hover:text-[#1e2235]">
             Exit
           </a>
         </p>

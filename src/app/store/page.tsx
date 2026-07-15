@@ -27,9 +27,9 @@ function ProductCard({ product }: { product: Product }) {
   return (
     <Link
       href={`/products/${product.slug}`}
-      className="group bg-[#fffaf6] rounded-2xl border border-[#eadfd4] overflow-hidden hover:shadow-lg transition-shadow"
+      className="group bg-[#f7f8fc] rounded-2xl border border-[#d5dbed] overflow-hidden hover:shadow-lg transition-shadow"
     >
-      <div className="aspect-[4/3] bg-gradient-to-b from-[#f7efe7] to-[#fffaf6] flex items-center justify-center p-6">
+      <div className="aspect-[4/3] bg-gradient-to-b from-[#eef0f8] to-[#f7f8fc] flex items-center justify-center p-6">
         {isSpray ? (
           <NasalSpray
             name={product.name}
@@ -47,16 +47,16 @@ function ProductCard({ product }: { product: Product }) {
         )}
       </div>
       <div className="p-5">
-        <p className="text-[11px] uppercase tracking-wider text-[#a89070] mb-1">
+        <p className="text-[11px] uppercase tracking-wider text-[#8a90a8] mb-1">
           {isSpray ? "Nasal Spray" : product.form === "accessory" ? "Accessory" : "Injectable Vial"}
         </p>
-        <h2 className="font-semibold text-[#2a211c] mb-1 group-hover:underline">{product.name}</h2>
-        <p className="text-xs text-[#a89070] mb-2">
+        <h2 className="font-semibold text-[#1e2235] mb-1 group-hover:underline">{product.name}</h2>
+        <p className="text-xs text-[#8a90a8] mb-2">
           {product.dose}
           {product.pack ? ` · ${product.pack}` : ""}
         </p>
-        <p className="text-xs text-[#7a6a5c] line-clamp-2 mb-3">{product.description}</p>
-        <p className="text-sm font-medium text-[#2a211c]">{formatPrice(product.price)}</p>
+        <p className="text-xs text-[#6b7189] line-clamp-2 mb-3">{product.description}</p>
+        <p className="text-sm font-medium text-[#1e2235]">{formatPrice(product.price)}</p>
       </div>
     </Link>
   );
@@ -75,10 +75,10 @@ function Section({
   return (
     <div className="mb-16">
       <div className="mb-8">
-        <h2 className="text-2xl lg:text-3xl font-semibold text-[#2a211c] tracking-tight mb-2">
+        <h2 className="text-2xl lg:text-3xl font-semibold text-[#1e2235] tracking-tight mb-2">
           {title}
         </h2>
-        <p className="text-[#7a6a5c] text-sm">{subtitle}</p>
+        <p className="text-[#6b7189] text-sm">{subtitle}</p>
       </div>
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {items.map((p) => (
@@ -112,13 +112,13 @@ export default async function StorePage({
     (showAccessories ? accessories.length : 0);
 
   return (
-    <section className="py-12 lg:py-16 bg-[#fffaf6] min-h-[60vh]">
+    <section className="py-12 lg:py-16 bg-[#f7f8fc] min-h-[60vh]">
       <div className="content-container">
         <div className="max-w-3xl mb-10">
-          <h1 className="text-4xl lg:text-5xl font-semibold text-[#2a211c] tracking-tight mb-3">
+          <h1 className="text-4xl lg:text-5xl font-semibold text-[#1e2235] tracking-tight mb-3">
             All Products
           </h1>
-          <p className="text-[#7a6a5c] text-lg">
+          <p className="text-[#6b7189] text-lg">
             Research-grade peptides with Certificate of Analysis and 99%+ purity verification —
             injectable vials and nasal sprays.
           </p>
@@ -134,8 +134,8 @@ export default async function StorePage({
                 href={href}
                 className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
                   active
-                    ? "bg-[#2a211c] text-[#fffaf6]"
-                    : "bg-[#f7efe7] text-[#5c4a3d] hover:bg-[#f3e6dc]"
+                    ? "bg-[#1e2235] text-[#f7f8fc]"
+                    : "bg-[#eef0f8] text-[#4a5168] hover:bg-[#e4e8f5]"
                 }`}
               >
                 {f.label}
@@ -144,7 +144,7 @@ export default async function StorePage({
           })}
         </div>
 
-        <p className="text-sm text-[#7a6a5c] mb-8">{count} products</p>
+        <p className="text-sm text-[#6b7189] mb-8">{count} products</p>
 
         {showInjectables && (
           <Section

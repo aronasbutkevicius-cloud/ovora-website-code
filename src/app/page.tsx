@@ -39,35 +39,35 @@ export default function HomePage() {
 
         <div className="content-container relative z-20 h-full min-h-[70vh] lg:min-h-[78vh] flex items-center justify-center">
           <div className="text-center max-w-3xl mx-auto py-16 lg:py-24 animate-fade-up">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/80 backdrop-blur-sm border border-[#eadfd4] mb-6">
-              <svg className="w-4 h-4 text-[#c4785a]" fill="currentColor" viewBox="0 0 20 20">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/80 backdrop-blur-sm border border-[#d5dbed] mb-6">
+              <svg className="w-4 h-4 text-[#7a8fd4]" fill="currentColor" viewBox="0 0 20 20">
                 <path
                   fillRule="evenodd"
                   d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
                   clipRule="evenodd"
                 />
               </svg>
-              <span className="text-sm font-medium text-[#5c4a3d]">
+              <span className="text-sm font-medium text-[#4a5168]">
                 Laboratory Grade · USA Based
               </span>
             </div>
-            <h1 className="font-anek text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-semibold text-[#2a211c] leading-[1.02] tracking-tight mb-4 lg:mb-6">
+            <h1 className="font-anek text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-semibold text-[#1e2235] leading-[1.02] tracking-tight mb-4 lg:mb-6">
               Ovora Labs
             </h1>
-            <p className="text-lg sm:text-xl lg:text-2xl text-[#5c4a3d] leading-relaxed max-w-2xl mx-auto mb-8">
+            <p className="text-lg sm:text-xl lg:text-2xl text-[#4a5168] leading-relaxed max-w-2xl mx-auto mb-8">
               Premium research-grade peptides with a 99%+ purity guarantee. Built for labs that
               demand documentation, consistency, and third-party verification.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
               <Link
                 href="/store"
-                className="inline-flex items-center justify-center h-12 px-8 rounded-full bg-[#2a211c] text-[#fffaf6] text-sm font-medium hover:bg-[#3d2f26] transition-colors"
+                className="inline-flex items-center justify-center h-12 px-8 rounded-full bg-[#1e2235] text-[#f7f8fc] text-sm font-medium hover:bg-[#2a3148] transition-colors"
               >
                 Shop Products
               </Link>
               <Link
                 href="/research-use"
-                className="inline-flex items-center justify-center h-12 px-8 rounded-full bg-white/90 border border-[#eadfd4] text-[#2a211c] text-sm font-medium hover:bg-white transition-colors"
+                className="inline-flex items-center justify-center h-12 px-8 rounded-full bg-white/90 border border-[#d5dbed] text-[#1e2235] text-sm font-medium hover:bg-white transition-colors"
               >
                 Research Use Only
               </Link>
@@ -76,13 +76,13 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="py-16 lg:py-24 bg-[#fffaf6]">
+      <section className="py-16 lg:py-24 bg-[#f7f8fc]">
         <div className="content-container">
           <div className="text-center max-w-2xl mx-auto mb-12">
-            <h2 className="text-3xl lg:text-4xl font-semibold text-[#2a211c] tracking-tight mb-3">
+            <h2 className="text-3xl lg:text-4xl font-semibold text-[#1e2235] tracking-tight mb-3">
               Why Choose Ovora Labs?
             </h2>
-            <p className="text-[#7a6a5c]">
+            <p className="text-[#6b7189]">
               The leading standard for research-grade peptides — purity, transparency, and US-based
               support.
             </p>
@@ -91,28 +91,28 @@ export default function HomePage() {
             {features.map((f) => (
               <div
                 key={f.title}
-                className="bg-[#f7efe7] rounded-2xl p-6 border border-[#eadfd4]"
+                className="bg-[#eef0f8] rounded-2xl p-6 border border-[#d5dbed]"
               >
-                <h3 className="text-lg font-semibold text-[#2a211c] mb-2">{f.title}</h3>
-                <p className="text-sm text-[#5c4a3d] leading-relaxed">{f.body}</p>
+                <h3 className="text-lg font-semibold text-[#1e2235] mb-2">{f.title}</h3>
+                <p className="text-sm text-[#4a5168] leading-relaxed">{f.body}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="py-16 lg:py-24 bg-[#f3e6dc]/50">
+      <section className="py-16 lg:py-24 bg-[#e4e8f5]/50">
         <div className="content-container">
           <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-10">
             <div>
-              <h2 className="text-3xl lg:text-4xl font-semibold text-[#2a211c] tracking-tight mb-2">
+              <h2 className="text-3xl lg:text-4xl font-semibold text-[#1e2235] tracking-tight mb-2">
                 Popular Research Peptides
               </h2>
-              <p className="text-[#7a6a5c]">99%+ purity · COA included · Lyophilized powder</p>
+              <p className="text-[#6b7189]">99%+ purity · COA included · Lyophilized powder</p>
             </div>
             <Link
               href="/store"
-              className="text-sm font-medium text-[#2a211c] underline underline-offset-4"
+              className="text-sm font-medium text-[#1e2235] underline underline-offset-4"
             >
               View all products →
             </Link>
@@ -122,9 +122,9 @@ export default function HomePage() {
               <Link
                 key={p.slug}
                 href={`/products/${p.slug}`}
-                className="group bg-[#fffaf6] rounded-2xl border border-[#eadfd4] overflow-hidden hover:shadow-lg transition-shadow"
+                className="group bg-[#f7f8fc] rounded-2xl border border-[#d5dbed] overflow-hidden hover:shadow-lg transition-shadow"
               >
-                <div className="aspect-[4/3] bg-gradient-to-b from-[#f7efe7] to-[#fffaf6] flex items-center justify-center p-6">
+                <div className="aspect-[4/3] bg-gradient-to-b from-[#eef0f8] to-[#f7f8fc] flex items-center justify-center p-6">
                   <Vial
                     name={p.name}
                     dose={p.dose}
@@ -133,15 +133,15 @@ export default function HomePage() {
                   />
                 </div>
                 <div className="p-5">
-                  <h3 className="font-semibold text-[#2a211c] mb-1 group-hover:underline">
+                  <h3 className="font-semibold text-[#1e2235] mb-1 group-hover:underline">
                     {p.name}
                   </h3>
-                  <p className="text-xs text-[#a89070] mb-2">
+                  <p className="text-xs text-[#8a90a8] mb-2">
                     {p.dose}
                     {p.pack ? ` · ${p.pack}` : ""}
                   </p>
-                  <p className="text-xs text-[#7a6a5c] line-clamp-2 mb-3">{p.description}</p>
-                  <p className="text-sm font-medium text-[#2a211c]">{formatPrice(p.price)}</p>
+                  <p className="text-xs text-[#6b7189] line-clamp-2 mb-3">{p.description}</p>
+                  <p className="text-sm font-medium text-[#1e2235]">{formatPrice(p.price)}</p>
                 </div>
               </Link>
             ))}
@@ -149,36 +149,36 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="py-16 lg:py-20 bg-[#fffaf6]">
+      <section className="py-16 lg:py-20 bg-[#f7f8fc]">
         <div className="content-container">
-          <div className="bg-gradient-to-br from-[#f7efe7] to-[#f3e6dc] rounded-3xl p-8 lg:p-12 border border-[#eadfd4]">
+          <div className="bg-gradient-to-br from-[#eef0f8] to-[#e4e8f5] rounded-3xl p-8 lg:p-12 border border-[#d5dbed]">
             <div className="grid lg:grid-cols-3 gap-8 text-center">
               <div>
-                <p className="text-4xl font-bold text-[#c4785a] mb-2">99%+</p>
-                <p className="font-semibold text-[#2a211c] mb-1">Purity Verified</p>
-                <p className="text-sm text-[#7a6a5c]">HPLC tested for purity verification</p>
+                <p className="text-4xl font-bold text-[#7a8fd4] mb-2">99%+</p>
+                <p className="font-semibold text-[#1e2235] mb-1">Purity Verified</p>
+                <p className="text-sm text-[#6b7189]">HPLC tested for purity verification</p>
               </div>
               <div>
-                <p className="text-4xl font-bold text-[#c4785a] mb-2">3rd</p>
-                <p className="font-semibold text-[#2a211c] mb-1">Party Tested</p>
-                <p className="text-sm text-[#7a6a5c]">Independent lab verification</p>
+                <p className="text-4xl font-bold text-[#7a8fd4] mb-2">3rd</p>
+                <p className="font-semibold text-[#1e2235] mb-1">Party Tested</p>
+                <p className="text-sm text-[#6b7189]">Independent lab verification</p>
               </div>
               <div>
-                <p className="text-4xl font-bold text-[#c4785a] mb-2">CoA</p>
-                <p className="font-semibold text-[#2a211c] mb-1">Included</p>
-                <p className="text-sm text-[#7a6a5c]">Certificate of Analysis with every batch</p>
+                <p className="text-4xl font-bold text-[#7a8fd4] mb-2">CoA</p>
+                <p className="font-semibold text-[#1e2235] mb-1">Included</p>
+                <p className="text-sm text-[#6b7189]">Certificate of Analysis with every batch</p>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="py-16 lg:py-24 bg-[#f3e6dc]/40">
+      <section className="py-16 lg:py-24 bg-[#e4e8f5]/40">
         <div className="content-container max-w-4xl mx-auto">
-          <h2 className="text-3xl font-semibold text-[#2a211c] text-center mb-10 tracking-tight">
+          <h2 className="text-3xl font-semibold text-[#1e2235] text-center mb-10 tracking-tight">
             Fast Shipping & Shipment Protection
           </h2>
-          <ul className="grid sm:grid-cols-2 gap-4 text-sm text-[#5c4a3d]">
+          <ul className="grid sm:grid-cols-2 gap-4 text-sm text-[#4a5168]">
             {[
               "Orders processed within 0–2 business days",
               "Overnight delivery available",
@@ -191,10 +191,10 @@ export default function HomePage() {
             ].map((item) => (
               <li
                 key={item}
-                className="flex items-start gap-3 bg-[#fffaf6] rounded-xl p-4 border border-[#eadfd4]"
+                className="flex items-start gap-3 bg-[#f7f8fc] rounded-xl p-4 border border-[#d5dbed]"
               >
                 <svg
-                  className="w-5 h-5 text-[#c4785a] shrink-0 mt-0.5"
+                  className="w-5 h-5 text-[#7a8fd4] shrink-0 mt-0.5"
                   fill="currentColor"
                   viewBox="0 0 20 20"
                 >
