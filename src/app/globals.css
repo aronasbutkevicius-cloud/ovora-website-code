@@ -210,20 +210,20 @@ body {
 @keyframes molecule-drift-a {
   0%,
   100% {
-    transform: translate3d(0, 0, 0) rotate(-4deg);
+    transform: translate3d(0, 0, 0) rotate(-6deg);
   }
   50% {
-    transform: translate3d(18px, -22px, 0) rotate(6deg);
+    transform: translate3d(28px, -32px, 0) rotate(10deg);
   }
 }
 
 @keyframes molecule-drift-b {
   0%,
   100% {
-    transform: translate3d(0, 0, 0) rotate(8deg);
+    transform: translate3d(0, 0, 0) rotate(10deg);
   }
   50% {
-    transform: translate3d(-24px, 16px, 0) rotate(-4deg);
+    transform: translate3d(-34px, 24px, 0) rotate(-8deg);
   }
 }
 
@@ -233,7 +233,7 @@ body {
     transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
   }
   50% {
-    transform: translate3d(12px, -14px, 0) rotate(10deg) scale(1.05);
+    transform: translate3d(20px, -22px, 0) rotate(14deg) scale(1.08);
   }
 }
 
@@ -249,10 +249,10 @@ body {
 @keyframes wave-drift {
   0%,
   100% {
-    transform: translateX(0);
+    transform: translateX(0) translateY(0);
   }
   50% {
-    transform: translateX(14px);
+    transform: translateX(22px) translateY(-8px);
   }
 }
 
@@ -278,22 +278,22 @@ body {
 }
 
 .molecule-float-a {
-  animation: molecule-drift-a 16s ease-in-out infinite;
+  animation: molecule-drift-a 12s ease-in-out infinite;
 }
 .molecule-float-b {
-  animation: molecule-drift-b 20s ease-in-out infinite 1s;
+  animation: molecule-drift-b 15s ease-in-out infinite 0.6s;
 }
 .molecule-float-c {
-  animation: molecule-drift-c 18s ease-in-out infinite 0.5s;
+  animation: molecule-drift-c 13s ease-in-out infinite 0.3s;
 }
 .molecule-spin-slow {
-  animation: molecule-spin-slow 28s linear infinite;
+  animation: molecule-spin-slow 18s linear infinite;
 }
 .molecule-waves {
-  animation: wave-drift 14s ease-in-out infinite;
+  animation: wave-drift 10s ease-in-out infinite;
 }
 .molecule-waves-slow {
-  animation: wave-drift 22s ease-in-out infinite reverse;
+  animation: wave-drift 16s ease-in-out infinite reverse;
 }
 
 .animate-underline {
