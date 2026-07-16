@@ -129,7 +129,7 @@ export default function HomePage() {
                 className="group bg-[#f7f8fc]/95 rounded-2xl border border-[#d5dbed] overflow-hidden hover-lift"
               >
                 <div className="aspect-[4/3] bg-gradient-to-b from-[#eef0f8] to-[#f7f8fc] flex items-center justify-center p-6 relative">
-                  <div className="absolute inset-0 opacity-[0.07] pointer-events-none">
+                  <div className="absolute inset-0 opacity-[0.16] pointer-events-none">
                     <MoleculeMark className="w-full h-full" />
                   </div>
                   <ProductVisual
