@@ -26,7 +26,7 @@ function ProductCard({ product }: { product: Product }) {
   return (
     <Link
       href={`/products/${product.slug}`}
-      className="group bg-[#f7f8fc] rounded-2xl border border-[#d5dbed] overflow-hidden hover:shadow-lg transition-shadow"
+      className="group bg-[#f7f8fc]/95 rounded-2xl border border-[#d5dbed] overflow-hidden hover-lift"
     >
       <div className="aspect-[4/3] bg-gradient-to-b from-[#eef0f8] to-[#f7f8fc] flex items-center justify-center p-6">
         <ProductVisual

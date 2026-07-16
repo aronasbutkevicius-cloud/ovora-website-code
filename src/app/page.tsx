@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { FloatingVials } from "@/components/FloatingVials";
+import { MoleculeMark } from "@/components/MolecularField";
 import { ProductVisual } from "@/components/ProductVisual";
 import { products, formatPrice } from "@/data/products";
 
@@ -76,9 +77,12 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="py-16 lg:py-24 bg-[#f7f8fc]">
-        <div className="content-container">
-          <div className="text-center max-w-2xl mx-auto mb-12">
+      <section className="relative py-16 lg:py-24 bg-[#f7f8fc] overflow-hidden">
+        <div className="absolute right-6 top-8 opacity-80">
+          <MoleculeMark className="w-20 h-20 md:w-28 md:h-28" />
+        </div>
+        <div className="content-container relative z-10">
+          <div className="text-center max-w-2xl mx-auto mb-12 reveal">
             <h2 className="text-3xl lg:text-4xl font-semibold text-[#1e2235] tracking-tight mb-3">
               Why Choose Ovora Labs?
             </h2>
@@ -88,10 +92,10 @@ export default function HomePage() {
             </p>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {features.map((f) => (
+            {features.map((f, i) => (
               <div
                 key={f.title}
-                className="bg-[#eef0f8] rounded-2xl p-6 border border-[#d5dbed]"
+                className={`bg-[#eef0f8]/90 backdrop-blur-sm rounded-2xl p-6 border border-[#d5dbed] hover-lift reveal reveal-delay-${(i % 3) + 1}`}
               >
                 <h3 className="text-lg font-semibold text-[#1e2235] mb-2">{f.title}</h3>
                 <p className="text-sm text-[#4a5168] leading-relaxed">{f.body}</p>
@@ -101,9 +105,9 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="py-16 lg:py-24 bg-[#e4e8f5]/50">
-        <div className="content-container">
-          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-10">
+      <section className="relative py-16 lg:py-24 bg-[#e4e8f5]/50 overflow-hidden">
+        <div className="content-container relative z-10">
+          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-10 reveal">
             <div>
               <h2 className="text-3xl lg:text-4xl font-semibold text-[#1e2235] tracking-tight mb-2">
                 Popular Research Peptides
@@ -122,12 +126,15 @@ export default function HomePage() {
               <Link
                 key={p.slug}
                 href={`/products/${p.slug}`}
-                className="group bg-[#f7f8fc] rounded-2xl border border-[#d5dbed] overflow-hidden hover:shadow-lg transition-shadow"
+                className="group bg-[#f7f8fc]/95 rounded-2xl border border-[#d5dbed] overflow-hidden hover-lift"
               >
-                <div className="aspect-[4/3] bg-gradient-to-b from-[#eef0f8] to-[#f7f8fc] flex items-center justify-center p-6">
+                <div className="aspect-[4/3] bg-gradient-to-b from-[#eef0f8] to-[#f7f8fc] flex items-center justify-center p-6 relative">
+                  <div className="absolute inset-0 opacity-[0.07] pointer-events-none">
+                    <MoleculeMark className="w-full h-full" />
+                  </div>
                   <ProductVisual
                     product={p}
-                    className="h-40 w-auto group-hover:scale-105 transition-transform duration-500"
+                    className="h-40 w-auto group-hover:scale-105 transition-transform duration-500 relative z-10"
                     sizes="(max-width: 768px) 45vw, 220px"
                   />
                 </div>
@@ -150,19 +157,22 @@ export default function HomePage() {
 
       <section className="py-16 lg:py-20 bg-[#f7f8fc]">
         <div className="content-container">
-          <div className="bg-gradient-to-br from-[#eef0f8] to-[#e4e8f5] rounded-3xl p-8 lg:p-12 border border-[#d5dbed]">
-            <div className="grid lg:grid-cols-3 gap-8 text-center">
-              <div>
+          <div className="relative bg-gradient-to-br from-[#eef0f8] to-[#e4e8f5] rounded-3xl p-8 lg:p-12 border border-[#d5dbed] overflow-hidden">
+            <div className="absolute -left-6 bottom-0 opacity-40">
+              <MoleculeMark className="w-32 h-32" />
+            </div>
+            <div className="relative z-10 grid lg:grid-cols-3 gap-8 text-center">
+              <div className="stat-pulse">
                 <p className="text-4xl font-bold text-[#7a8fd4] mb-2">99%+</p>
                 <p className="font-semibold text-[#1e2235] mb-1">Purity Verified</p>
                 <p className="text-sm text-[#6b7189]">HPLC tested for purity verification</p>
               </div>
-              <div>
+              <div className="stat-pulse" style={{ animationDelay: "0.6s" }}>
                 <p className="text-4xl font-bold text-[#7a8fd4] mb-2">3rd</p>
                 <p className="font-semibold text-[#1e2235] mb-1">Party Tested</p>
                 <p className="text-sm text-[#6b7189]">Independent lab verification</p>
               </div>
-              <div>
+              <div className="stat-pulse" style={{ animationDelay: "1.2s" }}>
                 <p className="text-4xl font-bold text-[#7a8fd4] mb-2">CoA</p>
                 <p className="font-semibold text-[#1e2235] mb-1">Included</p>
                 <p className="text-sm text-[#6b7189]">Certificate of Analysis with every batch</p>
@@ -172,9 +182,9 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="py-16 lg:py-24 bg-[#e4e8f5]/40">
-        <div className="content-container max-w-4xl mx-auto">
-          <h2 className="text-3xl font-semibold text-[#1e2235] text-center mb-10 tracking-tight">
+      <section className="relative py-16 lg:py-24 bg-[#e4e8f5]/40 overflow-hidden">
+        <div className="content-container max-w-4xl mx-auto relative z-10">
+          <h2 className="text-3xl font-semibold text-[#1e2235] text-center mb-10 tracking-tight reveal">
             Fast Shipping & Shipment Protection
           </h2>
           <ul className="grid sm:grid-cols-2 gap-4 text-sm text-[#4a5168]">
@@ -190,7 +200,7 @@ export default function HomePage() {
             ].map((item) => (
               <li
                 key={item}
-                className="flex items-start gap-3 bg-[#f7f8fc] rounded-xl p-4 border border-[#d5dbed]"
+                className="flex items-start gap-3 bg-[#f7f8fc]/95 rounded-xl p-4 border border-[#d5dbed] hover-lift"
               >
                 <svg
                   className="w-5 h-5 text-[#7a8fd4] shrink-0 mt-0.5"

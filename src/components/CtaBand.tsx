@@ -1,11 +1,18 @@
 "use client";
 
 import Link from "next/link";
+import { MoleculeMark } from "./MolecularField";
 
 export function CtaBand() {
   return (
-    <section className="py-16 lg:py-20 bg-[#f7f8fc]">
-      <div className="content-container text-center max-w-3xl mx-auto">
+    <section className="relative py-16 lg:py-20 bg-[#f7f8fc] overflow-hidden">
+      <div className="absolute left-4 top-6 opacity-50">
+        <MoleculeMark className="w-24 h-24" />
+      </div>
+      <div className="absolute right-8 bottom-4 opacity-40">
+        <MoleculeMark className="w-20 h-20" />
+      </div>
+      <div className="content-container text-center max-w-3xl mx-auto relative z-10">
         <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#1e2235] leading-[1.35] mb-6 lg:mb-8 tracking-tight">
           All the research peptides you need, with the{" "}
           <span className="relative inline-block">
@@ -18,7 +25,7 @@ export function CtaBand() {
         </h2>
         <Link
           href="/store"
-          className="inline-flex items-center justify-center h-12 px-8 rounded-full bg-[#1e2235] text-[#f7f8fc] text-sm font-medium hover:bg-[#2a3148] transition-colors"
+          className="inline-flex items-center justify-center h-12 px-8 rounded-full bg-[#1e2235] text-[#f7f8fc] text-sm font-medium hover:bg-[#2a3148] transition-colors hover-lift"
         >
           Shop Now
         </Link>

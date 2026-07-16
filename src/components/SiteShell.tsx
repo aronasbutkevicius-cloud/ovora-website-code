@@ -1,20 +1,12 @@
 "use client";
 
-import { usePathname } from "next/navigation";
 import { AgeGate } from "./AgeGate";
 import { Footer } from "./Footer";
 import { Header } from "./Header";
 import { CtaBand, Newsletter } from "./CtaBand";
+import { MolecularField } from "./MolecularField";
 
 export function SiteShell({ children }: { children: React.ReactNode }) {
-  const pathname = usePathname();
-  const isDark = pathname?.startsWith("/dark");
-
-  // Dark Ovora Labs has its own layout chrome
-  if (isDark) {
-    return <>{children}</>;
-  }
-
   return (
     <AgeGate>
       <a
@@ -24,7 +16,10 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
         Skip to main content
       </a>
       <Header />
-      <div id="main">{children}</div>
+      <div id="main" className="relative">
+        <MolecularField />
+        {children}
+      </div>
       <CtaBand />
       <Newsletter />
       <Footer />
