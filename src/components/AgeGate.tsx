@@ -1,11 +1,18 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { Logo } from "./Logo";
-import { Vial } from "./Vial";
 
 const STORAGE_KEY = "ovora_researcher_verified";
+
+const gateVials = [
+  { src: "/images/products/bpc-157.png", className: "absolute left-[6%] top-[12%] w-20 vial-orbit-a" },
+  { src: "/images/products/retatrutide.png", className: "absolute right-[8%] top-[16%] w-24 vial-orbit-b" },
+  { src: "/images/products/nad-plus.png", className: "absolute left-[16%] bottom-[8%] w-28 vial-orbit-c" },
+  { src: "/images/products/ghk-cu.png", className: "absolute right-[12%] bottom-[14%] w-20 vial-orbit-d" },
+] as const;
 
 export function AgeGate({ children }: { children: React.ReactNode }) {
   const [ready, setReady] = useState(false);
@@ -45,19 +52,18 @@ export function AgeGate({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="min-h-screen bg-[#eef0f8] flex items-center justify-center px-4 py-10 relative overflow-hidden">
-      <div className="absolute inset-0 pointer-events-none opacity-70">
-        <div className="absolute left-[6%] top-[12%] w-20 vial-orbit-a">
-          <Vial name="BPC-157" dose="10MG" theme="seafoam" tilt={-10} className="w-full h-auto" />
-        </div>
-        <div className="absolute right-[8%] top-[16%] w-24 vial-orbit-b">
-          <Vial name="Retatrutide" dose="10MG" theme="mist" tilt={12} className="w-full h-auto" />
-        </div>
-        <div className="absolute left-[16%] bottom-[8%] w-28 vial-orbit-c">
-          <Vial name="NAD+" dose="250MG" theme="peach" tilt={6} className="w-full h-auto" />
-        </div>
-        <div className="absolute right-[12%] bottom-[14%] w-20 vial-orbit-d">
-          <Vial name="GHK-Cu" dose="50MG" theme="lilac" tilt={-14} className="w-full h-auto" />
-        </div>
+      <div className="absolute inset-0 pointer-events-none opacity-80">
+        {gateVials.map((v) => (
+          <div key={v.src} className={v.className}>
+            <Image
+              src={v.src}
+              alt=""
+              width={320}
+              height={480}
+              className="w-full h-auto drop-shadow-xl"
+            />
+          </div>
+        ))}
       </div>
 
       <div className="relative z-10 w-full max-w-lg bg-[#f7f8fc] rounded-3xl shadow-[0_20px_60px_rgba(30,34,53,0.1)] border border-[#d5dbed] p-8 sm:p-10 animate-fade-up">

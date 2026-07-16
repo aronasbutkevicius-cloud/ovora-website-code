@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Vial } from "@/components/Vial";
-import { NasalSpray } from "@/components/NasalSpray";
+import { ProductVisual } from "@/components/ProductVisual";
 import {
   formatPrice,
   injectableProducts,
@@ -30,21 +29,11 @@ function ProductCard({ product }: { product: Product }) {
       className="group bg-[#f7f8fc] rounded-2xl border border-[#d5dbed] overflow-hidden hover:shadow-lg transition-shadow"
     >
       <div className="aspect-[4/3] bg-gradient-to-b from-[#eef0f8] to-[#f7f8fc] flex items-center justify-center p-6">
-        {isSpray ? (
-          <NasalSpray
-            name={product.name}
-            dose={product.dose}
-            theme={product.theme}
-            className="h-40 w-auto group-hover:scale-105 transition-transform duration-500"
-          />
-        ) : (
-          <Vial
-            name={product.name}
-            dose={product.dose}
-            theme={product.theme}
-            className="h-40 w-auto group-hover:scale-105 transition-transform duration-500"
-          />
-        )}
+        <ProductVisual
+          product={product}
+          className="h-40 w-auto group-hover:scale-105 transition-transform duration-500"
+          sizes="(max-width: 768px) 45vw, 220px"
+        />
       </div>
       <div className="p-5">
         <p className="text-[11px] uppercase tracking-wider text-[#8a90a8] mb-1">

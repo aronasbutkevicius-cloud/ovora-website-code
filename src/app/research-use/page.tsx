@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
-import { Vial } from "@/components/Vial";
 
 export const metadata: Metadata = {
   title: "Research Use Only | Laboratory Peptides",
@@ -105,16 +105,40 @@ export default function ResearchUsePage() {
       <section className="relative w-full min-h-[50vh] lg:min-h-[60vh] overflow-hidden hero-glow">
         <div className="absolute inset-0 overflow-hidden pointer-events-none select-none">
           <div className="absolute left-[5%] lg:left-[8%] top-[15%] w-[15%] lg:w-[12%] z-0 vial-orbit-a">
-            <Vial name="BPC-157" dose="10MG" theme="seafoam" tilt={-10} className="w-full h-auto" />
+            <Image
+              src="/images/products/bpc-157.png"
+              alt=""
+              width={640}
+              height={960}
+              className="w-full h-auto drop-shadow-xl"
+            />
           </div>
           <div className="absolute right-[8%] lg:right-[12%] top-[10%] w-[18%] lg:w-[14%] z-10 vial-orbit-b">
-            <Vial name="Retatrutide" dose="10MG" theme="mist" tilt={12} className="w-full h-auto" />
+            <Image
+              src="/images/products/retatrutide.png"
+              alt=""
+              width={640}
+              height={960}
+              className="w-full h-auto drop-shadow-xl"
+            />
           </div>
           <div className="absolute left-[15%] lg:left-[20%] bottom-[5%] lg:bottom-[10%] w-[20%] lg:w-[16%] z-0 vial-orbit-c">
-            <Vial name="NAD+" dose="250MG" theme="peach" tilt={6} className="w-full h-auto" />
+            <Image
+              src="/images/products/nad-plus.png"
+              alt=""
+              width={640}
+              height={960}
+              className="w-full h-auto drop-shadow-xl"
+            />
           </div>
           <div className="absolute right-[5%] lg:right-[8%] bottom-[15%] w-[14%] lg:w-[10%] z-0 vial-orbit-d">
-            <Vial name="GHK-Cu" dose="50MG" theme="lilac" tilt={-14} className="w-full h-auto" />
+            <Image
+              src="/images/products/ghk-cu.png"
+              alt=""
+              width={640}
+              height={960}
+              className="w-full h-auto drop-shadow-xl"
+            />
           </div>
         </div>
 

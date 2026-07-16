@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { FloatingVials } from "@/components/FloatingVials";
-import { Vial } from "@/components/Vial";
+import { ProductVisual } from "@/components/ProductVisual";
 import { products, formatPrice } from "@/data/products";
 
 export const metadata: Metadata = {
@@ -125,11 +125,10 @@ export default function HomePage() {
                 className="group bg-[#f7f8fc] rounded-2xl border border-[#d5dbed] overflow-hidden hover:shadow-lg transition-shadow"
               >
                 <div className="aspect-[4/3] bg-gradient-to-b from-[#eef0f8] to-[#f7f8fc] flex items-center justify-center p-6">
-                  <Vial
-                    name={p.name}
-                    dose={p.dose}
-                    theme={p.theme}
+                  <ProductVisual
+                    product={p}
                     className="h-40 w-auto group-hover:scale-105 transition-transform duration-500"
+                    sizes="(max-width: 768px) 45vw, 220px"
                   />
                 </div>
                 <div className="p-5">

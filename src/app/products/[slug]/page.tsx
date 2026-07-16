@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Vial } from "@/components/Vial";
-import { NasalSpray } from "@/components/NasalSpray";
+import { ProductVisual } from "@/components/ProductVisual";
 import { products, getProduct, formatPrice } from "@/data/products";
 
 export function generateStaticParams() {
@@ -47,21 +46,12 @@ export default async function ProductPage({
 
         <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-start">
           <div className="bg-gradient-to-b from-[#eef0f8] to-[#f7f8fc] rounded-3xl border border-[#d5dbed] aspect-square flex items-center justify-center p-10">
-            {isSpray ? (
-              <NasalSpray
-                name={product.name}
-                dose={product.dose}
-                theme={product.theme}
-                className="max-h-[85%] w-auto"
-              />
-            ) : (
-              <Vial
-                name={product.name}
-                dose={product.dose}
-                theme={product.theme}
-                className="max-h-[85%] w-auto"
-              />
-            )}
+            <ProductVisual
+              product={product}
+              className="max-h-[85%] w-auto"
+              sizes="(max-width: 1024px) 80vw, 420px"
+              priority
+            />
           </div>
 
           <div>
