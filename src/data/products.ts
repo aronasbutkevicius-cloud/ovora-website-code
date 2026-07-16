@@ -396,6 +396,7 @@ export const products: Product[] = [
     dose: "10MG",
     pack: "pack",
     theme: "mist",
+    image: "/images/products/semax.png",
   },
   {
     slug: "selank-10mg",
@@ -410,6 +411,7 @@ export const products: Product[] = [
     dose: "10MG",
     pack: "pack",
     theme: "lilac",
+    image: "/images/products/selank.png",
   },
   {
     slug: "5-amino-1mq-10mg",
@@ -423,6 +425,7 @@ export const products: Product[] = [
     dose: "10MG",
     pack: "pack",
     theme: "sand",
+    image: "/images/products/5-amino-1mq.png",
   },
   {
     slug: "mt2-spray",
