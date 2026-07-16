@@ -211,40 +211,161 @@ body {
   100% {
     transform: translate3d(0, 0, 0) rotate(0deg) scale(1.08);
   }
-  20% {
-    transform: translate3d(-10px, 4px, 0) rotate(-4deg) scale(1.12);
+  15% {
+    transform: translate3d(-14px, 6px, 0) rotate(-5deg) scale(1.14);
   }
-  40% {
-    transform: translate3d(12px, -3px, 0) rotate(5deg) scale(1.14);
+  30% {
+    transform: translate3d(16px, -5px, 0) rotate(6deg) scale(1.16);
+  }
+  45% {
+    transform: translate3d(-12px, 8px, 0) rotate(-4deg) scale(1.12);
   }
   60% {
-    transform: translate3d(-8px, 6px, 0) rotate(-3deg) scale(1.1);
+    transform: translate3d(14px, -4px, 0) rotate(5deg) scale(1.15);
   }
-  80% {
-    transform: translate3d(9px, -2px, 0) rotate(3deg) scale(1.13);
+  75% {
+    transform: translate3d(-8px, 5px, 0) rotate(-3deg) scale(1.1);
+  }
+  90% {
+    transform: translate3d(10px, -3px, 0) rotate(3deg) scale(1.13);
   }
 }
 
 @keyframes demon-ha-float {
   0% {
     opacity: 0;
-    transform: translateY(12px) scale(0.8);
+    transform: translateY(20px) scale(0.7);
   }
-  20% {
+  15% {
     opacity: 1;
   }
   100% {
     opacity: 0;
-    transform: translateY(-80px) scale(1.25);
+    transform: translateY(-120px) scale(1.35);
+  }
+}
+
+@keyframes dark-face-enter {
+  from {
+    opacity: 0;
+    transform: scale(0.7);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes demon-jaw-bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(6px);
   }
 }
 
 .demon-laugh {
-  animation: demon-laugh-shake 0.35s ease-in-out infinite;
+  animation: demon-laugh-shake 0.28s ease-in-out infinite;
 }
 
 .demon-ha {
-  animation: demon-ha-float 1.4s ease-out infinite;
+  animation: demon-ha-float 1.35s ease-out infinite;
+}
+
+.demon-jaw {
+  transform-origin: 120px 170px;
+  animation: demon-jaw-bounce 0.32s ease-in-out infinite;
+}
+
+/* Full-screen dark mode transition */
+.dark-transition-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  opacity: 1;
+  transition: opacity 0.45s ease;
+}
+
+.dark-transition-overlay.is-exiting {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.dark-transition-face {
+  position: relative;
+  width: min(78vw, 78vh, 520px);
+  height: min(78vw, 78vh, 520px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dark-transition-face.face-enter {
+  animation: dark-face-enter 0.45s ease-out both;
+}
+
+.dark-transition-layer {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    opacity 0.85s ease,
+    transform 0.85s ease,
+    filter 0.7s ease;
+}
+
+.dark-transition-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.dark-transition-svg.demon-svg {
+  width: 108%;
+  height: 108%;
+  transition: fill 0.7s ease;
+}
+
+.dark-transition-ha-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.dark-transition-ha-layer .demon-ha {
+  position: absolute;
+  font-family: var(--font-anek), sans-serif;
+  font-weight: 700;
+  color: rgba(255, 40, 60, 0.92);
+  letter-spacing: 0.04em;
+  text-shadow: 0 0 18px rgba(255, 0, 40, 0.6);
+}
+
+.dark-transition-caption {
+  position: absolute;
+  bottom: max(2.5rem, env(safe-area-inset-bottom));
+  left: 0;
+  right: 0;
+  text-align: center;
+  color: rgba(255, 60, 80, 0.85);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  animation: pulse 1s ease-in-out infinite;
 }
 
 .animate-underline {

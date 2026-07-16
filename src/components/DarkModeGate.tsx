@@ -2,12 +2,17 @@
 
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
+import { createPortal } from "react-dom";
+import { DemonFace, SmileyFace } from "./faces/TransitionFaces";
 
-type Phase = "idle" | "blackout" | "morph" | "laugh" | "exit";
+type Phase = "idle" | "blackout" | "hold" | "morph" | "red" | "laugh" | "exit";
 
 export function DarkModeButton({ className = "" }: { className?: string }) {
   const router = useRouter();
   const [phase, setPhase] = useState<Phase>("idle");
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => setMounted(true), []);
 
   const start = useCallback(() => {
     if (phase !== "idle") return;
@@ -17,26 +22,115 @@ export function DarkModeButton({ className = "" }: { className?: string }) {
   useEffect(() => {
     if (phase === "idle") return;
 
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
     const timers: number[] = [];
     if (phase === "blackout") {
-      timers.push(window.setTimeout(() => setPhase("morph"), 450));
+      timers.push(window.setTimeout(() => setPhase("hold"), 400));
+    } else if (phase === "hold") {
+      timers.push(window.setTimeout(() => setPhase("morph"), 700));
     } else if (phase === "morph") {
-      timers.push(window.setTimeout(() => setPhase("laugh"), 900));
+      timers.push(window.setTimeout(() => setPhase("red"), 900));
+    } else if (phase === "red") {
+      timers.push(window.setTimeout(() => setPhase("laugh"), 700));
     } else if (phase === "laugh") {
       timers.push(
         window.setTimeout(() => {
           setPhase("exit");
           router.push("/dark");
-        }, 2200),
+        }, 2600),
       );
     } else if (phase === "exit") {
-      timers.push(window.setTimeout(() => setPhase("idle"), 600));
+      timers.push(window.setTimeout(() => setPhase("idle"), 500));
     }
 
-    return () => timers.forEach(clearTimeout);
+    return () => {
+      timers.forEach(clearTimeout);
+      document.body.style.overflow = prev;
+    };
   }, [phase, router]);
 
   const active = phase !== "idle";
+  const showDemon =
+    phase === "morph" || phase === "red" || phase === "laugh" || phase === "exit";
+  const demonFill =
+    phase === "red" || phase === "laugh" || phase === "exit" ? "#ff1a1a" : "#ffffff";
+  const laughing = phase === "laugh";
+
+  const overlay =
+    active && mounted
+      ? createPortal(
+          <div
+            className={`dark-transition-overlay ${phase === "exit" ? "is-exiting" : ""}`}
+            aria-hidden
+          >
+            {/* floating HAHA */}
+            {laughing && (
+              <div className="dark-transition-ha-layer">
+                {Array.from({ length: 14 }).map((_, i) => (
+                  <span
+                    key={i}
+                    className="demon-ha"
+                    style={{
+                      left: `${6 + ((i * 17) % 88)}%`,
+                      top: `${10 + ((i * 23) % 70)}%`,
+                      fontSize: `${1.1 + (i % 5) * 0.55}rem`,
+                      animationDelay: `${(i % 7) * 0.11}s`,
+                    }}
+                  >
+                    {i % 3 === 0 ? "HAHA" : "HA"}
+                  </span>
+                ))}
+              </div>
+            )}
+
+            <div
+              className={`dark-transition-face ${laughing ? "demon-laugh" : ""} ${
+                phase === "blackout" ? "face-enter" : ""
+              }`}
+            >
+              {/* smiley — visible through blackout/hold, fades on morph */}
+              <div
+                className="dark-transition-layer"
+                style={{
+                  opacity: phase === "blackout" || phase === "hold" ? 1 : 0,
+                  transform:
+                    phase === "morph" || phase === "red" || laughing || phase === "exit"
+                      ? "scale(0.88) rotate(-8deg)"
+                      : "scale(1)",
+                }}
+              >
+                <SmileyFace className="dark-transition-svg" />
+              </div>
+
+              {/* demon — fades in on morph, then turns red & laughs */}
+              <div
+                className="dark-transition-layer"
+                style={{
+                  opacity: showDemon ? 1 : 0,
+                  transform: laughing ? "scale(1.1)" : showDemon ? "scale(1.04)" : "scale(0.96)",
+                  filter:
+                    phase === "red" || laughing || phase === "exit"
+                      ? "drop-shadow(0 0 56px rgba(255,0,40,0.85))"
+                      : "drop-shadow(0 0 18px rgba(255,255,255,0.12))",
+                }}
+              >
+                <DemonFace
+                  className="dark-transition-svg demon-svg"
+                  fill={demonFill}
+                  laughing={laughing}
+                />
+              </div>
+            </div>
+
+            {laughing && (
+              <p className="dark-transition-caption">Entering Dark Ovora Labs</p>
+            )}
+          </div>,
+          document.body,
+        )
+      : null;
 
   return (
     <>
@@ -47,151 +141,11 @@ export function DarkModeButton({ className = "" }: { className?: string }) {
         aria-label="Enter dark mode"
         title="Dark mode"
       >
-        <span className="text-lg leading-none select-none group-hover:scale-110 transition-transform">
-          😈
+        <span className="w-6 h-6 block group-hover:scale-110 transition-transform">
+          <SmileyFace className="w-full h-full" />
         </span>
       </button>
-
-      {active && (
-        <div
-          className={`fixed inset-0 z-[200] flex items-center justify-center overflow-hidden ${
-            phase === "exit" ? "opacity-0 transition-opacity duration-500" : "opacity-100"
-          }`}
-          style={{ background: "#000" }}
-          aria-hidden
-        >
-          {/* laugh particles */}
-          {phase === "laugh" && (
-            <div className="absolute inset-0 pointer-events-none">
-              {["HA", "HA", "HA", "HAHA", "HA", "HEH", "HA"].map((word, i) => (
-                <span
-                  key={`${word}-${i}`}
-                  className="demon-ha absolute font-anek font-bold text-red-500/90"
-                  style={{
-                    left: `${12 + i * 12}%`,
-                    top: `${18 + (i % 3) * 22}%`,
-                    fontSize: `${1.2 + (i % 4) * 0.55}rem`,
-                    animationDelay: `${i * 0.12}s`,
-                  }}
-                >
-                  {word}
-                </span>
-              ))}
-            </div>
-          )}
-
-          <div
-            className={`relative ${phase === "laugh" ? "demon-laugh" : ""} ${
-              phase === "morph" || phase === "laugh" ? "scale-110" : "scale-100"
-            } transition-transform duration-700`}
-          >
-            <Face phase={phase} />
-          </div>
-
-          {phase === "laugh" && (
-            <p className="absolute bottom-16 left-0 right-0 text-center text-red-500/80 text-sm tracking-[0.35em] uppercase font-medium animate-pulse">
-              Entering Dark Ovora Labs
-            </p>
-          )}
-        </div>
-      )}
+      {overlay}
     </>
-  );
-}
-
-function Face({ phase }: { phase: Phase }) {
-  const demon = phase === "morph" || phase === "laugh" || phase === "exit";
-  const laughing = phase === "laugh";
-
-  return (
-    <svg
-      width="220"
-      height="220"
-      viewBox="0 0 200 200"
-      className={`drop-shadow-[0_0_40px_rgba(255,0,60,0.45)] transition-all duration-700 ${
-        demon ? "text-red-500" : "text-yellow-300"
-      }`}
-    >
-      {/* head */}
-      <circle
-        cx="100"
-        cy="100"
-        r="78"
-        fill={demon ? "#1a0508" : "#ffe566"}
-        stroke={demon ? "#ff0040" : "#f5c542"}
-        strokeWidth="4"
-        className="transition-all duration-700"
-      />
-
-      {/* horns */}
-      <path
-        d="M45 70 C35 20, 55 18, 62 55"
-        fill={demon ? "#ff0040" : "transparent"}
-        className="transition-all duration-700"
-        style={{ opacity: demon ? 1 : 0 }}
-      />
-      <path
-        d="M155 70 C165 20, 145 18, 138 55"
-        fill={demon ? "#ff0040" : "transparent"}
-        className="transition-all duration-700"
-        style={{ opacity: demon ? 1 : 0 }}
-      />
-
-      {/* eyes */}
-      {demon ? (
-        <>
-          <ellipse cx="72" cy="88" rx="14" ry={laughing ? 8 : 16} fill="#ff0040">
-            {laughing && (
-              <animate attributeName="ry" values="16;6;16;8;16" dur="0.45s" repeatCount="indefinite" />
-            )}
-          </ellipse>
-          <ellipse cx="128" cy="88" rx="14" ry={laughing ? 8 : 16} fill="#ff0040">
-            {laughing && (
-              <animate attributeName="ry" values="16;6;16;8;16" dur="0.45s" repeatCount="indefinite" />
-            )}
-          </ellipse>
-          <circle cx="72" cy="88" r="4" fill="#000" />
-          <circle cx="128" cy="88" r="4" fill="#000" />
-        </>
-      ) : (
-        <>
-          <circle cx="72" cy="88" r="8" fill="#1e2235" />
-          <circle cx="128" cy="88" r="8" fill="#1e2235" />
-        </>
-      )}
-
-      {/* mouth */}
-      {demon ? (
-        <g>
-          <path
-            d={laughing ? "M55 120 Q100 175 145 120 Q100 155 55 120" : "M60 125 Q100 160 140 125"}
-            fill="#2a0008"
-            stroke="#ff0040"
-            strokeWidth="3"
-            className="transition-all duration-500"
-          >
-            {laughing && (
-              <animate
-                attributeName="d"
-                values="M55 120 Q100 175 145 120 Q100 155 55 120;M55 118 Q100 188 145 118 Q100 160 55 118;M55 120 Q100 175 145 120 Q100 155 55 120"
-                dur="0.35s"
-                repeatCount="indefinite"
-              />
-            )}
-          </path>
-          {/* fangs */}
-          <path d="M78 128 L84 148 L90 128" fill="#eee" />
-          <path d="M110 128 L116 148 L122 128" fill="#eee" />
-        </g>
-      ) : (
-        <path
-          d="M65 120 Q100 150 135 120"
-          fill="none"
-          stroke="#1e2235"
-          strokeWidth="6"
-          strokeLinecap="round"
-        />
-      )}
-    </svg>
   );
 }
