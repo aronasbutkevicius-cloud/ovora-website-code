@@ -2,12 +2,14 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ProductVisual } from "@/components/ProductVisual";
 import {
+  doseOptionsLabel,
   formatPrice,
-  injectableProducts,
-  nasalProducts,
-  accessoryProducts,
+  injectableFamilies,
+  nasalFamilies,
+  accessoryFamilies,
+  startingPrice,
+  type ProductFamily,
 } from "@/data/products";
-import type { Product } from "@/data/products";
 
 export const metadata: Metadata = {
   title: "Shop All Products",
@@ -21,31 +23,34 @@ const filters = [
   { id: "accessory", label: "Accessories" },
 ] as const;
 
-function ProductCard({ product }: { product: Product }) {
-  const isSpray = product.form === "nasal";
+function ProductCard({ family }: { family: ProductFamily }) {
+  const isSpray = family.form === "nasal";
+  const preview = family.variants[0];
+  const multi = family.variants.length > 1;
+  const fromPrice = startingPrice(family);
+
   return (
     <Link
-      href={`/products/${product.slug}`}
+      href={`/products/${family.slug}`}
       className="group bg-[#f7f8fc]/95 rounded-2xl border border-[#d5dbed] overflow-hidden hover-lift"
     >
       <div className="aspect-[4/3] bg-gradient-to-b from-[#eef0f8] to-[#f7f8fc] flex items-center justify-center p-6">
         <ProductVisual
-          product={product}
+          product={preview}
           className="h-40 w-auto group-hover:scale-105 transition-transform duration-500"
           sizes="(max-width: 768px) 45vw, 220px"
         />
       </div>
       <div className="p-5">
         <p className="text-[11px] uppercase tracking-wider text-[#8a90a8] mb-1">
-          {isSpray ? "Nasal Spray" : product.form === "accessory" ? "Accessory" : "Injectable Vial"}
+          {isSpray ? "Nasal Spray" : family.form === "accessory" ? "Accessory" : "Injectable Vial"}
         </p>
-        <h2 className="font-semibold text-[#1e2235] mb-1 group-hover:underline">{product.name}</h2>
-        <p className="text-xs text-[#8a90a8] mb-2">
-          {product.dose}
-          {product.pack ? ` · ${product.pack}` : ""}
+        <h2 className="font-semibold text-[#1e2235] mb-1 group-hover:underline">{family.name}</h2>
+        <p className="text-xs text-[#8a90a8] mb-2">{doseOptionsLabel(family)}</p>
+        <p className="text-xs text-[#6b7189] line-clamp-2 mb-3">{family.description}</p>
+        <p className="text-sm font-medium text-[#1e2235]">
+          {multi ? `From ${formatPrice(fromPrice)}` : formatPrice(fromPrice)}
         </p>
-        <p className="text-xs text-[#6b7189] line-clamp-2 mb-3">{product.description}</p>
-        <p className="text-sm font-medium text-[#1e2235]">{formatPrice(product.price)}</p>
       </div>
     </Link>
   );
@@ -58,7 +63,7 @@ function Section({
 }: {
   title: string;
   subtitle: string;
-  items: Product[];
+  items: ProductFamily[];
 }) {
   if (items.length === 0) return null;
   return (
@@ -70,8 +75,8 @@ function Section({
         <p className="text-[#6b7189] text-sm">{subtitle}</p>
       </div>
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        {items.map((p) => (
-          <ProductCard key={p.slug} product={p} />
+        {items.map((family) => (
+          <ProductCard key={family.slug} family={family} />
         ))}
       </div>
     </div>
@@ -86,9 +91,9 @@ export default async function StorePage({
   const params = await searchParams;
   const category = params.category || "all";
 
-  const injectables = injectableProducts();
-  const nasals = nasalProducts();
-  const accessories = accessoryProducts();
+  const injectables = injectableFamilies();
+  const nasals = nasalFamilies();
+  const accessories = accessoryFamilies();
 
   const showAll = category === "all";
   const showInjectables = showAll || category === "injectable";

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
+import { useCart } from "./CartProvider";
 import { Logo } from "./Logo";
 
 const nav = [
@@ -14,6 +15,7 @@ const nav = [
 export function Header() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const { itemCount } = useCart();
 
   return (
     <header className="sticky top-0 inset-x-0 z-50">
@@ -65,16 +67,18 @@ export function Header() {
               </svg>
             </Link>
             <Link
-              href="/store"
+              href="/cart"
               className="relative flex items-center justify-center w-10 h-10 text-[#4a5168] hover:text-[#1e2235] rounded-full hover:bg-[#e4e8f5]/60 transition-all"
               aria-label="Cart"
             >
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l3-8H6.4M7 13L5.4 5M7 13l-2 9m12-9l2 9M9 22a1 1 0 100-2 1 1 0 000 2zm8 0a1 1 0 100-2 1 1 0 000 2z" />
               </svg>
-              <span className="absolute -top-0.5 -right-0.5 flex items-center justify-center min-w-[18px] h-[18px] px-1 bg-[#7a8fd4] text-white text-[10px] font-semibold rounded-full">
-                0
-              </span>
+              {itemCount > 0 && (
+                <span className="absolute -top-0.5 -right-0.5 flex items-center justify-center min-w-[18px] h-[18px] px-1 bg-[#7a8fd4] text-white text-[10px] font-semibold rounded-full">
+                  {itemCount > 99 ? "99+" : itemCount}
+                </span>
+              )}
             </Link>
           </div>
         </div>

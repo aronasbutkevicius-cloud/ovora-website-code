@@ -3,7 +3,12 @@ import Link from "next/link";
 import { FloatingVials } from "@/components/FloatingVials";
 import { MoleculeMark } from "@/components/MolecularField";
 import { ProductVisual } from "@/components/ProductVisual";
-import { products, formatPrice } from "@/data/products";
+import {
+  doseOptionsLabel,
+  formatPrice,
+  getProductFamilies,
+  startingPrice,
+} from "@/data/products";
 
 export const metadata: Metadata = {
   title: "Ovora Labs — Premium Research Grade Peptides",
@@ -31,7 +36,9 @@ const features = [
 ];
 
 export default function HomePage() {
-  const popular = products.filter((p) => p.popular).slice(0, 8);
+  const popular = getProductFamilies()
+    .filter((family) => family.popular)
+    .slice(0, 8);
 
   return (
     <>
@@ -122,35 +129,39 @@ export default function HomePage() {
             </Link>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {popular.map((p) => (
-              <Link
-                key={p.slug}
-                href={`/products/${p.slug}`}
-                className="group bg-[#f7f8fc]/95 rounded-2xl border border-[#d5dbed] overflow-hidden hover-lift"
-              >
-                <div className="aspect-[4/3] bg-gradient-to-b from-[#eef0f8] to-[#f7f8fc] flex items-center justify-center p-6 relative">
-                  <div className="absolute inset-0 opacity-[0.16] pointer-events-none">
-                    <MoleculeMark className="w-full h-full" />
+            {popular.map((family) => {
+              const preview = family.variants[0];
+              const multi = family.variants.length > 1;
+              const fromPrice = startingPrice(family);
+              return (
+                <Link
+                  key={family.slug}
+                  href={`/products/${family.slug}`}
+                  className="group bg-[#f7f8fc]/95 rounded-2xl border border-[#d5dbed] overflow-hidden hover-lift"
+                >
+                  <div className="aspect-[4/3] bg-gradient-to-b from-[#eef0f8] to-[#f7f8fc] flex items-center justify-center p-6 relative">
+                    <div className="absolute inset-0 opacity-[0.16] pointer-events-none">
+                      <MoleculeMark className="w-full h-full" />
+                    </div>
+                    <ProductVisual
+                      product={preview}
+                      className="h-40 w-auto group-hover:scale-105 transition-transform duration-500 relative z-10"
+                      sizes="(max-width: 768px) 45vw, 220px"
+                    />
                   </div>
-                  <ProductVisual
-                    product={p}
-                    className="h-40 w-auto group-hover:scale-105 transition-transform duration-500 relative z-10"
-                    sizes="(max-width: 768px) 45vw, 220px"
-                  />
-                </div>
-                <div className="p-5">
-                  <h3 className="font-semibold text-[#1e2235] mb-1 group-hover:underline">
-                    {p.name}
-                  </h3>
-                  <p className="text-xs text-[#8a90a8] mb-2">
-                    {p.dose}
-                    {p.pack ? ` · ${p.pack}` : ""}
-                  </p>
-                  <p className="text-xs text-[#6b7189] line-clamp-2 mb-3">{p.description}</p>
-                  <p className="text-sm font-medium text-[#1e2235]">{formatPrice(p.price)}</p>
-                </div>
-              </Link>
-            ))}
+                  <div className="p-5">
+                    <h3 className="font-semibold text-[#1e2235] mb-1 group-hover:underline">
+                      {family.name}
+                    </h3>
+                    <p className="text-xs text-[#8a90a8] mb-2">{doseOptionsLabel(family)}</p>
+                    <p className="text-xs text-[#6b7189] line-clamp-2 mb-3">{family.description}</p>
+                    <p className="text-sm font-medium text-[#1e2235]">
+                      {multi ? `From ${formatPrice(fromPrice)}` : formatPrice(fromPrice)}
+                    </p>
+                  </div>
+                </Link>
+              );
+            })}
           </div>
         </div>
       </section>

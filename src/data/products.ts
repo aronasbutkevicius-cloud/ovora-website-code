@@ -468,14 +468,120 @@ export const products: Product[] = [
   },
 ];
 
+export type ProductFamily = {
+  slug: string;
+  name: string;
+  alsoKnownAs?: string[];
+  description: string;
+  category: Product["category"];
+  form: Product["form"];
+  popular?: boolean;
+  theme: string;
+  image?: string;
+  variants: Product[];
+};
+
+export function familySlugFromName(name: string) {
+  return name
+    .toLowerCase()
+    .replace(/\+/g, "-plus")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+function parseDoseSortValue(dose: string) {
+  const match = dose.replace(/\s+/g, "").match(/(\d+(?:\.\d+)?)/);
+  return match ? Number(match[1]) : Number.MAX_SAFE_INTEGER;
+}
+
+export function getProductFamilies(): ProductFamily[] {
+  const map = new Map<string, ProductFamily>();
+
+  for (const product of products) {
+    const slug = familySlugFromName(product.name);
+    const existing = map.get(slug);
+
+    if (!existing) {
+      map.set(slug, {
+        slug,
+        name: product.name,
+        alsoKnownAs: product.alsoKnownAs,
+        description: product.description,
+        category: product.category,
+        form: product.form,
+        popular: product.popular,
+        theme: product.theme,
+        image: product.image,
+        variants: [product],
+      });
+      continue;
+    }
+
+    existing.variants.push(product);
+    if (product.popular) existing.popular = true;
+    if (!existing.image && product.image) existing.image = product.image;
+  }
+
+  return Array.from(map.values()).map((family) => ({
+    ...family,
+    variants: [...family.variants].sort(
+      (a, b) => parseDoseSortValue(a.dose) - parseDoseSortValue(b.dose),
+    ),
+  }));
+}
+
 export function getProduct(slug: string) {
   return products.find((p) => p.slug === slug);
+}
+
+export function getProductFamily(slug: string) {
+  const families = getProductFamilies();
+  const byFamily = families.find((family) => family.slug === slug);
+  if (byFamily) return byFamily;
+
+  const variant = getProduct(slug);
+  if (!variant) return undefined;
+
+  return families.find((family) =>
+    family.variants.some((item) => item.slug === variant.slug),
+  );
+}
+
+export function resolveFamilyAndVariant(slug: string) {
+  const family = getProductFamily(slug);
+  if (!family) return undefined;
+
+  const variant =
+    family.variants.find((item) => item.slug === slug) ?? family.variants[0];
+
+  return { family, variant };
+}
+
+export function startingPrice(family: ProductFamily) {
+  return Math.min(...family.variants.map((variant) => variant.price));
+}
+
+export function doseOptionsLabel(family: ProductFamily) {
+  return family.variants.map((variant) => variant.dose).join(" / ");
 }
 
 export function formatPrice(price: number) {
   return `$${price.toFixed(2)}`;
 }
 
+export function injectableFamilies() {
+  return getProductFamilies().filter((family) => family.form === "injectable");
+}
+
+export function nasalFamilies() {
+  return getProductFamilies().filter((family) => family.form === "nasal");
+}
+
+export function accessoryFamilies() {
+  return getProductFamilies().filter((family) => family.form === "accessory");
+}
+
+/** @deprecated Prefer family helpers for catalog listings */
 export function injectableProducts() {
   return products.filter((p) => p.form === "injectable");
 }
