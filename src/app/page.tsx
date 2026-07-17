@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { FloatingVials } from "@/components/FloatingVials";
-import { MoleculeMark } from "@/components/MolecularField";
 import { ProductVisual } from "@/components/ProductVisual";
 import {
   doseOptionsLabel,
@@ -85,9 +84,6 @@ export default function HomePage() {
       </section>
 
       <section className="relative py-16 lg:py-24 bg-[#f7f8fc] overflow-hidden">
-        <div className="absolute right-6 top-8 opacity-80">
-          <MoleculeMark className="w-20 h-20 md:w-28 md:h-28" />
-        </div>
         <div className="content-container relative z-10">
           <div className="text-center max-w-2xl mx-auto mb-12 reveal">
             <h2 className="text-3xl lg:text-4xl font-semibold text-[#1e2235] tracking-tight mb-3">
@@ -140,9 +136,6 @@ export default function HomePage() {
                   className="group bg-[#f7f8fc]/95 rounded-2xl border border-[#d5dbed] overflow-hidden hover-lift"
                 >
                   <div className="aspect-[4/3] bg-gradient-to-b from-[#eef0f8] to-[#f7f8fc] flex items-center justify-center p-6 relative">
-                    <div className="absolute inset-0 opacity-[0.16] pointer-events-none">
-                      <MoleculeMark className="w-full h-full" />
-                    </div>
                     <ProductVisual
                       product={preview}
                       className="h-40 w-auto group-hover:scale-105 transition-transform duration-500 relative z-10"
@@ -169,9 +162,6 @@ export default function HomePage() {
       <section className="py-16 lg:py-20 bg-[#f7f8fc]">
         <div className="content-container">
           <div className="relative bg-gradient-to-br from-[#eef0f8] to-[#e4e8f5] rounded-3xl p-8 lg:p-12 border border-[#d5dbed] overflow-hidden">
-            <div className="absolute -left-6 bottom-0 opacity-40">
-              <MoleculeMark className="w-32 h-32" />
-            </div>
             <div className="relative z-10 grid lg:grid-cols-3 gap-8 text-center">
               <div className="stat-pulse">
                 <p className="text-4xl font-bold text-[#7a8fd4] mb-2">99%+</p>

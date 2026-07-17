@@ -5,7 +5,6 @@ import { CartProvider } from "./CartProvider";
 import { Footer } from "./Footer";
 import { Header } from "./Header";
 import { CtaBand, Newsletter } from "./CtaBand";
-import { MolecularField } from "./MolecularField";
 
 export function SiteShell({ children }: { children: React.ReactNode }) {
   return (
@@ -19,7 +18,6 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
         </a>
         <Header />
         <div id="main" className="relative">
-          <MolecularField />
           {children}
         </div>
         <CtaBand />
