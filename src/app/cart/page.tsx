@@ -49,8 +49,8 @@ export default function CartPage() {
                       <Image
                         src={item.image}
                         alt={`${item.name} ${item.dose}`}
-                        width={160}
-                        height={220}
+                        width={1086}
+                        height={1448}
                         className="object-contain h-full w-auto p-2"
                       />
                     ) : (

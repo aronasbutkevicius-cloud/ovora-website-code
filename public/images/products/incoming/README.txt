@@ -1,26 +1,7 @@
-Drop your bottle PNGs in this folder (or directly into ../)
+Product photos are generated from the approved GHK-CU master.
 
-Expected filenames (from batches sent so far):
+    python scripts/generate_product_images.py
 
-bpc-157.png
-mt-1.png
-hcg.png
-mt-2.png
-igf-1-lr3.png
-mots-c.png
-tirzepatide.png
-retatrutide.png
-ghk-cu.png
-
-Still needed later:
-cjc-ipa.png
-tesamorelin.png
-kpv.png
-glutathione.png
-nad-plus.png
-semax.png
-selank.png
-bac-water.png
-5-amino-1mq.png
-
-After dropping files, reply "done" and they will be wired to the site.
+Output lands in this folder's parent as {slug}.webp. Do not drop
+replacement PNGs here; rerun the script so every vial stays on the
+same master photo.

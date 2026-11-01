@@ -8,10 +8,10 @@ import { Logo } from "./Logo";
 const STORAGE_KEY = "ovora_researcher_verified";
 
 const gateVials = [
-  { src: "/images/products/bpc-157.png", className: "absolute left-[6%] top-[12%] w-20 vial-orbit-a" },
-  { src: "/images/products/retatrutide.png", className: "absolute right-[8%] top-[16%] w-24 vial-orbit-b" },
-  { src: "/images/products/nad-plus.png", className: "absolute left-[16%] bottom-[8%] w-28 vial-orbit-c" },
-  { src: "/images/products/ghk-cu.png", className: "absolute right-[12%] bottom-[14%] w-20 vial-orbit-d" },
+  { src: "/images/products/bpc-157-5mg.webp", className: "absolute left-[6%] top-[12%] w-20 vial-orbit-a" },
+  { src: "/images/products/retatrutide-5mg.webp", className: "absolute right-[8%] top-[16%] w-24 vial-orbit-b" },
+  { src: "/images/products/nad-plus-250mg.webp", className: "absolute left-[16%] bottom-[8%] w-28 vial-orbit-c" },
+  { src: "/images/products/ghk-cu-50mg.webp", className: "absolute right-[12%] bottom-[14%] w-20 vial-orbit-d" },
 ] as const;
 
 export function AgeGate({ children }: { children: React.ReactNode }) {
@@ -58,8 +58,8 @@ export function AgeGate({ children }: { children: React.ReactNode }) {
             <Image
               src={v.src}
               alt=""
-              width={320}
-              height={480}
+              width={1086}
+              height={1448}
               className="w-full h-auto drop-shadow-xl"
             />
           </div>

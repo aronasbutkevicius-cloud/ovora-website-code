@@ -106,37 +106,37 @@ export default function ResearchUsePage() {
         <div className="absolute inset-0 overflow-hidden pointer-events-none select-none">
           <div className="absolute left-[5%] lg:left-[8%] top-[15%] w-[15%] lg:w-[12%] z-0 vial-orbit-a">
             <Image
-              src="/images/products/bpc-157.png"
+              src="/images/products/bpc-157-5mg.webp"
               alt=""
-              width={640}
-              height={960}
+              width={1086}
+              height={1448}
               className="w-full h-auto drop-shadow-xl"
             />
           </div>
           <div className="absolute right-[8%] lg:right-[12%] top-[10%] w-[18%] lg:w-[14%] z-10 vial-orbit-b">
             <Image
-              src="/images/products/retatrutide.png"
+              src="/images/products/retatrutide-5mg.webp"
               alt=""
-              width={640}
-              height={960}
+              width={1086}
+              height={1448}
               className="w-full h-auto drop-shadow-xl"
             />
           </div>
           <div className="absolute left-[15%] lg:left-[20%] bottom-[5%] lg:bottom-[10%] w-[20%] lg:w-[16%] z-0 vial-orbit-c">
             <Image
-              src="/images/products/nad-plus.png"
+              src="/images/products/nad-plus-250mg.webp"
               alt=""
-              width={640}
-              height={960}
+              width={1086}
+              height={1448}
               className="w-full h-auto drop-shadow-xl"
             />
           </div>
           <div className="absolute right-[5%] lg:right-[8%] bottom-[15%] w-[14%] lg:w-[10%] z-0 vial-orbit-d">
             <Image
-              src="/images/products/ghk-cu.png"
+              src="/images/products/ghk-cu-50mg.webp"
               alt=""
-              width={640}
-              height={960}
+              width={1086}
+              height={1448}
               className="w-full h-auto drop-shadow-xl"
             />
           </div>
