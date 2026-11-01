@@ -100,39 +100,39 @@ export default function ResearchUsePage() {
 
       <section className="relative w-full min-h-[50vh] lg:min-h-[60vh] overflow-hidden hero-glow">
         <div className="absolute inset-0 overflow-hidden pointer-events-none select-none">
-          <div className="absolute left-[5%] lg:left-[8%] top-[15%] w-[15%] lg:w-[12%] z-0 vial-orbit-a">
+          <div className="absolute left-[2%] lg:left-[6%] top-[10%] w-[9%] lg:w-[8%] z-0 vial-orbit-a">
             <Image
               src="/images/products/cutouts/bpc-157-5mg.webp"
               alt=""
-              width={1086}
-              height={1448}
+              width={485}
+              height={963}
               className="w-full h-auto drop-shadow-xl"
             />
           </div>
-          <div className="absolute right-[8%] lg:right-[12%] top-[10%] w-[18%] lg:w-[14%] z-10 vial-orbit-b">
+          <div className="absolute right-[4%] lg:right-[8%] top-[8%] w-[11%] lg:w-[9%] z-10 vial-orbit-b">
             <Image
               src="/images/products/cutouts/retatrutide-5mg.webp"
               alt=""
-              width={1086}
-              height={1448}
+              width={485}
+              height={963}
               className="w-full h-auto drop-shadow-xl"
             />
           </div>
-          <div className="absolute left-[15%] lg:left-[20%] bottom-[5%] lg:bottom-[10%] w-[20%] lg:w-[16%] z-0 vial-orbit-c">
+          <div className="absolute left-[8%] lg:left-[14%] bottom-[4%] lg:bottom-[8%] w-[12%] lg:w-[10%] z-0 vial-orbit-c">
             <Image
               src="/images/products/cutouts/nad-plus-250mg.webp"
               alt=""
-              width={1086}
-              height={1448}
+              width={485}
+              height={963}
               className="w-full h-auto drop-shadow-xl"
             />
           </div>
-          <div className="absolute right-[5%] lg:right-[8%] bottom-[15%] w-[14%] lg:w-[10%] z-0 vial-orbit-d">
+          <div className="absolute right-[2%] lg:right-[6%] bottom-[12%] w-[8%] lg:w-[7%] z-0 vial-orbit-d">
             <Image
               src="/images/products/cutouts/ghk-cu-50mg.webp"
               alt=""
-              width={1086}
-              height={1448}
+              width={485}
+              height={963}
               className="w-full h-auto drop-shadow-xl"
             />
           </div>

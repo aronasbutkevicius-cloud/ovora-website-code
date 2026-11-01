@@ -49,9 +49,9 @@ export default function CartPage() {
                       <Image
                         src={item.image}
                         alt={`${item.name} ${item.dose}`}
-                        width={1086}
-                        height={1448}
-                        className="object-contain h-full w-auto p-2"
+                        width={485}
+                        height={963}
+                        className="h-[92%] w-auto max-w-full object-contain drop-shadow-[0_8px_10px_rgba(30,34,53,0.16)]"
                       />
                     ) : (
                       <span className="text-xs text-[#8a90a8]">No image</span>

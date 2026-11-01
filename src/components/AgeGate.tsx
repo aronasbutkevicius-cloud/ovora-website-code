@@ -80,8 +80,8 @@ export function AgeGate({ children }: { children: React.ReactNode }) {
                     <Image
                       src={v.src}
                       alt=""
-                      width={1086}
-                      height={1448}
+                      width={485}
+                      height={963}
                       className="w-full h-auto drop-shadow-xl"
                     />
                   </div>
