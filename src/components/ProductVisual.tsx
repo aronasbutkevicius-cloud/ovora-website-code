@@ -24,8 +24,8 @@ export function ProductVisual({
       <Image
         src={product.image}
         alt={`${product.name} ${product.dose} research vial`}
-        width={640}
-        height={960}
+        width={1086}
+        height={1448}
         className={`object-contain ${className}`}
         sizes={sizes}
         priority={priority}

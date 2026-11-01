@@ -294,8 +294,8 @@ export default function CheckoutPage() {
                       <Image
                         src={item.image}
                         alt=""
-                        width={80}
-                        height={110}
+                        width={1086}
+                        height={1448}
                         className="object-contain h-full w-auto p-1"
                       />
                     ) : null}

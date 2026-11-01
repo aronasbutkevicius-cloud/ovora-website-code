@@ -45,10 +45,10 @@ export function FloatingVials() {
         return (
           <div key={p.slug} className={p.className}>
             <Image
-              src={product.image}
+              src={`/images/products/cutouts/${p.slug}.webp`}
               alt=""
-              width={640}
-              height={960}
+              width={1086}
+              height={1448}
               className="w-full h-auto drop-shadow-2xl"
               sizes="(max-width: 768px) 22vw, 12vw"
               priority

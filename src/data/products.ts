@@ -30,7 +30,7 @@ export const products: Product[] = [
     pack: "10-pack",
     stock: 3,
     theme: "lilac",
-    image: "/images/products/ghk-cu.png",
+    image: "/images/products/ghk-cu-50mg.webp",
   },
   {
     slug: "mt2-5mg",
@@ -46,7 +46,7 @@ export const products: Product[] = [
     pack: "10-pack",
     stock: 1,
     theme: "blush",
-    image: "/images/products/mt-2.png",
+    image: "/images/products/mt2-5mg.webp",
   },
   {
     slug: "mt2-10mg",
@@ -61,7 +61,7 @@ export const products: Product[] = [
     pack: "10-pack",
     stock: 1,
     theme: "mauve",
-    image: "/images/products/mt-2.png",
+    image: "/images/products/mt2-10mg.webp",
   },
   {
     slug: "mt1-10mg",
@@ -76,7 +76,7 @@ export const products: Product[] = [
     pack: "10-pack",
     stock: 1,
     theme: "mist",
-    image: "/images/products/mt-1.png",
+    image: "/images/products/mt1-10mg.webp",
   },
   {
     slug: "bpc-157-5mg",
@@ -91,7 +91,7 @@ export const products: Product[] = [
     dose: "5MG",
     pack: "10-pack",
     theme: "sage",
-    image: "/images/products/bpc-157.png",
+    image: "/images/products/bpc-157-5mg.webp",
   },
   {
     slug: "bpc-157-10mg",
@@ -106,7 +106,7 @@ export const products: Product[] = [
     dose: "10MG",
     pack: "pack",
     theme: "seafoam",
-    image: "/images/products/bpc-157.png",
+    image: "/images/products/bpc-157-10mg.webp",
   },
   {
     slug: "tirzepatide-10mg",
@@ -121,7 +121,7 @@ export const products: Product[] = [
     dose: "10MG",
     pack: "pack",
     theme: "sand",
-    image: "/images/products/tirzepatide.png",
+    image: "/images/products/tirzepatide-10mg.webp",
   },
   {
     slug: "tirzepatide-20mg",
@@ -135,7 +135,7 @@ export const products: Product[] = [
     dose: "20MG",
     pack: "pack",
     theme: "clay",
-    image: "/images/products/tirzepatide.png",
+    image: "/images/products/tirzepatide-20mg.webp",
   },
   {
     slug: "cjc-ipa",
@@ -150,7 +150,7 @@ export const products: Product[] = [
     dose: "5+5MG",
     pack: "pack",
     theme: "slate",
-    image: "/images/products/cjc-ipa.png",
+    image: "/images/products/cjc-ipa.webp",
   },
   {
     slug: "hcg-2000iu",
@@ -164,7 +164,7 @@ export const products: Product[] = [
     dose: "2000IU",
     pack: "pack",
     theme: "ivory",
-    image: "/images/products/hcg.png",
+    image: "/images/products/hcg-2000iu.webp",
   },
   {
     slug: "hcg-5000iu",
@@ -178,7 +178,7 @@ export const products: Product[] = [
     dose: "5000IU",
     pack: "pack",
     theme: "taupe",
-    image: "/images/products/hcg.png",
+    image: "/images/products/hcg-5000iu.webp",
   },
   {
     slug: "igf-lr3-01mg",
@@ -192,7 +192,7 @@ export const products: Product[] = [
     dose: "0.1MG",
     pack: "pack",
     theme: "peach",
-    image: "/images/products/igf-1-lr3.png",
+    image: "/images/products/igf-lr3-01mg.webp",
   },
   {
     slug: "igf-lr3-1mg",
@@ -206,7 +206,7 @@ export const products: Product[] = [
     dose: "1MG",
     pack: "pack",
     theme: "rose",
-    image: "/images/products/igf-1-lr3.png",
+    image: "/images/products/igf-lr3-1mg.webp",
   },
   {
     slug: "tesamorelin-10mg",
@@ -221,7 +221,7 @@ export const products: Product[] = [
     dose: "10MG",
     pack: "pack",
     theme: "lilac",
-    image: "/images/products/tesamorelin.png",
+    image: "/images/products/tesamorelin-10mg.webp",
   },
   {
     slug: "kpv-10mg",
@@ -235,7 +235,7 @@ export const products: Product[] = [
     dose: "10MG",
     pack: "pack",
     theme: "blush",
-    image: "/images/products/kpv.png",
+    image: "/images/products/kpv-10mg.webp",
   },
   {
     slug: "mots-c-10mg",
@@ -250,7 +250,7 @@ export const products: Product[] = [
     dose: "10MG",
     pack: "pack",
     theme: "sage",
-    image: "/images/products/mots-c.png",
+    image: "/images/products/mots-c-10mg.webp",
   },
   {
     slug: "retatrutide-5mg",
@@ -265,7 +265,7 @@ export const products: Product[] = [
     dose: "5MG",
     pack: "pack",
     theme: "mauve",
-    image: "/images/products/retatrutide.png",
+    image: "/images/products/retatrutide-5mg.webp",
   },
   {
     slug: "retatrutide-10mg",
@@ -280,7 +280,7 @@ export const products: Product[] = [
     dose: "10MG",
     pack: "pack",
     theme: "mist",
-    image: "/images/products/retatrutide.png",
+    image: "/images/products/retatrutide-10mg.webp",
   },
   {
     slug: "retatrutide-15mg",
@@ -294,7 +294,7 @@ export const products: Product[] = [
     dose: "15MG",
     pack: "pack",
     theme: "seafoam",
-    image: "/images/products/retatrutide.png",
+    image: "/images/products/retatrutide-15mg.webp",
   },
   {
     slug: "retatrutide-20mg",
@@ -308,7 +308,7 @@ export const products: Product[] = [
     dose: "20MG",
     pack: "pack",
     theme: "slate",
-    image: "/images/products/retatrutide.png",
+    image: "/images/products/retatrutide-20mg.webp",
   },
   {
     slug: "retatrutide-30mg",
@@ -322,7 +322,7 @@ export const products: Product[] = [
     dose: "30MG",
     pack: "pack",
     theme: "clay",
-    image: "/images/products/retatrutide.png",
+    image: "/images/products/retatrutide-30mg.webp",
   },
   {
     slug: "glutathione-1200mg",
@@ -336,7 +336,7 @@ export const products: Product[] = [
     dose: "1200MG",
     pack: "pack",
     theme: "ivory",
-    image: "/images/products/glutathione.png",
+    image: "/images/products/glutathione-1200mg.webp",
   },
   {
     slug: "bac-water-10ml",
@@ -351,7 +351,7 @@ export const products: Product[] = [
     pack: "pack",
     stock: 5,
     theme: "sand",
-    image: "/images/products/bac-water.png",
+    image: "/images/products/bac-water-10ml.webp",
   },
   {
     slug: "bac-water-5ml",
@@ -366,7 +366,7 @@ export const products: Product[] = [
     pack: "pack",
     stock: 2,
     theme: "taupe",
-    image: "/images/products/bac-water.png",
+    image: "/images/products/bac-water-5ml.webp",
   },
   {
     slug: "nad-plus-250mg",
@@ -381,7 +381,7 @@ export const products: Product[] = [
     dose: "250MG",
     pack: "pack",
     theme: "peach",
-    image: "/images/products/nad-plus.png",
+    image: "/images/products/nad-plus-250mg.webp",
   },
   {
     slug: "semax-10mg",
@@ -396,7 +396,7 @@ export const products: Product[] = [
     dose: "10MG",
     pack: "pack",
     theme: "mist",
-    image: "/images/products/semax.png",
+    image: "/images/products/semax-10mg.webp",
   },
   {
     slug: "selank-10mg",
@@ -411,7 +411,7 @@ export const products: Product[] = [
     dose: "10MG",
     pack: "pack",
     theme: "lilac",
-    image: "/images/products/selank.png",
+    image: "/images/products/selank-10mg.webp",
   },
   {
     slug: "5-amino-1mq-10mg",
@@ -425,7 +425,7 @@ export const products: Product[] = [
     dose: "10MG",
     pack: "pack",
     theme: "sand",
-    image: "/images/products/5-amino-1mq.png",
+    image: "/images/products/5-amino-1mq-10mg.webp",
   },
   {
     slug: "mt2-spray",
