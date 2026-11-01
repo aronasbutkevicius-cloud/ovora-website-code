@@ -16,13 +16,13 @@ Vercel deploys from a Git repository.
 ## 2. Create the Vercel project
 
 1. Sign in at [https://vercel.com](https://vercel.com) and choose **Add New… → Project**.
-2. Import the GitHub repository. Framework preset: **Next.js**. Root directory: the repo root. Leave the build command as `next build` (or `npm run build`) and the output as the Next.js default. Do not set an output directory.
+2. Import the GitHub repository. Framework preset: **Next.js**. `vercel.json` sets `"framework": "nextjs"` so Vercel does not leave the project on **Other**. Root directory: the repo root. Build command: `npm run build`, which runs `next build` (the webpack production build). Do not switch that command to `next build --turbopack`. On Vercel, Turbopack’s Google font loader fails while resolving `next/font` (`@vercel/turbopack-next/internal/font/google/font`). Leave the output as the Next.js default. Do not set an output directory.
 3. Environment variables (Production):
    - `NEXT_PUBLIC_SITE_URL` = `https://your-domain` (the Namecheap domain, `https://` included, no path and no trailing slash)
    - `NEXT_PUBLIC_TIDIO_PUBLIC_KEY` = the Tidio public key, or leave it unset to ship without the chat widget
 4. Deploy. Vercel gives you a `*.vercel.app` URL. Open it and click through the home page, catalog, a product, cart, and contact page before attaching the real domain.
 
-`vercel.json` only adds basic response headers. You do not need more config for a standard deploy.
+`vercel.json` sets the Next.js framework and adds basic response headers. You do not need more config for a standard deploy.
 
 ## 3. Attach the Namecheap domain
 
