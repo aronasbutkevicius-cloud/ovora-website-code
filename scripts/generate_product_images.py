@@ -14,6 +14,10 @@ Rerun from the repo root:
 
 Nasal sprays are skipped. A vial photo would show the wrong container;
 the site draws those with the nasal-spray illustration.
+
+Floating heroes (homepage, age gate, research page) also get a transparent
+cutout of the same pixels, with the studio background removed, under
+public/images/products/cutouts/. Catalog cards keep the full photo.
 """
 
 from __future__ import annotations
@@ -31,7 +35,20 @@ REFERENCE = ROOT / "scripts" / "assets" / "ghk-cu-reference.jpg"
 FONT_PATH = ROOT / "scripts" / "fonts" / "Montserrat-Variable.ttf"
 PRODUCTS_TS = ROOT / "src" / "data" / "products.ts"
 OUT_DIR = ROOT / "public" / "images" / "products"
+CUTOUT_DIR = OUT_DIR / "cutouts"
 CONTACT_SHEET = ROOT / "scripts" / "contact-sheet.jpg"
+
+# Floating hero, age gate, and research page. Catalog cards keep the full studio frame.
+CUTOUT_SLUGS = {
+    "bpc-157-5mg",
+    "bpc-157-10mg",
+    "retatrutide-5mg",
+    "retatrutide-10mg",
+    "nad-plus-250mg",
+    "ghk-cu-50mg",
+    "mots-c-10mg",
+    "tirzepatide-10mg",
+}
 
 # Measured on the 1086×1448 master. Ink edges, not the em box.
 NAME_LEFT = 384
@@ -261,6 +278,134 @@ def save_webp(image: Image.Image, path: Path) -> None:
     image.save(path, format="WEBP", quality=WEBP_QUALITY, method=6)
 
 
+def _smooth_edges(values: np.ndarray, start: int, end: int) -> np.ndarray:
+    out = values.copy()
+    radius = 12
+    for i in range(start, end):
+        if values[i] < 0:
+            continue
+        window = values[max(0, i - radius) : i + radius + 1]
+        window = window[window > 0]
+        if len(window):
+            out[i] = int(np.median(window))
+    kernel = cv2.getGaussianKernel(11, 2.2).ravel()
+    radius = 5
+    smoothed = out.copy()
+    for i in range(start + radius, end - radius):
+        span = out[i - radius : i + radius + 1]
+        if np.any(span < 0):
+            continue
+        smoothed[i] = int(round(float(np.dot(span, kernel))))
+    return smoothed
+
+
+def vial_alpha(master: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
+    """Soft silhouette of the vial, traced from the master photo.
+
+    Left and right glass edges are followed row by row, then smoothed so the
+    white label and cap stay solid instead of being flooded away. The cast
+    shadow on the table is left behind.
+    """
+    height, width = master.shape[:2]
+    yy, xx = np.mgrid[0:height, 0:width]
+    border = np.zeros((height, width), bool)
+    border[:60, :] = True
+    border[-40:, :] = True
+    border[:, :60] = True
+    border[:, -60:] = True
+    design = np.stack(
+        [np.ones(int(border.sum())), xx[border], yy[border]],
+        1,
+    ).astype(np.float64)
+    background = np.zeros_like(master, np.float32)
+    for channel in range(3):
+        coef, *_ = np.linalg.lstsq(design, master[:, :, channel][border].astype(np.float64), rcond=None)
+        background[:, :, channel] = coef[0] + coef[1] * xx + coef[2] * yy
+
+    luminance = master.mean(axis=2).astype(np.float32)
+    gradient = np.abs(cv2.Sobel(luminance, cv2.CV_32F, 1, 0, ksize=3))
+    center_x = 527
+
+    def edge_at(y: int, prev_left: int | None, prev_right: int | None, threshold: float = 22) -> tuple[int, int]:
+        row = gradient[y]
+        left_lo = 310 if prev_left is None else max(300, prev_left - 12)
+        left_hi = 470 if prev_left is None else min(center_x - 8, prev_left + 12)
+        segment = row[left_lo : left_hi + 1]
+        hits = np.where(segment >= threshold)[0]
+        left = left_lo + int(hits[0] if len(hits) else int(np.argmax(segment)))
+        right_lo = 640 if prev_right is None else max(center_x + 8, prev_right - 12)
+        right_hi = 750 if prev_right is None else min(750, prev_right + 12)
+        segment = row[right_lo : right_hi + 1]
+        hits = np.where(segment >= threshold)[0]
+        right = right_lo + int(hits[-1] if len(hits) else int(np.argmax(segment)))
+        return left, right
+
+    left = np.full(height, -1)
+    right = np.full(height, -1)
+    seed_y = 820
+    left[seed_y], right[seed_y] = edge_at(seed_y, None, None)
+    for y in range(seed_y - 1, 318, -1):
+        left[y], right[y] = edge_at(y, int(left[y + 1]), int(right[y + 1]))
+    for y in range(seed_y + 1, 1182):
+        left[y], right[y] = edge_at(y, int(left[y - 1]), int(right[y - 1]))
+    left = _smooth_edges(left, 330, 1170)
+    right = _smooth_edges(right, 330, 1170)
+
+    body = slice(680, 1040)
+    body_left = int(np.median(left[body]))
+    body_right = int(np.median(right[body]))
+    for y in range(1000, 1152):
+        left[y] = max(int(left[y]), body_left - 1)
+        right[y] = min(int(right[y]), body_right + 8)
+    left[1152:] = -1
+    right[1152:] = -1
+
+    tracked_left = left.copy()
+    tracked_right = right.copy()
+    cap = (np.arange(height) > 330) & (np.arange(height) < 430) & ((right - left) > 280)
+    cap_rows = np.where(cap)[0]
+    if len(cap_rows) == 0:
+        raise SystemExit("Could not find the vial cap while cutting it out")
+    cap_top = int(cap_rows.min())
+    cap_bottom = int(cap_rows.max())
+    half = int(np.median((right[cap_rows] - left[cap_rows]) / 2))
+    center = int(np.median((right[cap_rows] + left[cap_rows]) / 2))
+    for y in range(cap_top, cap_bottom + 1):
+        left[y] = center - half
+        right[y] = center + half
+    crown = 12
+    for y in range(cap_top - crown, cap_top):
+        t = (cap_top - y) / crown
+        inset = int(round(half * (1 - np.sqrt(max(0.0, 1 - t * t))) * 0.85))
+        left[y] = center - half + inset
+        right[y] = center + half - inset
+    left[: cap_top - crown] = -1
+    right[: cap_top - crown] = -1
+    blend_end = min(height - 1, cap_bottom + 36)
+    span = blend_end - cap_bottom
+    for y in range(cap_bottom + 1, blend_end):
+        t = (y - cap_bottom) / span
+        left[y] = int(round((center - half) * (1 - t) + tracked_left[y] * t))
+        right[y] = int(round((center + half) * (1 - t) + tracked_right[y] * t))
+
+    mask = np.zeros((height, width), np.uint8)
+    for y in range(height):
+        if left[y] < 0 or right[y] - left[y] < 40:
+            continue
+        mask[y, int(left[y]) : int(right[y]) + 1] = 255
+    alpha = np.clip(cv2.GaussianBlur(mask, (0, 0), 1.15).astype(np.float32) / 255.0, 0, 1)
+    return alpha, background
+
+
+def apply_cutout(product: np.ndarray, alpha: np.ndarray, background: np.ndarray) -> Image.Image:
+    color = product.astype(np.float32)
+    unmixed = (color - background * (1 - alpha[:, :, None])) / np.maximum(alpha[:, :, None], 0.12)
+    unmixed = np.clip(unmixed, 0, 255)
+    mixed = np.where((alpha > 0.9)[:, :, None], color, unmixed)
+    rgba = np.dstack([mixed.astype(np.uint8), (alpha * 255).astype(np.uint8)])
+    return Image.fromarray(rgba, "RGBA")
+
+
 def build_contact_sheet(items: list[tuple[str, str, str, Path]]) -> None:
     columns = 4
     thumb_w = 320
@@ -301,7 +446,9 @@ def main() -> None:
     products = load_products(PRODUCTS_TS)
     master = np.array(Image.open(REFERENCE).convert("RGB"))
     blank = cleared_master(master)
+    alpha, background = vial_alpha(master)
     OUT_DIR.mkdir(parents=True, exist_ok=True)
+    CUTOUT_DIR.mkdir(parents=True, exist_ok=True)
 
     # Sanity: retyping the master strings must land on the original ink box.
     probe = render_text("GHK-CU", NAME_SIZE, NAME_TRACKING, NAME_WEIGHT)
@@ -328,6 +475,10 @@ def main() -> None:
             note = "name scaled to the rule" if info["name_scaled"] else ""
             name_px = f"{info['name_px'][0]}×{info['name_px'][1]}"
         save_webp(Image.fromarray(composed), dest)
+        if product["slug"] in CUTOUT_SLUGS:
+            cutout = apply_cutout(composed, alpha, background)
+            save_webp(cutout, CUTOUT_DIR / f"{product['slug']}.webp")
+            note = f"{note}; floating cutout".strip("; ")
         written.append((name, dose, product["slug"], dest))
         print(f"{product['slug']:22} {name:16} {dose:10} {name_px:12} {note}")
 

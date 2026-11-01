@@ -8,10 +8,10 @@ import { Logo } from "./Logo";
 const STORAGE_KEY = "ovora_researcher_verified";
 
 const gateVials = [
-  { src: "/images/products/bpc-157-5mg.webp", className: "absolute left-[6%] top-[12%] w-20 vial-orbit-a" },
-  { src: "/images/products/retatrutide-5mg.webp", className: "absolute right-[8%] top-[16%] w-24 vial-orbit-b" },
-  { src: "/images/products/nad-plus-250mg.webp", className: "absolute left-[16%] bottom-[8%] w-28 vial-orbit-c" },
-  { src: "/images/products/ghk-cu-50mg.webp", className: "absolute right-[12%] bottom-[14%] w-20 vial-orbit-d" },
+  { src: "/images/products/cutouts/bpc-157-5mg.webp", className: "absolute left-[6%] top-[12%] w-20 vial-orbit-a" },
+  { src: "/images/products/cutouts/retatrutide-5mg.webp", className: "absolute right-[8%] top-[16%] w-24 vial-orbit-b" },
+  { src: "/images/products/cutouts/nad-plus-250mg.webp", className: "absolute left-[16%] bottom-[8%] w-28 vial-orbit-c" },
+  { src: "/images/products/cutouts/ghk-cu-50mg.webp", className: "absolute right-[12%] bottom-[14%] w-20 vial-orbit-d" },
 ] as const;
 
 export function AgeGate({ children }: { children: React.ReactNode }) {

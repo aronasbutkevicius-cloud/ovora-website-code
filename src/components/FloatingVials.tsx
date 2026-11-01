@@ -45,7 +45,7 @@ export function FloatingVials() {
         return (
           <div key={p.slug} className={p.className}>
             <Image
-              src={product.image}
+              src={`/images/products/cutouts/${p.slug}.webp`}
               alt=""
               width={1086}
               height={1448}
