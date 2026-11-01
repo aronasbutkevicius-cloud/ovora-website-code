@@ -6,6 +6,7 @@ import {
   getProductFamilies,
   resolveFamilyAndVariant,
 } from "@/data/products";
+import { pageMetadata } from "@/lib/site";
 
 export function generateStaticParams() {
   const families = getProductFamilies();
@@ -30,10 +31,11 @@ export async function generateMetadata({
   const { slug } = await params;
   const resolved = resolveFamilyAndVariant(slug);
   if (!resolved) return { title: "Product Not Found" };
-  return {
+  return pageMetadata({
     title: resolved.family.name,
     description: resolved.family.description,
-  };
+    path: `/products/${resolved.family.slug}`,
+  });
 }
 
 export default async function ProductPage({

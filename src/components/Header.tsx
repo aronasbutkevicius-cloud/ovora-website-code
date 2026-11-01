@@ -25,7 +25,8 @@ export function Header() {
             <button
               type="button"
               className="lg:hidden flex items-center justify-center w-10 h-10 text-[#4a5168] hover:text-[#1e2235] rounded-full hover:bg-[#e4e8f5]/60 transition-all"
-              aria-label="Open menu"
+              aria-label={open ? "Close menu" : "Open menu"}
+              aria-expanded={open}
               onClick={() => setOpen((v) => !v)}
             >
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -57,15 +58,18 @@ export function Header() {
           </nav>
 
           <div className="flex items-center gap-1 lg:gap-2">
-            <Link
-              href="/store"
-              className="hidden sm:flex items-center justify-center w-10 h-10 text-[#4a5168] hover:text-[#1e2235] rounded-full hover:bg-[#e4e8f5]/60 transition-all"
-              aria-label="Search products"
-            >
-              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-4.35-4.35M10.5 18a7.5 7.5 0 100-15 7.5 7.5 0 000 15z" />
-              </svg>
-            </Link>
+            <form action="/store" method="get" role="search" className="hidden lg:block">
+              <label htmlFor="header-search" className="sr-only">
+                Search products
+              </label>
+              <input
+                id="header-search"
+                type="search"
+                name="q"
+                placeholder="Search"
+                className="h-9 w-36 xl:w-48 rounded-full border border-[#d5dbed] bg-white px-3 text-sm text-[#1e2235] outline-none placeholder:text-[#8a90a8] focus:ring-2 focus:ring-[#7a8fd4]/30"
+              />
+            </form>
             <Link
               href="/cart"
               className="relative flex items-center justify-center w-10 h-10 text-[#4a5168] hover:text-[#1e2235] rounded-full hover:bg-[#e4e8f5]/60 transition-all"
@@ -86,7 +90,20 @@ export function Header() {
 
       {open && (
         <div className="lg:hidden bg-[#f7f8fc] border-b border-[#d5dbed] shadow-lg">
-          <nav className="content-container py-3 flex flex-col">
+          <div className="content-container py-3 flex flex-col gap-2">
+            <form action="/store" method="get" role="search">
+              <label htmlFor="mobile-search" className="sr-only">
+                Search products
+              </label>
+              <input
+                id="mobile-search"
+                type="search"
+                name="q"
+                placeholder="Search products"
+                className="w-full h-11 px-4 rounded-full border border-[#d5dbed] bg-white text-base text-[#1e2235] outline-none placeholder:text-[#8a90a8] focus:ring-2 focus:ring-[#7a8fd4]/30"
+              />
+            </form>
+            <nav className="flex flex-col">
             {nav.map((item) => (
               <Link
                 key={item.href}
@@ -97,7 +114,8 @@ export function Header() {
                 {item.label}
               </Link>
             ))}
-          </nav>
+            </nav>
+          </div>
         </div>
       )}
     </header>

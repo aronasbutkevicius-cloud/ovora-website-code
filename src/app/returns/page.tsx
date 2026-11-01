@@ -1,7 +1,12 @@
 import type { Metadata } from "next";
 import { PageHero, Prose } from "@/components/PageBits";
+import { pageMetadata, supportEmail } from "@/lib/site";
 
-export const metadata: Metadata = { title: "Returns & Refunds" };
+export const metadata: Metadata = pageMetadata({
+  title: "Returns & Refunds",
+  description: "Shipment protection and return eligibility for Ovora Labs research orders.",
+  path: "/returns",
+});
 
 export default function ReturnsPage() {
   return (
@@ -28,7 +33,7 @@ export default function ReturnsPage() {
           </p>
           <h2>Contact</h2>
           <p>
-            <a href="mailto:support@ovoralabs.com">support@ovoralabs.com</a>
+            <a href={`mailto:${supportEmail}`}>{supportEmail}</a>
           </p>
         </Prose>
       </div>

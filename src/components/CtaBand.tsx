@@ -1,6 +1,8 @@
 "use client";
 
 import Link from "next/link";
+import { useState, type FormEvent } from "react";
+import { supportEmail } from "@/lib/site";
 
 export function CtaBand() {
   return (
@@ -28,6 +30,16 @@ export function CtaBand() {
 }
 
 export function Newsletter() {
+  const [status, setStatus] = useState("");
+
+  function onSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const email = String(new FormData(e.currentTarget).get("email") || "").trim();
+    setStatus(
+      `${email || "That address"} was not saved. Email signup is not connected yet — write ${supportEmail} to be added manually.`,
+    );
+  }
+
   return (
     <section className="py-12 lg:py-16 bg-[#eef0f8] border-t border-[#d5dbed]">
       <div className="content-container max-w-2xl mx-auto text-center">
@@ -35,17 +47,20 @@ export function Newsletter() {
           Research updates from Ovora Labs
         </h2>
         <p className="text-sm text-[#6b7189] mb-6">
-          Subscribe for catalog updates, new research compounds, and quality documentation news
+          Catalog updates and quality documentation news, once an email list is connected.
         </p>
-        <form
-          className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
-          onSubmit={(e) => e.preventDefault()}
-        >
+        <form className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto" onSubmit={onSubmit}>
+          <label htmlFor="newsletter-email" className="sr-only">
+            Email
+          </label>
           <input
+            id="newsletter-email"
+            name="email"
             type="email"
             required
             placeholder="you@lab.edu"
-            className="flex-1 h-11 px-4 rounded-full border border-[#d5dbed] bg-[#f7f8fc] text-sm outline-none focus:ring-2 focus:ring-[#7a8fd4]/25"
+            autoComplete="email"
+            className="flex-1 h-11 px-4 rounded-full border border-[#d5dbed] bg-[#f7f8fc] text-base sm:text-sm outline-none focus:ring-2 focus:ring-[#7a8fd4]/25"
           />
           <button
             type="submit"
@@ -54,9 +69,15 @@ export function Newsletter() {
             Subscribe
           </button>
         </form>
-        <p className="mt-3 text-xs text-[#8a90a8]">
-          For researchers and labs. No spam, unsubscribe anytime.
+        <p className="mt-3 text-xs text-[#8a90a8] leading-relaxed">
+          Owner placeholder: this form does not store addresses. Email {supportEmail} to join the
+          list manually.
         </p>
+        {status && (
+          <p role="status" className="mt-3 text-sm text-[#4a5168]">
+            {status}
+          </p>
+        )}
       </div>
     </section>
   );

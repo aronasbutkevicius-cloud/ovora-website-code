@@ -1,9 +1,13 @@
 import type { Metadata } from "next";
 import { PageHero, Prose } from "@/components/PageBits";
+import { PlaceholderNote } from "@/components/PlaceholderNote";
+import { pageMetadata } from "@/lib/site";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Shipping Information",
-};
+  description: "Processing times and the shipping estimate currently used at Ovora Labs checkout.",
+  path: "/shipping",
+});
 
 export default function ShippingPage() {
   return (
@@ -13,6 +17,13 @@ export default function ShippingPage() {
           title="Shipping Information"
           subtitle="Fast, discreet shipping with protection on every order."
         />
+        <div className="mb-8 max-w-3xl">
+          <PlaceholderNote>
+            Checkout currently estimates shipping at $12.00 under $150 and free at $150 or above.
+            Carrier names, overnight eligibility, and that dollar amount are not confirmed outside
+            the site copy. Update both this page and checkout together if the rate changes.
+          </PlaceholderNote>
+        </div>
         <Prose>
           <h2>Processing</h2>
           <p>Orders are processed within 0–2 business days after payment confirmation.</p>
@@ -21,6 +32,7 @@ export default function ShippingPage() {
             <li>Standard and expedited shipping available</li>
             <li>Overnight delivery available on eligible orders</li>
             <li>Free shipping on orders over $150</li>
+            <li>Checkout estimates $12.00 shipping below $150</li>
             <li>Tracking provided on all orders</li>
           </ul>
           <h2>Packaging</h2>
