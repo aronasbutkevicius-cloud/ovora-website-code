@@ -10,11 +10,13 @@ import {
   startingPrice,
   type ProductFamily,
 } from "@/data/products";
+import { pageMetadata } from "@/lib/site";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Shop All Products",
   description: "Browse research-grade peptides from Ovora Labs. 99%+ purity. COA included.",
-};
+  path: "/store",
+});
 
 const filters = [
   { id: "all", label: "All Products" },
@@ -56,6 +58,24 @@ function ProductCard({ family }: { family: ProductFamily }) {
   );
 }
 
+function matchesQuery(family: ProductFamily, query: string) {
+  const needle = query.toLowerCase();
+  const haystack = [
+    family.name,
+    family.description,
+    family.form,
+    ...(family.alsoKnownAs ?? []),
+    ...family.variants.flatMap((variant) => [
+      variant.dose,
+      variant.slug,
+      ...(variant.alsoKnownAs ?? []),
+    ]),
+  ]
+    .join(" ")
+    .toLowerCase();
+  return haystack.includes(needle);
+}
+
 function Section({
   title,
   subtitle,
@@ -86,14 +106,18 @@ function Section({
 export default async function StorePage({
   searchParams,
 }: {
-  searchParams: Promise<{ category?: string }>;
+  searchParams: Promise<{ category?: string; q?: string }>;
 }) {
   const params = await searchParams;
   const category = params.category || "all";
+  const query = (params.q ?? "").trim();
 
-  const injectables = injectableFamilies();
-  const nasals = nasalFamilies();
-  const accessories = accessoryFamilies();
+  const filterList = (families: ProductFamily[]) =>
+    query ? families.filter((family) => matchesQuery(family, query)) : families;
+
+  const injectables = filterList(injectableFamilies());
+  const nasals = filterList(nasalFamilies());
+  const accessories = filterList(accessoryFamilies());
 
   const showAll = category === "all";
   const showInjectables = showAll || category === "injectable";
@@ -121,7 +145,10 @@ export default async function StorePage({
         <div className="flex flex-wrap gap-2 mb-10">
           {filters.map((f) => {
             const active = category === f.id;
-            const href = f.id === "all" ? "/store" : `/store?category=${f.id}`;
+            const next = new URLSearchParams();
+            if (f.id !== "all") next.set("category", f.id);
+            if (query) next.set("q", query);
+            const href = next.toString() ? `/store?${next.toString()}` : "/store";
             return (
               <Link
                 key={f.id}
@@ -138,7 +165,47 @@ export default async function StorePage({
           })}
         </div>
 
-        <p className="text-sm text-[#6b7189] mb-8">{count} products</p>
+        <form action="/store" method="get" className="mb-6 flex flex-col sm:flex-row gap-3 max-w-xl" role="search">
+          {category !== "all" && <input type="hidden" name="category" value={category} />}
+          <label htmlFor="catalog-search" className="sr-only">
+            Search products
+          </label>
+          <input
+            id="catalog-search"
+            type="search"
+            name="q"
+            defaultValue={query}
+            placeholder="Search by name or dose"
+            className="flex-1 h-11 px-4 rounded-full border border-[#d5dbed] bg-white text-base sm:text-sm text-[#1e2235] outline-none placeholder:text-[#8a90a8] focus:ring-2 focus:ring-[#7a8fd4]/30"
+          />
+          <button
+            type="submit"
+            className="h-11 px-6 rounded-full bg-[#1e2235] text-[#f7f8fc] text-sm font-medium hover:bg-[#2a3148] transition-colors"
+          >
+            Search
+          </button>
+        </form>
+
+        <p className="text-sm text-[#6b7189] mb-8">
+          {count} product{count === 1 ? "" : "s"}
+          {query ? (
+            <>
+              {" "}
+              matching “{query}”.{" "}
+              <Link href={category === "all" ? "/store" : `/store?category=${category}`} className="underline">
+                Clear search
+              </Link>
+            </>
+          ) : null}
+        </p>
+
+        {count === 0 && (
+          <div className="rounded-2xl border border-[#d5dbed] bg-white p-8 max-w-xl mb-10">
+            <p className="text-[#4a5168]">
+              No products match that search. Try another name, or browse the full catalog.
+            </p>
+          </div>
+        )}
 
         {showInjectables && (
           <Section

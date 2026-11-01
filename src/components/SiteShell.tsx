@@ -17,9 +17,9 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
           Skip to main content
         </a>
         <Header />
-        <div id="main" className="relative">
+        <main id="main" className="relative">
           {children}
-        </div>
+        </main>
         <CtaBand />
         <Newsletter />
         <Footer />

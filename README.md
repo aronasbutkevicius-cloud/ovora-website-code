@@ -20,6 +20,12 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000).
 
+## Deploy
+
+Hosting and Namecheap DNS steps are in [DEPLOY.md](DEPLOY.md). The simplest host for this app is Vercel.
+
+Before a public launch, replace every on-page note that starts with **Owner placeholder**. Those are unfinished business details (payment, legal entity, COA files, email signup, and similar). Do not invent them in code.
+
 ## Tidio Lyro setup
 
 ### 1. Site install (code — already wired)

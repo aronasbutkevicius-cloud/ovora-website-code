@@ -1,13 +1,26 @@
 import type { Metadata } from "next";
 import { PageHero, Prose } from "@/components/PageBits";
+import { PlaceholderNote } from "@/components/PlaceholderNote";
+import { pageMetadata, supportEmail } from "@/lib/site";
 
-export const metadata: Metadata = { title: "Privacy Policy" };
+export const metadata: Metadata = pageMetadata({
+  title: "Privacy Policy",
+  description: "How Ovora Labs describes collection and use of order and support information.",
+  path: "/privacy",
+});
 
 export default function PrivacyPage() {
   return (
     <section className="py-12 lg:py-16 bg-[#f7f8fc]">
       <div className="content-container">
         <PageHero title="Privacy Policy" />
+        <div className="mb-8 max-w-3xl">
+          <PlaceholderNote>
+            Add the legal entity name, mailing address, and the date this policy takes effect
+            before publishing. No payment provider is connected, so the payment line below is not
+            tied to a named processor.
+          </PlaceholderNote>
+        </div>
         <Prose>
           <h2>Information we collect</h2>
           <p>
@@ -30,7 +43,7 @@ export default function PrivacyPage() {
           <h2>Contact</h2>
           <p>
             Privacy questions:{" "}
-            <a href="mailto:support@ovoralabs.com">support@ovoralabs.com</a>
+            <a href={`mailto:${supportEmail}`}>{supportEmail}</a>
           </p>
         </Prose>
       </div>

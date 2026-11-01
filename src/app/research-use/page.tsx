@@ -1,25 +1,19 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { getSiteUrl, pageMetadata } from "@/lib/site";
 
-export const metadata: Metadata = {
-  title: "Research Use Only | Laboratory Peptides",
+export const metadata: Metadata = pageMetadata({
+  title: "Research Use Only",
   description:
     "Information about research-use-only peptides and laboratory applications from Ovora Labs.",
-};
+  path: "/research-use",
+});
 
 const applications = [
   {
     title: "Cell Culture Studies",
     body: "Investigate cellular responses and mechanisms in controlled laboratory environments.",
-    icon: (
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={2}
-        d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-.612-1.478l.94-2.306a2 2 0 00-.416-2.279l-1.331-1.331a2 2 0 00-2.279-.416l-2.306.94a6 6 0 00-1.478-.612l-.477-2.387a2 2 0 00-.547-1.022L9.293 1.293a1 1 0 00-1.414 0L6.464 2.707a2 2 0 00-.547 1.022l-.477 2.387a6 6 0 00-1.478.612l-2.306-.94a2 2 0 00-2.279.416L-.954 7.535a2 2 0 00-.416 2.279l.94 2.306a6 6 0 00-.612 1.478l-2.387.477a2 2 0 00-1.022.547L-5.743 15.95a1 1 0 000 1.414l1.414 1.414a2 2 0 001.022.547l2.387.477a6 6 0 00.612 1.478l-.94 2.306a2 2 0 00.416 2.279l1.331 1.331a2 2 0 002.279.416l2.306-.94a6 6 0 001.478.612l.477 2.387a2 2 0 00.547 1.022l1.414 1.414a1 1 0 001.414 0l1.414-1.414a2 2 0 00.547-1.022l.477-2.387a6 6 0 001.478-.612l2.306.94a2 2 0 002.279-.416l1.331-1.331a2 2 0 00.416-2.279l-.94-2.306a6 6 0 00.612-1.478l2.387-.477a2 2 0 001.022-.547l1.414-1.414a1 1 0 000-1.414l-1.414-1.414z"
-      />
-    ),
   },
   {
     title: "Protein Analysis",
@@ -94,9 +88,11 @@ export default function ResearchUsePage() {
             name: "Research Use Only - Ovora Labs",
             description:
               "Information about research-use-only peptides and laboratory applications from Ovora Labs.",
+            url: `${getSiteUrl()}/research-use`,
             publisher: {
               "@type": "Organization",
               name: "Ovora Labs",
+              url: getSiteUrl(),
             },
           }),
         }}

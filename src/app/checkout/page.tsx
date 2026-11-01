@@ -4,14 +4,15 @@ import Image from "next/image";
 import Link from "next/link";
 import { useMemo, useState, type FormEvent } from "react";
 import { useCart } from "@/components/CartProvider";
+import { PlaceholderNote } from "@/components/PlaceholderNote";
 import { formatPrice } from "@/data/products";
+import { supportEmail } from "@/lib/site";
 
-type CheckoutState = "form" | "review";
+type CheckoutState = "form" | "unpaid";
 
 export default function CheckoutPage() {
-  const { items, itemCount, subtotal, clearCart, ready } = useCart();
+  const { items, itemCount, subtotal, ready } = useCart();
   const [state, setState] = useState<CheckoutState>("form");
-  const [orderId, setOrderId] = useState("");
   const [error, setError] = useState("");
 
   const [form, setForm] = useState({
@@ -56,10 +57,7 @@ export default function CheckoutPage() {
       return;
     }
 
-    const id = `OV-${Date.now().toString().slice(-8)}`;
-    setOrderId(id);
-    setState("review");
-    clearCart();
+    setState("unpaid");
   }
 
   if (!ready) {
@@ -72,38 +70,66 @@ export default function CheckoutPage() {
     );
   }
 
-  if (state === "review") {
+  if (state === "unpaid") {
+    const summary = [
+      `Name: ${form.fullName}`,
+      `Email: ${form.email}`,
+      form.phone ? `Phone: ${form.phone}` : "",
+      form.company ? `Company: ${form.company}` : "",
+      `Address: ${form.address1}${form.address2 ? `, ${form.address2}` : ""}`,
+      `${form.city}, ${form.stateRegion} ${form.postal}`,
+      form.country,
+      "",
+      ...items.map(
+        (item) =>
+          `${item.name} ${item.dose} x${item.quantity} — ${formatPrice(item.price * item.quantity)}`,
+      ),
+      "",
+      `Estimated total: ${formatPrice(total)}`,
+      "",
+      "This is an inquiry only. No order was placed.",
+    ]
+      .filter(Boolean)
+      .join("\n");
+    const mailto = `mailto:${supportEmail}?subject=${encodeURIComponent("Checkout inquiry")}&body=${encodeURIComponent(summary)}`;
+
     return (
       <section className="py-12 lg:py-16 bg-[#f7f8fc] min-h-[60vh]">
         <div className="content-container max-w-2xl">
           <div className="rounded-2xl border border-[#d5dbed] bg-white p-8">
             <p className="text-xs uppercase tracking-[0.16em] text-[#7a8fd4] font-medium mb-3">
-              Order reserved
+              Payment not connected
             </p>
             <h1 className="text-3xl font-semibold text-[#1e2235] tracking-tight mb-3">
-              You&apos;re at the checkout point
+              No order was placed
             </h1>
             <p className="text-[#4a5168] leading-relaxed mb-6">
-              Reference <span className="font-semibold text-[#1e2235]">{orderId}</span> is ready.
-              Payment processing is not connected yet — once it is, this step will charge and
-              confirm the order automatically.
+              Shipping details for {form.fullName} ({form.email}) stayed in this browser only.
+              Nothing was charged, and the cart was not cleared.
             </p>
-            <div className="rounded-xl bg-[#eef0f8] border border-[#d5dbed] p-4 text-sm text-[#4a5168] mb-8">
-              Shipping details were captured for {form.fullName} ({form.email}). No payment has
-              been taken.
-            </div>
-            <div className="flex flex-col sm:flex-row gap-3">
-              <Link
-                href="/store"
+            <PlaceholderNote>
+              Choose a payment provider and connect it here before accepting live orders. Until
+              then, email the summary to {supportEmail} if you want a person to follow up.
+            </PlaceholderNote>
+            <div className="mt-6 flex flex-col sm:flex-row gap-3">
+              <a
+                href={mailto}
                 className="inline-flex items-center justify-center h-11 px-6 rounded-full bg-[#1e2235] text-[#f7f8fc] text-sm font-medium hover:bg-[#2a3148] transition-colors"
               >
-                Back to products
-              </Link>
-              <Link
-                href="/contact"
+                Email this summary
+              </a>
+              <button
+                type="button"
+                onClick={() => setState("form")}
                 className="inline-flex items-center justify-center h-11 px-6 rounded-full border border-[#d5dbed] text-[#1e2235] text-sm font-medium hover:bg-[#eef0f8] transition-colors"
               >
-                Contact support
+                Back to details
+              </button>
+              <Link
+                href="/cart"
+                className="inline-flex items-center justify-center h-11 px-6 rounded-full border border-[#d5dbed] text-[#1e2235] text-sm font-medium hover:bg-[#eef0f8] transition-colors"
+              >
+                Return to cart
               </Link>
             </div>
           </div>
@@ -137,8 +163,8 @@ export default function CheckoutPage() {
             Checkout
           </h1>
           <p className="text-[#6b7189]">
-            Enter shipping details to reach the checkout point. Payment processing will plug in
-            here later.
+            Enter shipping details to review the cart. Payment processing is not connected, so this
+            step cannot charge a card or place an order.
           </p>
         </div>
 
@@ -245,15 +271,17 @@ export default function CheckoutPage() {
               </p>
             )}
 
+            <PlaceholderNote>
+              Owner placeholder: no payment provider is connected. Continuing does not place or
+              reserve an order. Shipping is estimated at {formatPrice(shippingEstimate)} (free at
+              $150 and above). Confirm that rate before taking live orders.
+            </PlaceholderNote>
             <button
               type="submit"
               className="w-full sm:w-auto inline-flex items-center justify-center h-12 px-10 rounded-full bg-[#1e2235] text-[#f7f8fc] text-sm font-medium hover:bg-[#2a3148] transition-colors"
             >
-              Continue to payment point
+              Review summary
             </button>
-            <p className="text-xs text-[#6b7189]">
-              Payment provider not connected yet. This step reserves your order details only.
-            </p>
           </div>
 
           <aside className="rounded-2xl border border-[#d5dbed] bg-white p-6 sticky top-24">

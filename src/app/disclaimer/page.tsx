@@ -1,9 +1,13 @@
 import type { Metadata } from "next";
 import { PageHero, Prose } from "@/components/PageBits";
+import { pageMetadata } from "@/lib/site";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Research Use Disclaimer",
-};
+  description:
+    "Research-use and FDA disclaimer for products sold by Ovora Labs. Not for human or veterinary use.",
+  path: "/disclaimer",
+});
 
 export default function DisclaimerPage() {
   return (

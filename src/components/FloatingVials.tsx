@@ -27,12 +27,12 @@ const placements = [
   {
     slug: "mots-c-10mg",
     className:
-      "absolute left-[38%] md:left-[42%] top-[2%] w-[16%] md:w-[10%] lg:w-[8%] z-[1] opacity-95 vial-orbit-e",
+      "hidden md:block absolute left-[38%] md:left-[42%] top-[2%] w-[16%] md:w-[10%] lg:w-[8%] z-[1] opacity-95 vial-orbit-e",
   },
   {
     slug: "tirzepatide-10mg",
     className:
-      "absolute right-[26%] md:right-[28%] bottom-[4%] w-[17%] md:w-[11%] lg:w-[9%] z-[1] opacity-90 vial-orbit-f",
+      "hidden md:block absolute right-[26%] md:right-[28%] bottom-[4%] w-[17%] md:w-[11%] lg:w-[9%] z-[1] opacity-90 vial-orbit-f",
   },
 ] as const;
 

@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import { FaqItem, PageHero } from "@/components/PageBits";
+import { pageMetadata } from "@/lib/site";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "FAQ",
   description: "Frequently asked questions about Ovora Labs research peptides.",
-};
+  path: "/faq",
+});
 
 const faqs = [
   {
