@@ -1,7 +1,14 @@
 import type { Metadata } from "next";
 import { PageHero, Prose } from "@/components/PageBits";
+import { PlaceholderNote } from "@/components/PlaceholderNote";
+import { pageMetadata, supportEmail } from "@/lib/site";
 
-export const metadata: Metadata = { title: "Certificates of Analysis" };
+export const metadata: Metadata = pageMetadata({
+  title: "Certificates of Analysis",
+  description:
+    "What an Ovora Labs Certificate of Analysis includes, and how to match it to a vial batch.",
+  path: "/coa",
+});
 
 export default function CoaPage() {
   return (
@@ -11,6 +18,13 @@ export default function CoaPage() {
           title="Certificates of Analysis"
           subtitle="Full transparency on identity and purity for every batch."
         />
+        <div className="mb-8 max-w-3xl">
+          <PlaceholderNote>
+            Batch COA files are not published on this page yet. The notes below describe what a
+            certificate includes. Upload the PDFs here when they exist. Until then, customers are
+            told to use the copy supplied with the order or email {supportEmail}.
+          </PlaceholderNote>
+        </div>
         <Prose>
           <h2>What&apos;s included</h2>
           <ul>
@@ -22,7 +36,7 @@ export default function CoaPage() {
           <h2>How to verify</h2>
           <p>
             Match the batch number on your vial to the COA supplied with your order. Contact{" "}
-            <a href="mailto:support@ovoralabs.com">support@ovoralabs.com</a> if you need a
+            <a href={`mailto:${supportEmail}`}>{supportEmail}</a> if you need a
             replacement copy.
           </p>
         </Prose>

@@ -8,12 +8,15 @@ import {
   getProductFamilies,
   startingPrice,
 } from "@/data/products";
+import { pageMetadata } from "@/lib/site";
 
-export const metadata: Metadata = {
-  title: "Ovora Labs — Premium Research Grade Peptides",
+export const metadata: Metadata = pageMetadata({
+  title: "Premium Research Grade Peptides",
+  absoluteTitle: "Ovora Labs — Premium Research Grade Peptides",
   description:
     "USA-based supplier of research-grade peptides with 99%+ purity. Third-party tested. Research use only.",
-};
+  path: "/",
+});
 
 const features = [
   {

@@ -1,9 +1,15 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHero } from "@/components/PageBits";
+import { PlaceholderNote } from "@/components/PlaceholderNote";
 import { getProductFamilies } from "@/data/products";
+import { pageMetadata } from "@/lib/site";
 
-export const metadata: Metadata = { title: "Research Library" };
+export const metadata: Metadata = pageMetadata({
+  title: "Research Library",
+  description: "Compound overviews for Ovora Labs research peptides.",
+  path: "/research",
+});
 
 export default function ResearchPage() {
   const featured = getProductFamilies()
@@ -17,6 +23,12 @@ export default function ResearchPage() {
           title="Research Library"
           subtitle="Compound overviews and documentation context for laboratory investigators."
         />
+        <div className="mb-8 max-w-3xl">
+          <PlaceholderNote>
+            Citations and paper links are not published yet. This page only lists compounds that
+            are already in the catalog.
+          </PlaceholderNote>
+        </div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl">
           {featured.map((family) => (
             <Link
