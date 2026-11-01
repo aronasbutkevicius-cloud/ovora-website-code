@@ -294,9 +294,9 @@ export default function CheckoutPage() {
                       <Image
                         src={item.image}
                         alt=""
-                        width={1086}
-                        height={1448}
-                        className="object-contain h-full w-auto p-1"
+                        width={485}
+                        height={963}
+                        className="h-[92%] w-auto max-w-full object-contain drop-shadow-[0_6px_8px_rgba(30,34,53,0.16)]"
                       />
                     ) : null}
                   </div>

@@ -36,12 +36,14 @@ function ProductCard({ family }: { family: ProductFamily }) {
       href={`/products/${family.slug}`}
       className="group bg-[#f7f8fc]/95 rounded-2xl border border-[#d5dbed] overflow-hidden hover-lift"
     >
-      <div className="aspect-[4/3] bg-gradient-to-b from-[#eef0f8] to-[#f7f8fc] flex items-center justify-center p-6">
-        <ProductVisual
-          product={preview}
-          className="h-40 w-auto group-hover:scale-105 transition-transform duration-500"
-          sizes="(max-width: 768px) 45vw, 220px"
-        />
+      <div className="relative aspect-[4/3] bg-gradient-to-b from-[#eef0f8] to-[#f7f8fc]">
+        <div className="absolute inset-3 flex items-center justify-center sm:inset-4">
+          <ProductVisual
+            product={preview}
+            className="h-full w-auto max-w-full group-hover:scale-[1.03] transition-transform duration-500"
+            sizes="(max-width: 768px) 90vw, 280px"
+          />
+        </div>
       </div>
       <div className="p-5">
         <p className="text-[11px] uppercase tracking-wider text-[#8a90a8] mb-1">

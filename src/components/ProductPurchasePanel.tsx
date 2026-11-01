@@ -46,13 +46,15 @@ export function ProductPurchasePanel({ family, initialVariantSlug }: Props) {
   return (
     <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-start">
       <div>
-        <div className="bg-gradient-to-b from-[#eef0f8] to-[#f7f8fc] rounded-3xl border border-[#d5dbed] aspect-square flex items-center justify-center p-10">
-          <ProductVisual
-            product={variant as Product}
-            className="max-h-[85%] w-auto"
-            sizes="(max-width: 1024px) 80vw, 420px"
-            priority
-          />
+        <div className="relative aspect-square overflow-hidden rounded-3xl border border-[#d5dbed] bg-gradient-to-b from-[#eef0f8] to-[#f7f8fc]">
+          <div className="absolute inset-4 flex items-center justify-center sm:inset-6">
+            <ProductVisual
+              product={variant as Product}
+              className="h-full w-auto max-w-full"
+              sizes="(max-width: 1024px) 90vw, 480px"
+              priority
+            />
+          </div>
         </div>
         {!variant.image && !family.image && (
           <p className="mt-3 text-center text-xs text-[#6b7189]">

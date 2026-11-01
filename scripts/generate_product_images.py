@@ -15,9 +15,10 @@ Rerun from the repo root:
 Nasal sprays are skipped. A vial photo would show the wrong container;
 the site draws those with the nasal-spray illustration.
 
-Floating heroes (homepage, age gate, research page) also get a transparent
-cutout of the same pixels, with the studio background removed, under
-public/images/products/cutouts/. Catalog cards keep the full photo.
+Every vial also gets a transparent cutout, cropped so the bottle fills
+the frame, under public/images/products/cutouts/. Catalog cards, the
+product page, cart, and the floating heroes all use that cutout. The
+full studio photo stays beside it for reference.
 """
 
 from __future__ import annotations
@@ -38,17 +39,8 @@ OUT_DIR = ROOT / "public" / "images" / "products"
 CUTOUT_DIR = OUT_DIR / "cutouts"
 CONTACT_SHEET = ROOT / "scripts" / "contact-sheet.jpg"
 
-# Floating hero, age gate, and research page. Catalog cards keep the full studio frame.
-CUTOUT_SLUGS = {
-    "bpc-157-5mg",
-    "bpc-157-10mg",
-    "retatrutide-5mg",
-    "retatrutide-10mg",
-    "nad-plus-250mg",
-    "ghk-cu-50mg",
-    "mots-c-10mg",
-    "tirzepatide-10mg",
-}
+# Share of the cropped frame the vial occupies, top to bottom.
+CUTOUT_FILL = 0.86
 
 # Measured on the 1086×1448 master. Ink edges, not the em box.
 NAME_LEFT = 384
@@ -406,6 +398,28 @@ def apply_cutout(product: np.ndarray, alpha: np.ndarray, background: np.ndarray)
     return Image.fromarray(rgba, "RGBA")
 
 
+def crop_to_vial(image: Image.Image, fill: float = CUTOUT_FILL) -> Image.Image:
+    """Trim transparent padding so the vial is `fill` of the frame height."""
+    alpha = np.array(image.getchannel("A"))
+    ys, xs = np.where(alpha > 12)
+    if len(xs) == 0:
+        raise SystemExit("Cutout had no opaque pixels")
+    top, bottom = int(ys.min()), int(ys.max())
+    left, right = int(xs.min()), int(xs.max())
+    vial_h = bottom - top + 1
+    vial_w = right - left + 1
+    pad_y = max(8, int(round(vial_h * (1 - fill) / (2 * fill))))
+    pad_x = max(pad_y, int(round(vial_w * 0.08)))
+    return image.crop(
+        (
+            max(0, left - pad_x),
+            max(0, top - pad_y),
+            min(image.width, right + 1 + pad_x),
+            min(image.height, bottom + 1 + pad_y),
+        )
+    )
+
+
 def build_contact_sheet(items: list[tuple[str, str, str, Path]]) -> None:
     columns = 4
     thumb_w = 320
@@ -475,10 +489,9 @@ def main() -> None:
             note = "name scaled to the rule" if info["name_scaled"] else ""
             name_px = f"{info['name_px'][0]}×{info['name_px'][1]}"
         save_webp(Image.fromarray(composed), dest)
-        if product["slug"] in CUTOUT_SLUGS:
-            cutout = apply_cutout(composed, alpha, background)
-            save_webp(cutout, CUTOUT_DIR / f"{product['slug']}.webp")
-            note = f"{note}; floating cutout".strip("; ")
+        cutout = crop_to_vial(apply_cutout(composed, alpha, background))
+        save_webp(cutout, CUTOUT_DIR / f"{product['slug']}.webp")
+        note = f"{note}; cutout {cutout.size[0]}×{cutout.size[1]}".strip("; ")
         written.append((name, dose, product["slug"], dest))
         print(f"{product['slug']:22} {name:16} {dose:10} {name_px:12} {note}")
 

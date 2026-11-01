@@ -24,9 +24,9 @@ export function ProductVisual({
       <Image
         src={product.image}
         alt={`${product.name} ${product.dose} research vial`}
-        width={1086}
-        height={1448}
-        className={`object-contain ${className}`}
+        width={485}
+        height={963}
+        className={`object-contain drop-shadow-[0_16px_18px_rgba(30,34,53,0.16)] ${className}`}
         sizes={sizes}
         priority={priority}
       />
