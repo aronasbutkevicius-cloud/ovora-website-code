@@ -19,7 +19,7 @@ export default function ShippingPage() {
         />
         <div className="mb-8 max-w-3xl">
           <PlaceholderNote>
-            Checkout currently estimates shipping at $12.00 under $150 and free at $150 or above.
+            US shipping is $8.99 on orders under $100 and free at $100 or above.
             Carrier names, overnight eligibility, and that dollar amount are not confirmed outside
             the site copy. Update both this page and checkout together if the rate changes.
           </PlaceholderNote>
@@ -31,8 +31,8 @@ export default function ShippingPage() {
           <ul>
             <li>Standard and expedited shipping available</li>
             <li>Overnight delivery available on eligible orders</li>
-            <li>Free shipping on orders over $150</li>
-            <li>Checkout estimates $12.00 shipping below $150</li>
+            <li>Free shipping on US orders over $100</li>
+            <li>$8.99 flat US shipping on orders under $100</li>
             <li>Tracking provided on all orders</li>
           </ul>
           <h2>Packaging</h2>

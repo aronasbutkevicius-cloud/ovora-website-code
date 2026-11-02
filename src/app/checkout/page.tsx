@@ -5,7 +5,9 @@ import Link from "next/link";
 import { useMemo, useState, type FormEvent } from "react";
 import { useCart } from "@/components/CartProvider";
 import { PlaceholderNote } from "@/components/PlaceholderNote";
+import { FreeShippingProgress } from "@/components/FreeShippingProgress";
 import { formatPrice } from "@/data/products";
+import { shippingCost } from "@/lib/shipping";
 import { supportEmail } from "@/lib/site";
 
 type CheckoutState = "form" | "unpaid";
@@ -30,7 +32,7 @@ export default function CheckoutPage() {
     researchAck: false,
   });
 
-  const shippingEstimate = useMemo(() => (subtotal >= 150 ? 0 : 12), [subtotal]);
+  const shippingEstimate = useMemo(() => shippingCost(subtotal), [subtotal]);
   const total = subtotal + shippingEstimate;
 
   function update<K extends keyof typeof form>(key: K, value: (typeof form)[K]) {
@@ -85,6 +87,7 @@ export default function CheckoutPage() {
           `${item.name} ${item.dose} x${item.quantity} — ${formatPrice(item.price * item.quantity)}`,
       ),
       "",
+      `Shipping (US): ${shippingEstimate === 0 ? "Free" : formatPrice(shippingEstimate)}`,
       `Estimated total: ${formatPrice(total)}`,
       "",
       "This is an inquiry only. No order was placed.",
@@ -273,8 +276,8 @@ export default function CheckoutPage() {
 
             <PlaceholderNote>
               Owner placeholder: no payment provider is connected. Continuing does not place or
-              reserve an order. Shipping is estimated at {formatPrice(shippingEstimate)} (free at
-              $150 and above). Confirm that rate before taking live orders.
+              reserve an order. US shipping is {formatPrice(8.99)} under $100 and free at $100 or
+              above.
             </PlaceholderNote>
             <button
               type="submit"
@@ -286,6 +289,9 @@ export default function CheckoutPage() {
 
           <aside className="rounded-2xl border border-[#d5dbed] bg-white p-6 sticky top-24">
             <h2 className="text-lg font-semibold text-[#1e2235] mb-4">Order summary</h2>
+            <div className="mb-5">
+              <FreeShippingProgress subtotal={subtotal} />
+            </div>
             <ul className="space-y-3 mb-5">
               {items.map((item) => (
                 <li key={item.variantSlug} className="flex gap-3">

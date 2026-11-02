@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
+import { CartDrawer } from "./CartDrawer";
 import { useCart } from "./CartProvider";
 import { Logo } from "./Logo";
 
@@ -15,10 +16,14 @@ const nav = [
 export function Header() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const [cartOpen, setCartOpen] = useState(false);
   const { itemCount } = useCart();
 
   return (
     <header className="sticky top-0 inset-x-0 z-50">
+      <p className="bg-[#1e2235] px-4 py-2 text-center text-xs leading-snug text-[#f7f8fc] sm:text-sm">
+        Free shipping on orders over $100
+      </p>
       <div className="relative h-16 lg:h-[70px] bg-[#f7f8fc]/95 backdrop-blur-md border-b border-[#d5dbed]/80 shadow-[0_1px_3px_rgba(30,34,53,0.05)]">
         <div className="content-container relative flex items-center justify-between w-full h-full">
           <div className="flex items-center gap-3">
@@ -70,8 +75,9 @@ export function Header() {
                 className="h-9 w-36 xl:w-48 rounded-full border border-[#d5dbed] bg-white px-3 text-sm text-[#1e2235] outline-none placeholder:text-[#8a90a8] focus:ring-2 focus:ring-[#7a8fd4]/30"
               />
             </form>
-            <Link
-              href="/cart"
+            <button
+              type="button"
+              onClick={() => setCartOpen(true)}
               className="relative flex items-center justify-center w-10 h-10 text-[#4a5168] hover:text-[#1e2235] rounded-full hover:bg-[#e4e8f5]/60 transition-all"
               aria-label="Cart"
             >
@@ -83,10 +89,11 @@ export function Header() {
                   {itemCount > 99 ? "99+" : itemCount}
                 </span>
               )}
-            </Link>
+            </button>
           </div>
         </div>
       </div>
+      <CartDrawer open={cartOpen} onClose={() => setCartOpen(false)} />
 
       {open && (
         <div className="lg:hidden bg-[#f7f8fc] border-b border-[#d5dbed] shadow-lg">
