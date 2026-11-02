@@ -54,7 +54,7 @@ export const products: Product[] = [
     alsoKnownAs: ["Melanotan II", "MT-II"],
     description:
       "Cyclic α-MSH analog studied for melanocortin receptor pathways in research settings.",
-    price: 15.28,
+    price: 15.27,
     category: "peptide",
     form: "injectable",
     dose: "10MG",
@@ -69,7 +69,7 @@ export const products: Product[] = [
     alsoKnownAs: ["Melanotan I", "MT-I"],
     description:
       "α-MSH analog peptide studied for melanogenesis and melanocortin receptor pathways.",
-    price: 15.28,
+    price: 15.27,
     category: "peptide",
     form: "injectable",
     dose: "10MG",
