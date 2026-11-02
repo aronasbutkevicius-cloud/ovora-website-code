@@ -3,10 +3,14 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useCart } from "@/components/CartProvider";
+import { FreeShippingProgress } from "@/components/FreeShippingProgress";
 import { formatPrice } from "@/data/products";
+import { shippingCost } from "@/lib/shipping";
 
 export default function CartPage() {
   const { items, itemCount, subtotal, setQuantity, removeItem, ready } = useCart();
+  const shipping = shippingCost(subtotal);
+  const total = subtotal + shipping;
 
   return (
     <section className="py-12 lg:py-16 bg-[#f7f8fc] min-h-[60vh]">
@@ -104,19 +108,22 @@ export default function CartPage() {
               ))}
             </ul>
 
-            <aside className="rounded-2xl border border-[#d5dbed] bg-white p-6 sticky top-24">
+            <aside className="rounded-2xl border border-[#d5dbed] bg-white p-6 sticky top-28">
               <h2 className="text-lg font-semibold text-[#1e2235] mb-4">Order summary</h2>
-              <div className="flex items-center justify-between text-sm mb-2">
+              <FreeShippingProgress subtotal={subtotal} />
+              <div className="mt-4 flex items-center justify-between text-sm mb-2">
                 <span className="text-[#6b7189]">Subtotal</span>
                 <span className="font-medium text-[#1e2235]">{formatPrice(subtotal)}</span>
               </div>
               <div className="flex items-center justify-between text-sm mb-6">
-                <span className="text-[#6b7189]">Shipping</span>
-                <span className="text-[#6b7189]">Calculated at checkout</span>
+                <span className="text-[#6b7189]">Shipping (US)</span>
+                <span className="font-medium text-[#1e2235]">
+                  {shipping === 0 ? "Free" : formatPrice(shipping)}
+                </span>
               </div>
               <div className="flex items-center justify-between text-base font-semibold text-[#1e2235] mb-6 pt-4 border-t border-[#d5dbed]">
                 <span>Total</span>
-                <span>{formatPrice(subtotal)}</span>
+                <span>{formatPrice(total)}</span>
               </div>
               <Link
                 href="/checkout"

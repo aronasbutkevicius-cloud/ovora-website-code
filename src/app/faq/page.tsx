@@ -27,7 +27,7 @@ const faqs = [
   },
   {
     q: "How fast do you ship?",
-    a: "Orders are typically processed within 0–2 business days. Overnight delivery is available, and free shipping applies on orders over $150.",
+    a: "Orders are typically processed within 0–2 business days. Overnight delivery is available. US shipping is $8.99, and free on orders over $100.",
   },
   {
     q: "What if my order arrives damaged?",

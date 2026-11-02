@@ -197,7 +197,7 @@ export default function HomePage() {
             {[
               "Orders processed within 0–2 business days",
               "Overnight delivery available",
-              "Free shipping on orders over $150",
+              "Free shipping on orders over $100",
               "Free shipment protection on every order",
               "Discreet packaging",
               "Tracking provided on all orders",
