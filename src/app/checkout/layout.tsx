@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   ...pageMetadata({
     title: "Checkout",
     description:
-      "Enter shipping details for an Ovora Labs order. Payment processing is not connected yet.",
+      "Enter shipping details and pay with Crypto — Pay by card. US shipping is $8.99 under $100 and free at $100 or above.",
     path: "/checkout",
   }),
   robots: { index: false, follow: false },

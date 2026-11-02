@@ -17,8 +17,8 @@ export default function PrivacyPage() {
         <div className="mb-8 max-w-3xl">
           <PlaceholderNote>
             Add the legal entity name, mailing address, and the date this policy takes effect
-            before publishing. No payment provider is connected, so the payment line below is not
-            tied to a named processor.
+            before publishing. Checkout payments are processed by TagadaPay. Card details for
+            Crypto — Pay by card are entered on TagadaPay&apos;s payment page, not on this site.
           </PlaceholderNote>
         </div>
         <Prose>
