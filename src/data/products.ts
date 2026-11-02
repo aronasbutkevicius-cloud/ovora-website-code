@@ -22,7 +22,7 @@ export const products: Product[] = [
     alsoKnownAs: ["Copper Tripeptide-1"],
     description:
       "Naturally occurring copper tripeptide studied for tissue remodeling and collagen pathways in research models.",
-    price: 25,
+    price: 15.29,
     category: "peptide",
     form: "injectable",
     popular: true,
@@ -54,7 +54,7 @@ export const products: Product[] = [
     alsoKnownAs: ["Melanotan II", "MT-II"],
     description:
       "Cyclic α-MSH analog studied for melanocortin receptor pathways in research settings.",
-    price: 45,
+    price: 15.28,
     category: "peptide",
     form: "injectable",
     dose: "10MG",
@@ -69,7 +69,7 @@ export const products: Product[] = [
     alsoKnownAs: ["Melanotan I", "MT-I"],
     description:
       "α-MSH analog peptide studied for melanogenesis and melanocortin receptor pathways.",
-    price: 45,
+    price: 15.28,
     category: "peptide",
     form: "injectable",
     dose: "10MG",
@@ -99,7 +99,7 @@ export const products: Product[] = [
     alsoKnownAs: ["Body Protection Compound-157"],
     description:
       "15-amino acid peptide studied for protective and regenerative effects in animal cell models.",
-    price: 50,
+    price: 20.39,
     category: "peptide",
     form: "injectable",
     popular: true,
@@ -143,7 +143,7 @@ export const products: Product[] = [
     alsoKnownAs: ["CJC-1295 No DAC + Ipamorelin", "Mod GRF 1-29 + Ipamorelin"],
     description:
       "CJC-1295 without DAC (5mg) + Ipamorelin (5mg) blend for synchronized GHRH and ghrelin pathway research.",
-    price: 90,
+    price: 30.59,
     category: "blend",
     form: "injectable",
     popular: true,
@@ -200,7 +200,7 @@ export const products: Product[] = [
     alsoKnownAs: ["Long R3 IGF-1", "LR3-IGF-1"],
     description:
       "Modified insulin-like growth factor analog studied for cellular growth pathways.",
-    price: 175,
+    price: 35.69,
     category: "peptide",
     form: "injectable",
     dose: "1MG",
@@ -214,7 +214,7 @@ export const products: Product[] = [
     alsoKnownAs: ["EGRIFTA", "TH9507"],
     description:
       "44-amino acid GHRH analog studied for pituitary gh secretion pathways in research.",
-    price: 175,
+    price: 35.69,
     category: "peptide",
     form: "injectable",
     popular: true,
@@ -229,7 +229,7 @@ export const products: Product[] = [
     alsoKnownAs: ["Lysine-Proline-Valine", "α-MSH (11-13)"],
     description:
       "Tripeptide fragment of α-MSH studied for anti-inflammatory pathways in research.",
-    price: 55,
+    price: 20.39,
     category: "peptide",
     form: "injectable",
     dose: "10MG",
@@ -243,7 +243,7 @@ export const products: Product[] = [
     alsoKnownAs: ["Mitochondrial ORF of the 12S rRNA type-c"],
     description:
       "Mitochondrial-derived peptide studied for metabolic and exercise-related pathways.",
-    price: 60,
+    price: 20.39,
     category: "peptide",
     form: "injectable",
     popular: true,
@@ -273,7 +273,7 @@ export const products: Product[] = [
     alsoKnownAs: ["LY3437943", "GLP-3"],
     description:
       "Triple agonist peptide targeting GIP, GLP-1, and glucagon receptors in metabolic research.",
-    price: 70,
+    price: 35.69,
     category: "peptide",
     form: "injectable",
     popular: true,
@@ -302,7 +302,7 @@ export const products: Product[] = [
     alsoKnownAs: ["LY3437943", "GLP-3"],
     description:
       "Triple agonist peptide targeting GIP, GLP-1, and glucagon receptors in metabolic research.",
-    price: 110,
+    price: 68.84,
     category: "peptide",
     form: "injectable",
     dose: "20MG",
@@ -316,7 +316,7 @@ export const products: Product[] = [
     alsoKnownAs: ["LY3437943", "GLP-3"],
     description:
       "Triple agonist peptide targeting GIP, GLP-1, and glucagon receptors in metabolic research.",
-    price: 150,
+    price: 101.99,
     category: "peptide",
     form: "injectable",
     dose: "30MG",
@@ -344,7 +344,7 @@ export const products: Product[] = [
     alsoKnownAs: ["Bacteriostatic Water"],
     description:
       "Bacteriostatic water for laboratory reconstitution of lyophilized research peptides.",
-    price: 50,
+    price: 10.19,
     category: "accessory",
     form: "accessory",
     dose: "10ML",
@@ -389,7 +389,7 @@ export const products: Product[] = [
     alsoKnownAs: ["Met-Glu-His-Phe-Pro-Gly-Pro"],
     description:
       "Synthetic heptapeptide analog studied for cognitive and neuroprotective research applications.",
-    price: 35,
+    price: 15.27,
     category: "peptide",
     form: "injectable",
     popular: true,
@@ -404,7 +404,7 @@ export const products: Product[] = [
     alsoKnownAs: ["TP-7", "Thr-Lys-Pro-Arg-Pro-Gly-Pro"],
     description:
       "Synthetic peptide analog studied for anxiolytic and nootropic research pathways.",
-    price: 35,
+    price: 15.27,
     category: "peptide",
     form: "injectable",
     popular: true,
