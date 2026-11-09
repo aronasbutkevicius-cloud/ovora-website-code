@@ -61,7 +61,6 @@ export default async function ProductPage({
       : family.form === "accessory"
         ? storeCategories.find((entry) => entry.id === "accessory")
         : storeCategories.find((entry) => entry.id === "injectable");
-  const inStock = variant.stock === undefined || variant.stock > 0;
   const doseLabel = `${family.name} ${variant.dose}`;
 
   const breadcrumbs = [
@@ -82,17 +81,8 @@ export default async function ProductPage({
             "@type": "Product",
             name: doseLabel,
             description: family.description,
-            image: variant.image ? `${siteUrl}${variant.image}` : undefined,
-            sku: variant.slug,
+            ...(variant.image ? { image: `${siteUrl}${variant.image}` } : {}),
             brand: { "@type": "Brand", name: siteName },
-            offers: {
-              "@type": "Offer",
-              url: productUrl,
-              priceCurrency: "USD",
-              price: variant.price.toFixed(2),
-              availability: inStock ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
-              itemCondition: "https://schema.org/NewCondition",
-            },
           },
           {
             "@context": "https://schema.org",
