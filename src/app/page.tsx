@@ -8,13 +8,13 @@ import {
   getProductFamilies,
   startingPrice,
 } from "@/data/products";
-import { pageMetadata } from "@/lib/site";
+import { JsonLd } from "@/components/JsonLd";
+import { getSiteUrl, pageMetadata, rootDescription, rootTitle, siteName, supportEmail } from "@/lib/site";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Premium Research Grade Peptides",
-  absoluteTitle: "Ovora Labs — Premium Research Grade Peptides",
-  description:
-    "USA-based supplier of research-grade peptides with 99%+ purity. Third-party tested. Research use only.",
+  title: rootTitle,
+  absoluteTitle: rootTitle,
+  description: rootDescription,
   path: "/",
 });
 
@@ -42,8 +42,30 @@ export default function HomePage() {
     .filter((family) => family.popular)
     .slice(0, 8);
 
+  const siteUrl = getSiteUrl();
+
   return (
     <>
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "Organization",
+              name: siteName,
+              url: siteUrl,
+              logo: `${siteUrl}/apple-icon.png`,
+              email: supportEmail,
+            },
+            {
+              "@type": "WebSite",
+              name: siteName,
+              url: siteUrl,
+              publisher: { "@type": "Organization", name: siteName },
+            },
+          ],
+        }}
+      />
       <section className="relative w-full min-h-[70vh] lg:min-h-[78vh] overflow-hidden hero-glow">
         <FloatingVials />
 

@@ -11,10 +11,10 @@ const STORAGE_KEY = "ovora_researcher_verified";
 const OPEN_PATHS = ["/disclaimer", "/privacy", "/terms", "/research-use"];
 
 const gateVials = [
-  { src: "/images/products/cutouts/bpc-157-5mg.webp", className: "absolute left-[6%] top-[12%] w-20 vial-orbit-a" },
-  { src: "/images/products/cutouts/retatrutide-5mg.webp", className: "absolute right-[8%] top-[16%] w-24 vial-orbit-b" },
-  { src: "/images/products/cutouts/nad-plus-250mg.webp", className: "absolute left-[16%] bottom-[8%] w-28 vial-orbit-c" },
-  { src: "/images/products/cutouts/ghk-cu-50mg.webp", className: "absolute right-[12%] bottom-[14%] w-20 vial-orbit-d" },
+  { src: "/images/products/cutouts/bpc-157-5mg.webp", alt: "BPC-157 5MG research vial", className: "absolute left-[6%] top-[12%] w-20 vial-orbit-a" },
+  { src: "/images/products/cutouts/retatrutide-5mg.webp", alt: "Retatrutide 5MG research vial", className: "absolute right-[8%] top-[16%] w-24 vial-orbit-b" },
+  { src: "/images/products/cutouts/nad-plus-250mg.webp", alt: "NAD+ 250MG research vial", className: "absolute left-[16%] bottom-[8%] w-28 vial-orbit-c" },
+  { src: "/images/products/cutouts/ghk-cu-50mg.webp", alt: "GHK-Cu 50MG research vial", className: "absolute right-[12%] bottom-[14%] w-20 vial-orbit-d" },
 ] as const;
 
 function isOpenPath(pathname: string) {
@@ -79,7 +79,7 @@ export function AgeGate({ children }: { children: React.ReactNode }) {
                   <div key={v.src} className={v.className}>
                     <Image
                       src={v.src}
-                      alt=""
+                      alt={v.alt}
                       width={485}
                       height={963}
                       className="w-full h-auto drop-shadow-xl"
@@ -92,12 +92,12 @@ export function AgeGate({ children }: { children: React.ReactNode }) {
                 <div className="flex justify-center mb-6">
                   <Logo className="h-9 w-auto" />
                 </div>
-                <h1
+                <p
                   id="researcher-gate-title"
                   className="text-2xl sm:text-3xl font-semibold text-center text-[#1e2235] mb-3 tracking-tight"
                 >
                   Researcher verification
-                </h1>
+                </p>
                 <p className="text-center text-[#4a5168] text-[15px] leading-relaxed mb-8">
                   Ovora Labs sells research peptides exclusively to qualified researchers and
                   laboratories for in vitro and laboratory use. Please confirm before continuing.

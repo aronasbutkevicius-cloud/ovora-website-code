@@ -299,7 +299,7 @@ export default function CheckoutPage() {
                     {item.image ? (
                       <Image
                         src={item.image}
-                        alt=""
+                        alt={`${item.name} ${item.dose}`}
                         width={485}
                         height={963}
                         className="h-[92%] w-auto max-w-full object-contain drop-shadow-[0_6px_8px_rgba(30,34,53,0.16)]"

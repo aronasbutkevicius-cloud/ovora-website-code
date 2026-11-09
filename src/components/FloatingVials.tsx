@@ -46,7 +46,7 @@ export function FloatingVials() {
           <div key={p.slug} className={p.className}>
             <Image
               src={`/images/products/cutouts/${p.slug}.webp`}
-              alt=""
+              alt={`${product.name} ${product.dose} research vial`}
               width={485}
               height={963}
               className="w-full h-auto drop-shadow-2xl"

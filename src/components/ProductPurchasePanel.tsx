@@ -72,7 +72,7 @@ export function ProductPurchasePanel({ family, initialVariantSlug }: Props) {
               : "Injectable Vial · Research Use"}
         </div>
         <h1 className="text-3xl lg:text-5xl font-semibold text-[#1e2235] tracking-tight mb-4">
-          {family.name}
+          {family.name} {variant.dose}
         </h1>
         <p className="text-[#4a5168] text-lg leading-relaxed mb-6">{family.description}</p>
 
@@ -102,10 +102,12 @@ export function ProductPurchasePanel({ family, initialVariantSlug }: Props) {
             <dt className="text-[#6b7189] mb-1">Strength</dt>
             <dd className="font-semibold text-[#1e2235]">{variant.dose}</dd>
           </div>
-          <div className="bg-[#eef0f8] rounded-xl p-4 border border-[#d5dbed]">
-            <dt className="text-[#6b7189] mb-1">Pack</dt>
-            <dd className="font-semibold text-[#1e2235]">{variant.pack ?? "pack"}</dd>
-          </div>
+          {family.form !== "nasal" && (
+            <div className="bg-[#eef0f8] rounded-xl p-4 border border-[#d5dbed]">
+              <dt className="text-[#6b7189] mb-1">Sold as</dt>
+              <dd className="font-semibold text-[#1e2235]">1 vial</dd>
+            </div>
+          )}
         </dl>
 
         {hasMultiple && (

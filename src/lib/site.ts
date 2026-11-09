@@ -2,6 +2,18 @@ import type { Metadata } from "next";
 
 export const siteName = "Ovora Labs";
 
+export const rootTitle = "Ovora Labs | Research Peptides";
+
+export const rootDescription =
+  "Ovora Labs is a USA-based supplier of research-grade peptides. Every batch is third-party tested, backed by a 99%+ purity guarantee and a certificate of analysis, and sold for laboratory research use only.";
+
+export const ogImage = {
+  url: "/opengraph-image",
+  width: 1200,
+  height: 630,
+  alt: rootTitle,
+} as const;
+
 /** Address already used across the site. Confirm the mailbox exists before launch. */
 export const supportEmail = "support@ovoralabs.com";
 
@@ -39,6 +51,13 @@ export function pageMetadata({
       url,
       siteName,
       type: "website",
+      images: [ogImage],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: fullTitle,
+      description,
+      images: [ogImage.url],
     },
   };
 }
