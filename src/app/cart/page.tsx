@@ -1,7 +1,7 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
+import { CutoutImage } from "@/components/CutoutImage";
 import { useCart } from "@/components/CartProvider";
 import { FreeShippingProgress } from "@/components/FreeShippingProgress";
 import { formatPrice } from "@/data/products";
@@ -50,12 +50,11 @@ export default function CartPage() {
                 >
                   <div className="w-20 h-24 sm:w-24 sm:h-28 rounded-xl bg-[#eef0f8] border border-[#d5dbed] flex items-center justify-center overflow-hidden shrink-0">
                     {item.image ? (
-                      <Image
+                      <CutoutImage
                         src={item.image}
                         alt={`${item.name} ${item.dose}`}
-                        width={485}
-                        height={963}
-                        className="h-[92%] w-auto max-w-full object-contain drop-shadow-[0_8px_10px_rgba(30,34,53,0.16)]"
+                        className="h-[92%] w-auto max-w-full object-contain"
+                        shadow="soft"
                       />
                     ) : (
                       <span className="text-xs text-[#8a90a8]">No image</span>

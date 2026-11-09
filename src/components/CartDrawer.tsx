@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import { CutoutImage } from "@/components/CutoutImage";
 import Link from "next/link";
 import { useEffect } from "react";
 import { useCart } from "@/components/CartProvider";
@@ -73,12 +73,11 @@ export function CartDrawer({ open, onClose }: Props) {
                 <li key={item.variantSlug} className="flex gap-3">
                   <div className="flex h-16 w-14 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-[#d5dbed] bg-[#eef0f8]">
                     {item.image ? (
-                      <Image
+                      <CutoutImage
                         src={item.image}
                         alt={`${item.name} ${item.dose}`}
-                        width={485}
-                        height={963}
                         className="h-[92%] w-auto max-w-full object-contain"
+                        shadow="none"
                       />
                     ) : null}
                   </div>
