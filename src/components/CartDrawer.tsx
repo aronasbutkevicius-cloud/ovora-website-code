@@ -75,7 +75,7 @@ export function CartDrawer({ open, onClose }: Props) {
                     {item.image ? (
                       <Image
                         src={item.image}
-                        alt=""
+                        alt={`${item.name} ${item.dose}`}
                         width={485}
                         height={963}
                         className="h-[92%] w-auto max-w-full object-contain"
@@ -85,7 +85,8 @@ export function CartDrawer({ open, onClose }: Props) {
                   <div className="min-w-0 flex-1">
                     <p className="truncate text-sm font-medium text-[#1e2235]">{item.name}</p>
                     <p className="text-xs text-[#6b7189]">
-                      {item.dose} · Qty {item.quantity}
+                      {item.dose}
+                      {item.form === "nasal" ? "" : " · 1 vial"} · Qty {item.quantity}
                     </p>
                   </div>
                   <p className="text-sm font-medium text-[#1e2235]">

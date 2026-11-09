@@ -70,7 +70,10 @@ export default function CartPage() {
                         >
                           {item.name}
                         </Link>
-                        <p className="text-sm text-[#6b7189] mt-0.5">{item.dose}</p>
+                        <p className="text-sm text-[#6b7189] mt-0.5">
+                          {item.dose}
+                          {item.form === "nasal" ? "" : " · 1 vial"}
+                        </p>
                       </div>
                       <p className="font-semibold text-[#1e2235] shrink-0">
                         {formatPrice(item.price * item.quantity)}

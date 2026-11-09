@@ -112,4 +112,4 @@ These items are marked on the site with **Owner placeholder**, or they are claim
 - Whether `https://ovoralabs.com` is the domain you registered. If not, set `NEXT_PUBLIC_SITE_URL`.
 - Whether the mailbox `support@ovoralabs.com` exists.
 - Business copy already on the pages: 99%+ purity, ISO 17025 third-party testing, US operations, free shipping over $100, an $8.99 US shipping estimate under $100, overnight shipping, 0–2 business day processing, and the 14-day unopened-return note. Confirm each one before relying on it.
-- Pack wording and stock counts in `src/data/products.ts` are uneven (`10-pack`, `pack`, and stock only on some SKUs). Stock is not shown in the UI.
+- Stock counts in `src/data/products.ts` are only set on some SKUs and are not shown in the UI. Products are labeled as a single vial.

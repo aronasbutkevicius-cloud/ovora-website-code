@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { JsonLd } from "@/components/JsonLd";
 import { ProductPurchasePanel } from "@/components/ProductPurchasePanel";
+import { storeCategories } from "@/data/categories";
 import {
   getProductFamilies,
   resolveFamilyAndVariant,
 } from "@/data/products";
-import { pageMetadata } from "@/lib/site";
+import { getSiteUrl, pageMetadata, siteName } from "@/lib/site";
 
 export function generateStaticParams() {
   const families = getProductFamilies();
@@ -31,10 +33,13 @@ export async function generateMetadata({
   const { slug } = await params;
   const resolved = resolveFamilyAndVariant(slug);
   if (!resolved) return { title: "Product Not Found" };
+  const { family, variant } = resolved;
+  const doseLabel = `${family.name} ${variant.dose}`;
   return pageMetadata({
-    title: resolved.family.name,
-    description: resolved.family.description,
-    path: `/products/${resolved.family.slug}`,
+    title: doseLabel,
+    absoluteTitle: `${doseLabel} | Ovora Labs`,
+    description: `${doseLabel} from Ovora Labs. ${family.description} Sold as a single unit for laboratory research use only.`,
+    path: `/products/${slug}`,
   });
 }
 
@@ -48,16 +53,74 @@ export default async function ProductPage({
   if (!resolved) notFound();
 
   const { family, variant } = resolved;
+  const siteUrl = getSiteUrl();
+  const productUrl = `${siteUrl}/products/${slug}`;
+  const categoryMatch =
+    family.form === "nasal"
+      ? storeCategories.find((entry) => entry.id === "nasal")
+      : family.form === "accessory"
+        ? storeCategories.find((entry) => entry.id === "accessory")
+        : storeCategories.find((entry) => entry.id === "injectable");
+  const inStock = variant.stock === undefined || variant.stock > 0;
+  const doseLabel = `${family.name} ${variant.dose}`;
+
+  const breadcrumbs = [
+    { name: "Home", item: siteUrl },
+    { name: "Products", item: `${siteUrl}/store` },
+    ...(categoryMatch
+      ? [{ name: categoryMatch.label, item: `${siteUrl}/store/${categoryMatch.slug}` }]
+      : []),
+    { name: doseLabel, item: productUrl },
+  ];
 
   return (
     <section className="py-12 lg:py-16 bg-[#f7f8fc]">
+      <JsonLd
+        data={[
+          {
+            "@context": "https://schema.org",
+            "@type": "Product",
+            name: doseLabel,
+            description: family.description,
+            image: variant.image ? `${siteUrl}${variant.image}` : undefined,
+            sku: variant.slug,
+            brand: { "@type": "Brand", name: siteName },
+            offers: {
+              "@type": "Offer",
+              url: productUrl,
+              priceCurrency: "USD",
+              price: variant.price.toFixed(2),
+              availability: inStock ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
+              itemCondition: "https://schema.org/NewCondition",
+            },
+          },
+          {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: breadcrumbs.map((crumb, index) => ({
+              "@type": "ListItem",
+              position: index + 1,
+              name: crumb.name,
+              item: crumb.item,
+            })),
+          },
+        ]}
+      />
       <div className="content-container">
         <div className="mb-6 text-sm text-[#6b7189]">
           <Link href="/store" className="hover:text-[#1e2235]">
             Products
           </Link>
+          {categoryMatch && (
+            <>
+              <span className="mx-2">/</span>
+              <Link href={`/store/${categoryMatch.slug}`} className="hover:text-[#1e2235]">
+                {categoryMatch.label}
+              </Link>
+            </>
+          )}
           <span className="mx-2">/</span>
-          <span className="text-[#1e2235]">{family.name}</span>
+          <span className="text-[#1e2235]">{doseLabel}</span>
         </div>
 
         <ProductPurchasePanel family={family} initialVariantSlug={variant.slug} />
