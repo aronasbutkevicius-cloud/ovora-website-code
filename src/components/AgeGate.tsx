@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Image from "next/image";
+import { CutoutImage } from "@/components/CutoutImage";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Logo } from "./Logo";
@@ -11,10 +11,10 @@ const STORAGE_KEY = "ovora_researcher_verified";
 const OPEN_PATHS = ["/disclaimer", "/privacy", "/terms", "/research-use"];
 
 const gateVials = [
-  { src: "/images/products/cutouts/bpc-157-5mg.webp", alt: "BPC-157 5MG research vial", className: "absolute left-[6%] top-[12%] w-20 vial-orbit-a" },
-  { src: "/images/products/cutouts/retatrutide-5mg.webp", alt: "Retatrutide 5MG research vial", className: "absolute right-[8%] top-[16%] w-24 vial-orbit-b" },
-  { src: "/images/products/cutouts/nad-plus-250mg.webp", alt: "NAD+ 250MG research vial", className: "absolute left-[16%] bottom-[8%] w-28 vial-orbit-c" },
-  { src: "/images/products/cutouts/ghk-cu-50mg.webp", alt: "GHK-Cu 50MG research vial", className: "absolute right-[12%] bottom-[14%] w-20 vial-orbit-d" },
+  { src: "/images/products/cutouts/bpc-157-5mg.webp", alt: "BPC-157 5MG research vial", className: "absolute left-[6%] top-[12%] w-20", motion: "vial-orbit-a" },
+  { src: "/images/products/cutouts/retatrutide-5mg.webp", alt: "Retatrutide 5MG research vial", className: "absolute right-[8%] top-[16%] w-24", motion: "vial-orbit-b" },
+  { src: "/images/products/cutouts/nad-plus-250mg.webp", alt: "NAD+ 250MG research vial", className: "absolute left-[16%] bottom-[8%] w-28", motion: "vial-orbit-c" },
+  { src: "/images/products/cutouts/ghk-cu-50mg.webp", alt: "GHK-Cu 50MG research vial", className: "absolute right-[12%] bottom-[14%] w-20", motion: "vial-orbit-d" },
 ] as const;
 
 function isOpenPath(pathname: string) {
@@ -77,12 +77,11 @@ export function AgeGate({ children }: { children: React.ReactNode }) {
               <div className="absolute inset-0 pointer-events-none opacity-80">
                 {gateVials.map((v) => (
                   <div key={v.src} className={v.className}>
-                    <Image
+                    <CutoutImage
                       src={v.src}
                       alt={v.alt}
-                      width={485}
-                      height={963}
-                      className="w-full h-auto drop-shadow-xl"
+                      className={`h-auto w-full ${v.motion}`}
+                      shadow="float"
                     />
                   </div>
                 ))}

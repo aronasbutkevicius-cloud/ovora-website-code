@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { CutoutImage } from "@/components/CutoutImage";
 import { NasalSpray } from "@/components/NasalSpray";
 import { Vial } from "@/components/Vial";
 import type { Product } from "@/data/products";
@@ -21,14 +21,13 @@ export function ProductVisual({
 }: Props) {
   if (preferPhoto && product.image) {
     return (
-      <Image
+      <CutoutImage
         src={product.image}
         alt={`${product.name} ${product.dose} research vial`}
-        width={485}
-        height={963}
-        className={`object-contain drop-shadow-[0_16px_18px_rgba(30,34,53,0.16)] ${className}`}
+        className={`object-contain ${className}`}
         sizes={sizes}
         priority={priority}
+        shadow="soft"
       />
     );
   }
