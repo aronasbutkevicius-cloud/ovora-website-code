@@ -1,11 +1,12 @@
 import type { MetadataRoute } from "next";
 import { storeCategories } from "@/data/categories";
-import { getProductFamilies } from "@/data/products";
+import { indexableProductPaths } from "@/data/products";
 import { getSiteUrl } from "@/lib/site";
 
 const staticPaths = [
   "/",
   "/store",
+  "/about",
   "/research-use",
   "/research",
   "/quality",
@@ -17,8 +18,6 @@ const staticPaths = [
   "/disclaimer",
   "/terms",
   "/privacy",
-  "/cart",
-  "/checkout",
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -39,15 +38,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
-  const products = getProductFamilies().flatMap((family) => {
-    const slugs = new Set([family.slug, ...family.variants.map((variant) => variant.slug)]);
-    return [...slugs].map((slug) => ({
-      url: `${siteUrl}/products/${slug}`,
-      lastModified,
-      changeFrequency: "weekly" as const,
-      priority: 0.7,
-    }));
-  });
+  const products = indexableProductPaths().map((path) => ({
+    url: `${siteUrl}${path}`,
+    lastModified,
+    changeFrequency: "weekly" as const,
+    priority: 0.7,
+  }));
 
   return [...pages, ...categories, ...products];
 }

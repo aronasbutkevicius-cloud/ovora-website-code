@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { ContactForm } from "@/components/ContactForm";
 import { PageHero } from "@/components/PageBits";
-import { PlaceholderNote } from "@/components/PlaceholderNote";
 import { pageMetadata, supportEmail } from "@/lib/site";
 
 export const metadata: Metadata = pageMetadata({
@@ -37,10 +36,6 @@ export default function ContactPage() {
               <p className="text-sm text-[#1e2235]/45 mb-1">Hours</p>
               <p className="text-lg font-medium text-[#1e2235]">Mon–Fri, 9am–6pm ET</p>
             </div>
-            <PlaceholderNote>
-              A phone number and street address are not on this page. Confirm the email and hours
-              above, then add a phone or mailing address here if you want them public.
-            </PlaceholderNote>
           </div>
           <ContactForm />
         </div>

@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { PageHero, Prose } from "@/components/PageBits";
-import { PlaceholderNote } from "@/components/PlaceholderNote";
 import { pageMetadata } from "@/lib/site";
 
 export const metadata: Metadata = pageMetadata({
@@ -17,13 +16,6 @@ export default function ShippingPage() {
           title="Shipping Information"
           subtitle="Fast, discreet shipping with protection on every order."
         />
-        <div className="mb-8 max-w-3xl">
-          <PlaceholderNote>
-            US shipping is $8.99 on orders under $100 and free at $100 or above.
-            Carrier names, overnight eligibility, and that dollar amount are not confirmed outside
-            the site copy. Update both this page and checkout together if the rate changes.
-          </PlaceholderNote>
-        </div>
         <Prose>
           <h2>Processing</h2>
           <p>Orders are processed within 0–2 business days after payment confirmation.</p>

@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { PageHero, Prose } from "@/components/PageBits";
-import { PlaceholderNote } from "@/components/PlaceholderNote";
 import { pageMetadata, supportEmail } from "@/lib/site";
 
 export const metadata: Metadata = pageMetadata({
@@ -18,13 +17,6 @@ export default function CoaPage() {
           title="Certificates of Analysis"
           subtitle="Full transparency on identity and purity for every batch."
         />
-        <div className="mb-8 max-w-3xl">
-          <PlaceholderNote>
-            Batch COA files are not published on this page yet. The notes below describe what a
-            certificate includes. Upload the PDFs here when they exist. Until then, customers are
-            told to use the copy supplied with the order or email {supportEmail}.
-          </PlaceholderNote>
-        </div>
         <Prose>
           <h2>What&apos;s included</h2>
           <ul>

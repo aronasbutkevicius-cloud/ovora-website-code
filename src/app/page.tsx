@@ -4,6 +4,7 @@ import { FloatingVials } from "@/components/FloatingVials";
 import { ProductVisual } from "@/components/ProductVisual";
 import {
   doseOptionsLabel,
+  familyCatalogPath,
   formatPrice,
   getProductFamilies,
   startingPrice,
@@ -56,6 +57,13 @@ export default function HomePage() {
               url: siteUrl,
               logo: `${siteUrl}/apple-icon.png`,
               email: supportEmail,
+              contactPoint: {
+                "@type": "ContactPoint",
+                contactType: "customer support",
+                email: supportEmail,
+                areaServed: "US",
+                availableLanguage: "English",
+              },
             },
             {
               "@type": "WebSite",
@@ -157,7 +165,7 @@ export default function HomePage() {
               return (
                 <Link
                   key={family.slug}
-                  href={`/products/${family.slug}`}
+                  href={familyCatalogPath(family)}
                   className="group bg-[#f7f8fc]/95 rounded-2xl border border-[#d5dbed] overflow-hidden hover-lift"
                 >
                   <div className="relative aspect-[4/3] bg-gradient-to-b from-[#eef0f8] to-[#f7f8fc]">

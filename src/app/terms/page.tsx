@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { PageHero, Prose } from "@/components/PageBits";
-import { PlaceholderNote } from "@/components/PlaceholderNote";
 import { pageMetadata } from "@/lib/site";
 
 export const metadata: Metadata = pageMetadata({
@@ -14,12 +13,6 @@ export default function TermsPage() {
     <section className="py-12 lg:py-16 bg-[#f7f8fc]">
       <div className="content-container">
         <PageHero title="Terms of Service" />
-        <div className="mb-8 max-w-3xl">
-          <PlaceholderNote>
-            Add the legal entity name, governing state, mailing address, and effective date before
-            publishing. Have counsel review this draft. It is not a finished contract.
-          </PlaceholderNote>
-        </div>
         <Prose>
           <h2>Agreement</h2>
           <p>

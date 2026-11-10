@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import { JsonLd } from "@/components/JsonLd";
 import { StoreCatalog } from "@/components/StoreCatalog";
+import { StoreQuery } from "@/components/StoreQuery";
 import { getStoreCategory, storeCategories } from "@/data/categories";
 import { getSiteUrl, pageMetadata } from "@/lib/site";
 
@@ -11,36 +13,27 @@ export function generateStaticParams() {
 
 export async function generateMetadata({
   params,
-  searchParams,
 }: {
   params: Promise<{ category: string }>;
-  searchParams: Promise<{ q?: string }>;
 }): Promise<Metadata> {
   const { category: slug } = await params;
   const category = getStoreCategory(slug);
   if (!category) return { title: "Category not found" };
-  const { q } = await searchParams;
-  const query = (q ?? "").trim();
   return pageMetadata({
     title: category.title,
-    description: query
-      ? `Search “${query}” in ${category.label} at Ovora Labs. Research use only.`
-      : category.description,
+    description: category.description,
     path: `/store/${category.slug}`,
   });
 }
 
 export default async function StoreCategoryPage({
   params,
-  searchParams,
 }: {
   params: Promise<{ category: string }>;
-  searchParams: Promise<{ q?: string }>;
 }) {
   const { category: slug } = await params;
   const category = getStoreCategory(slug);
   if (!category) notFound();
-  const { q } = await searchParams;
   const siteUrl = getSiteUrl();
 
   return (
@@ -61,7 +54,9 @@ export default async function StoreCategoryPage({
           ],
         }}
       />
-      <StoreCatalog category={category.id} query={(q ?? "").trim()} />
+      <Suspense fallback={<StoreCatalog category={category.id} query="" />}>
+        <StoreQuery category={category.id} />
+      </Suspense>
     </>
   );
 }

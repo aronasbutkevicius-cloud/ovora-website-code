@@ -1,28 +1,19 @@
-import type { Metadata } from "next";
+import { Suspense } from "react";
 import { StoreCatalog } from "@/components/StoreCatalog";
+import { StoreQuery } from "@/components/StoreQuery";
 import { pageMetadata } from "@/lib/site";
 
-export async function generateMetadata({
-  searchParams,
-}: {
-  searchParams: Promise<{ q?: string }>;
-}): Promise<Metadata> {
-  const { q } = await searchParams;
-  const query = (q ?? "").trim();
-  return pageMetadata({
-    title: "Shop All Products",
-    description: query
-      ? `Search results for “${query}” in the Ovora Labs research peptide catalog. Research use only.`
-      : "Browse research-grade peptides from Ovora Labs. Single vials and nasal sprays, 99%+ purity, certificate of analysis included. Research use only.",
-    path: "/store",
-  });
-}
+export const metadata = pageMetadata({
+  title: "Shop All Products",
+  description:
+    "Browse research-grade peptides from Ovora Labs. Single vials and nasal sprays, 99%+ purity, certificate of analysis included. Research use only.",
+  path: "/store",
+});
 
-export default async function StorePage({
-  searchParams,
-}: {
-  searchParams: Promise<{ q?: string }>;
-}) {
-  const params = await searchParams;
-  return <StoreCatalog category="all" query={(params.q ?? "").trim()} />;
+export default function StorePage() {
+  return (
+    <Suspense fallback={<StoreCatalog category="all" query="" />}>
+      <StoreQuery category="all" />
+    </Suspense>
+  );
 }

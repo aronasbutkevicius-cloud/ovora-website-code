@@ -67,8 +67,7 @@ export function ContactForm() {
         />
       </div>
       <p className="text-xs text-[#6b7189] leading-relaxed">
-        Owner placeholder: this opens the visitor&apos;s email app to {supportEmail}. A hosted
-        form inbox is not connected, so nothing is stored on the site.
+        Sending this form opens your email app with a message to {supportEmail}.
       </p>
       <button
         type="submit"
