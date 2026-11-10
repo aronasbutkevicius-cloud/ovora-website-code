@@ -8,8 +8,8 @@ export function Footer() {
           <div className="col-span-2 lg:col-span-1">
             <p className="font-semibold text-lg mb-3 tracking-tight">Ovora Labs</p>
             <p className="text-sm text-white/60 leading-relaxed max-w-xs">
-              Premium research-grade peptides for optimal controlled studies and performance.
-              Third-party tested with Certificate of Analysis.
+              Research-grade peptides for controlled laboratory studies. Third-party tested, with
+              certificates of analysis available on request.
             </p>
           </div>
 
@@ -22,18 +22,13 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/store/injectable-vials" className="hover:text-white transition-colors">
-                  Injectable Vials
+                <Link href="/store/lyophilized-peptides" className="hover:text-white transition-colors">
+                  Lyophilized Peptides
                 </Link>
               </li>
               <li>
-                <Link href="/store/nasal-sprays" className="hover:text-white transition-colors">
-                  Nasal Sprays
-                </Link>
-              </li>
-              <li>
-                <Link href="/store/accessories" className="hover:text-white transition-colors">
-                  Accessories
+                <Link href="/store/laboratory-supplies" className="hover:text-white transition-colors">
+                  Laboratory Supplies
                 </Link>
               </li>
               <li>

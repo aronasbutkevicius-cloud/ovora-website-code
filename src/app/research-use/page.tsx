@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { CutoutImage } from "@/components/CutoutImage";
 import { getSiteUrl, pageMetadata } from "@/lib/site";
 
 export const metadata: Metadata = pageMetadata({
@@ -30,8 +29,8 @@ const applications = [
 ];
 
 const storage = [
-  "Store lyophilized peptides at -20°C for long-term stability",
-  "Refrigerate at 2-8°C for short-term storage (up to 4 weeks)",
+  "Store lyophilized material at -20°C, dry and protected from light",
+  "Keep containers sealed until laboratory use",
   "Protect from light and moisture",
   "Avoid repeated freeze-thaw cycles",
   "Keep sealed until ready for laboratory use",
@@ -99,41 +98,6 @@ export default function ResearchUsePage() {
       />
 
       <section className="relative w-full min-h-[50vh] lg:min-h-[60vh] overflow-hidden hero-glow">
-        <div className="absolute inset-0 overflow-hidden pointer-events-none select-none">
-          <div className="absolute left-[2%] lg:left-[6%] top-[10%] w-[9%] lg:w-[8%] z-0">
-            <CutoutImage
-              src="/images/products/cutouts/bpc-157-5mg.webp"
-              alt="BPC-157 5MG research vial"
-              className="h-auto w-full vial-orbit-a"
-              shadow="float"
-            />
-          </div>
-          <div className="absolute right-[4%] lg:right-[8%] top-[8%] w-[11%] lg:w-[9%] z-10">
-            <CutoutImage
-              src="/images/products/cutouts/retatrutide-5mg.webp"
-              alt="Retatrutide 5MG research vial"
-              className="h-auto w-full vial-orbit-b"
-              shadow="float"
-            />
-          </div>
-          <div className="absolute left-[8%] lg:left-[14%] bottom-[4%] lg:bottom-[8%] w-[12%] lg:w-[10%] z-0">
-            <CutoutImage
-              src="/images/products/cutouts/nad-plus-250mg.webp"
-              alt="NAD+ 250MG research vial"
-              className="h-auto w-full vial-orbit-c"
-              shadow="float"
-            />
-          </div>
-          <div className="absolute right-[2%] lg:right-[6%] bottom-[12%] w-[8%] lg:w-[7%] z-0">
-            <CutoutImage
-              src="/images/products/cutouts/ghk-cu-50mg.webp"
-              alt="GHK-Cu 50MG research vial"
-              className="h-auto w-full vial-orbit-d"
-              shadow="float"
-            />
-          </div>
-        </div>
-
         <div className="content-container relative z-20 h-full min-h-[50vh] lg:min-h-[60vh] flex items-center justify-center">
           <div className="text-center max-w-3xl mx-auto py-16 lg:py-24 animate-fade-up">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#f7f8fc]/80 backdrop-blur-sm border border-black/5 mb-6">

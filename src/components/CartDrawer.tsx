@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useEffect } from "react";
 import { useCart } from "@/components/CartProvider";
 import { FreeShippingProgress } from "@/components/FreeShippingProgress";
-import { formatPrice } from "@/data/products";
+import { formatPrice } from "@/lib/money";
 import { shippingCost } from "@/lib/shipping";
 
 type Props = {
@@ -85,7 +85,7 @@ export function CartDrawer({ open, onClose }: Props) {
                     <p className="truncate text-sm font-medium text-[#1e2235]">{item.name}</p>
                     <p className="text-xs text-[#6b7189]">
                       {item.dose}
-                      {item.form === "nasal" ? "" : " · 1 vial"} · Qty {item.quantity}
+                      {item.dose} · Single vial · Qty {item.quantity}
                     </p>
                   </div>
                   <p className="text-sm font-medium text-[#1e2235]">

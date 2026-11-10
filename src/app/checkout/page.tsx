@@ -2,19 +2,37 @@
 
 import { CutoutImage } from "@/components/CutoutImage";
 import Link from "next/link";
-import { useMemo, useState, type FormEvent } from "react";
+import { useState, type FormEvent } from "react";
 import { useCart } from "@/components/CartProvider";
+import { ResearcherNotice } from "@/components/ProductCompliance";
 import { FreeShippingProgress } from "@/components/FreeShippingProgress";
-import { formatPrice } from "@/data/products";
-import { shippingCost } from "@/lib/shipping";
+import { SmsOptInForm } from "@/components/SmsOptInForm";
+import { useServerQuote } from "@/components/useServerQuote";
+import { RESEARCH_PURPOSES } from "@/lib/compliance";
+import { formatCents } from "@/lib/money";
 import { supportEmail } from "@/lib/site";
 
 type CheckoutState = "form" | "unpaid";
 
+type PlacedOrder = {
+  orderId: string;
+  subtotalCents: number;
+  discountCents: number;
+  shippingCents: number;
+  totalCents: number;
+  discountApplied: boolean;
+};
+
 export default function CheckoutPage() {
-  const { items, itemCount, subtotal, ready } = useCart();
+  const { items, itemCount, ready } = useCart();
+  const { quote, error: quoteError, loading, reload } = useServerQuote(
+    items.map((item) => ({ variantSlug: item.variantSlug, quantity: item.quantity })),
+    ready && items.length > 0,
+  );
   const [state, setState] = useState<CheckoutState>("form");
+  const [placed, setPlaced] = useState<PlacedOrder | null>(null);
   const [error, setError] = useState("");
+  const [pending, setPending] = useState(false);
 
   const [form, setForm] = useState({
     email: "",
@@ -28,37 +46,51 @@ export default function CheckoutPage() {
     country: "United States",
     phone: "",
     notes: "",
+    researchPurpose: "",
     researchAck: false,
   });
-
-  const shippingEstimate = useMemo(() => shippingCost(subtotal), [subtotal]);
-  const total = subtotal + shippingEstimate;
 
   function update<K extends keyof typeof form>(key: K, value: (typeof form)[K]) {
     setForm((prev) => ({ ...prev, [key]: value }));
   }
 
-  function handleSubmit(e: FormEvent) {
+  async function handleSubmit(e: FormEvent) {
     e.preventDefault();
     setError("");
-
-    if (!form.researchAck) {
-      setError("Please confirm research-use acknowledgment to continue.");
+    if (!quote) {
+      setError("Wait for the order total before continuing.");
       return;
     }
-    if (
-      !form.email.trim() ||
-      !form.fullName.trim() ||
-      !form.address1.trim() ||
-      !form.city.trim() ||
-      !form.stateRegion.trim() ||
-      !form.postal.trim()
-    ) {
-      setError("Please complete the required shipping fields.");
-      return;
+    setPending(true);
+    try {
+      const response = await fetch("/api/orders", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          items: items.map((item) => ({ variantSlug: item.variantSlug, quantity: item.quantity })),
+          researchPurpose: form.researchPurpose,
+          researchAck: form.researchAck,
+          email: form.email,
+          fullName: form.fullName,
+          address1: form.address1,
+          city: form.city,
+          stateRegion: form.stateRegion,
+          postal: form.postal,
+        }),
+      });
+      const data = (await response.json()) as PlacedOrder & { error?: string };
+      if (!response.ok) {
+        setError(data.error || "The summary could not be saved.");
+        setPending(false);
+        return;
+      }
+      setPlaced(data);
+      setState("unpaid");
+      setPending(false);
+    } catch {
+      setError("The summary could not be saved. Nothing was charged.");
+      setPending(false);
     }
-
-    setState("unpaid");
   }
 
   if (!ready) {
@@ -81,15 +113,20 @@ export default function CheckoutPage() {
       `${form.city}, ${form.stateRegion} ${form.postal}`,
       form.country,
       "",
-      ...items.map(
-        (item) =>
-          `${item.name} ${item.dose} x${item.quantity} — ${formatPrice(item.price * item.quantity)}`,
-      ),
+      ...items.map((item) => {
+        const line = quote?.lines.find((entry) => entry.variantSlug === item.variantSlug);
+        return `${item.name} ${item.dose} x${item.quantity} — ${formatCents(line?.lineCents ?? 0)}`;
+      }),
       "",
-      `Shipping (US): ${shippingEstimate === 0 ? "Free" : formatPrice(shippingEstimate)}`,
-      `Estimated total: ${formatPrice(total)}`,
+      form.researchPurpose ? `Research purpose: ${form.researchPurpose}` : "",
+      placed
+        ? `First-order discount: ${placed.discountCents > 0 ? `-${formatCents(placed.discountCents)}` : "not applied"}`
+        : "",
+      `Shipping (US): ${placed && placed.shippingCents === 0 ? "Free" : formatCents(placed?.shippingCents ?? 0)}`,
+      `Estimated total: ${formatCents(placed?.totalCents ?? 0)}`,
+      placed ? `Reference: ${placed.orderId}` : "",
       "",
-      "This is an inquiry only. No order was placed.",
+      "Payment was not collected.",
     ]
       .filter(Boolean)
       .join("\n");
@@ -103,11 +140,13 @@ export default function CheckoutPage() {
               Payment not connected
             </p>
             <h1 className="text-3xl font-semibold text-[#1e2235] tracking-tight mb-3">
-              No order was placed
+              Payment was not collected
             </h1>
             <p className="text-[#4a5168] leading-relaxed mb-6">
-              Shipping details for {form.fullName} ({form.email}) stayed in this browser only.
-              Nothing was charged, and the cart was not cleared.
+              Nothing was charged. Reference {placed?.orderId} was saved for {form.fullName} ({form.email}).
+              {placed?.discountApplied
+                ? " The 15% first-order discount was applied to this summary and cannot be used again."
+                : " The first-order discount was not applied."}
             </p>
             <div className="mt-6 flex flex-col sm:flex-row gap-3">
               <a
@@ -118,7 +157,10 @@ export default function CheckoutPage() {
               </a>
               <button
                 type="button"
-                onClick={() => setState("form")}
+                onClick={() => {
+                  setState("form");
+                  void reload();
+                }}
                 className="inline-flex items-center justify-center h-11 px-6 rounded-full border border-[#d5dbed] text-[#1e2235] text-sm font-medium hover:bg-[#eef0f8] transition-colors"
               >
                 Back to details
@@ -162,8 +204,9 @@ export default function CheckoutPage() {
           </h1>
           <p className="text-[#6b7189]">
             Enter shipping details to review the cart. Payment processing is not connected, so this
-            step cannot charge a card or place an order.
+            step cannot charge a card.
           </p>
+          <ResearcherNotice className="mt-3" />
         </div>
 
         <form
@@ -251,6 +294,27 @@ export default function CheckoutPage() {
             </fieldset>
 
             <label className="flex gap-3 rounded-2xl border border-[#d5dbed] bg-white p-5 text-sm text-[#4a5168]">
+              <span className="block w-full">
+                <span className="block text-sm font-medium text-[#1e2235] mb-2">
+                  Research purpose
+                </span>
+                <select
+                  required
+                  value={form.researchPurpose}
+                  onChange={(e) => update("researchPurpose", e.target.value)}
+                  className="w-full rounded-xl border border-[#d5dbed] bg-[#f7f8fc] px-3 py-2.5 text-sm text-[#1e2235] outline-none focus:border-[#7a8fd4]"
+                >
+                  <option value="">Select research purpose</option>
+                  {RESEARCH_PURPOSES.map((purpose) => (
+                    <option key={purpose} value={purpose}>
+                      {purpose}
+                    </option>
+                  ))}
+                </select>
+              </span>
+            </label>
+
+            <label className="flex gap-3 rounded-2xl border border-[#d5dbed] bg-white p-5 text-sm text-[#4a5168]">
               <input
                 type="checkbox"
                 checked={form.researchAck}
@@ -271,59 +335,74 @@ export default function CheckoutPage() {
 
             <button
               type="submit"
-              className="w-full sm:w-auto inline-flex items-center justify-center h-12 px-10 rounded-full bg-[#1e2235] text-[#f7f8fc] text-sm font-medium hover:bg-[#2a3148] transition-colors"
+              disabled={pending || loading || !quote}
+              className="w-full sm:w-auto inline-flex items-center justify-center h-12 px-10 rounded-full bg-[#1e2235] text-[#f7f8fc] text-sm font-medium hover:bg-[#2a3148] transition-colors disabled:opacity-60"
             >
-              Review summary
+              {pending ? "Saving summary…" : "Review summary"}
             </button>
           </div>
 
-          <aside className="rounded-2xl border border-[#d5dbed] bg-white p-6 sticky top-24">
-            <h2 className="text-lg font-semibold text-[#1e2235] mb-4">Order summary</h2>
-            <div className="mb-5">
-              <FreeShippingProgress subtotal={subtotal} />
-            </div>
-            <ul className="space-y-3 mb-5">
-              {items.map((item) => (
-                <li key={item.variantSlug} className="flex gap-3">
-                  <div className="w-14 h-16 rounded-lg bg-[#eef0f8] border border-[#d5dbed] overflow-hidden shrink-0 flex items-center justify-center">
-                    {item.image ? (
-                      <CutoutImage
-                        src={item.image}
-                        alt={`${item.name} ${item.dose}`}
-                        className="h-[92%] w-auto max-w-full object-contain"
-                        shadow="soft"
-                      />
-                    ) : null}
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium text-[#1e2235] truncate">
-                      {item.name} · {item.dose}
+          <aside className="rounded-2xl border border-[#d5dbed] bg-white p-6 sticky top-24 space-y-4">
+            <h2 className="text-lg font-semibold text-[#1e2235]">Order summary</h2>
+            {quote && <FreeShippingProgress subtotal={quote.subtotalCents / 100} />}
+            {quoteError && <p className="text-sm text-red-700">{quoteError}</p>}
+            <ul className="space-y-3">
+              {items.map((item) => {
+                const line = quote?.lines.find((entry) => entry.variantSlug === item.variantSlug);
+                return (
+                  <li key={item.variantSlug} className="flex gap-3">
+                    <div className="w-14 h-16 rounded-lg bg-[#eef0f8] border border-[#d5dbed] overflow-hidden shrink-0 flex items-center justify-center">
+                      {item.image ? (
+                        <CutoutImage
+                          src={item.image}
+                          alt={`${item.name} ${item.dose}`}
+                          className="h-[92%] w-auto max-w-full object-contain"
+                          shadow="soft"
+                        />
+                      ) : null}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm font-medium text-[#1e2235] truncate">
+                        {item.name} · {item.dose}
+                      </p>
+                      <p className="text-xs text-[#6b7189]">Qty {item.quantity}</p>
+                    </div>
+                    <p className="text-sm font-medium text-[#1e2235]">
+                      {line ? formatCents(line.lineCents) : "…"}
                     </p>
-                    <p className="text-xs text-[#6b7189]">Qty {item.quantity}</p>
-                  </div>
-                  <p className="text-sm font-medium text-[#1e2235]">
-                    {formatPrice(item.price * item.quantity)}
-                  </p>
-                </li>
-              ))}
+                  </li>
+                );
+              })}
             </ul>
             <div className="space-y-2 text-sm border-t border-[#d5dbed] pt-4">
               <div className="flex justify-between">
                 <span className="text-[#6b7189]">Subtotal</span>
-                <span className="text-[#1e2235]">{formatPrice(subtotal)}</span>
+                <span className="text-[#1e2235]">{quote ? formatCents(quote.subtotalCents) : "…"}</span>
               </div>
+              {quote && quote.discountCents > 0 && (
+                <div className="flex justify-between">
+                  <span className="text-[#6b7189]">First-order discount (15%)</span>
+                  <span className="text-[#1e2235]">-{formatCents(quote.discountCents)}</span>
+                </div>
+              )}
               <div className="flex justify-between">
                 <span className="text-[#6b7189]">Shipping estimate</span>
                 <span className="text-[#1e2235]">
-                  {shippingEstimate === 0 ? "Free" : formatPrice(shippingEstimate)}
+                  {!quote ? "…" : quote.shippingCents === 0 ? "Free" : formatCents(quote.shippingCents)}
                 </span>
               </div>
               <div className="flex justify-between text-base font-semibold pt-2">
                 <span className="text-[#1e2235]">Total</span>
-                <span className="text-[#1e2235]">{formatPrice(total)}</span>
+                <span className="text-[#1e2235]">{quote ? formatCents(quote.totalCents) : "…"}</span>
               </div>
             </div>
-            <Link href="/cart" className="mt-5 inline-block text-sm text-[#7a8fd4] hover:underline">
+            {quote?.discountState === "used" && (
+              <p className="text-sm text-[#4a5168] bg-[#eef0f8] border border-[#d5dbed] rounded-xl px-4 py-3">
+                This first-order discount has already been used on this account.
+              </p>
+            )}
+            {quote?.discountState === "needs_opt_in" && <SmsOptInForm onSaved={reload} />}
+            <Link href="/cart" className="inline-block text-sm text-[#7a8fd4] hover:underline">
               Edit cart
             </Link>
           </aside>

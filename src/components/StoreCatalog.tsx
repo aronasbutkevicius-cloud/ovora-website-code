@@ -1,16 +1,16 @@
 import Link from "next/link";
 import { ProductVisual } from "@/components/ProductVisual";
+import { ResearcherNotice } from "@/components/ProductCompliance";
 import { storeCategories, type StoreCategoryId } from "@/data/categories";
 import {
-  accessoryFamilies,
   doseOptionsLabel,
   familyCatalogPath,
-  formatPrice,
-  injectableFamilies,
-  nasalFamilies,
+  lyophilizedFamilies,
   startingPrice,
+  supplyFamilies,
   type ProductFamily,
 } from "@/data/products";
+import { formatPrice } from "@/lib/money";
 
 const filters = [
   { id: "all" as const, label: "All Products", href: "/store" },
@@ -28,7 +28,6 @@ function categoryPath(category: StoreCategoryId) {
 }
 
 function ProductCard({ family }: { family: ProductFamily }) {
-  const isSpray = family.form === "nasal";
   const preview = family.variants[0];
   const multi = family.variants.length > 1;
   const fromPrice = startingPrice(family);
@@ -49,7 +48,7 @@ function ProductCard({ family }: { family: ProductFamily }) {
       </div>
       <div className="p-5">
         <p className="text-[11px] uppercase tracking-wider text-[#8a90a8] mb-1">
-          {isSpray ? "Nasal Spray" : family.form === "accessory" ? "Accessory" : "1 vial"}
+          {family.form === "liquid" ? "Laboratory supply" : "Single vial"}
         </p>
         <h2 className="font-semibold text-[#1e2235] mb-1 group-hover:underline">{family.name}</h2>
         <p className="text-xs text-[#8a90a8] mb-2">{doseOptionsLabel(family)}</p>
@@ -68,12 +67,8 @@ function matchesQuery(family: ProductFamily, query: string) {
     family.name,
     family.description,
     family.form,
-    ...(family.alsoKnownAs ?? []),
-    ...family.variants.flatMap((variant) => [
-      variant.dose,
-      variant.slug,
-      ...(variant.alsoKnownAs ?? []),
-    ]),
+    family.cas,
+    ...family.variants.flatMap((variant) => [variant.dose, variant.slug, variant.cas]),
   ]
     .join(" ")
     .toLowerCase();
@@ -118,19 +113,14 @@ export function StoreCatalog({
   const filterList = (families: ProductFamily[]) =>
     query ? families.filter((family) => matchesQuery(family, query)) : families;
 
-  const injectables = filterList(injectableFamilies());
-  const nasals = filterList(nasalFamilies());
-  const accessories = filterList(accessoryFamilies());
+  const peptides = filterList(lyophilizedFamilies());
+  const supplies = filterList(supplyFamilies());
 
   const showAll = category === "all";
-  const showInjectables = showAll || category === "injectable";
-  const showNasals = showAll || category === "nasal";
-  const showAccessories = showAll || category === "accessory";
+  const showPeptides = showAll || category === "lyophilized";
+  const showSupplies = showAll || category === "supply";
 
-  const count =
-    (showInjectables ? injectables.length : 0) +
-    (showNasals ? nasals.length : 0) +
-    (showAccessories ? accessories.length : 0);
+  const count = (showPeptides ? peptides.length : 0) + (showSupplies ? supplies.length : 0);
 
   const basePath = categoryPath(category);
 
@@ -144,7 +134,7 @@ export function StoreCatalog({
           <p className="text-[#6b7189] text-lg">
             {active
               ? active.description
-              : "Research-grade peptides from Ovora Labs, with a certificate of analysis and 99%+ purity verification — injectable vials and nasal sprays."}
+              : "Research peptides and laboratory supplies from Ovora Labs. Purity ≥99% (HPLC), verified by independent third-party testing. Certificate of analysis available on request."}
           </p>
         </div>
 
@@ -214,25 +204,20 @@ export function StoreCatalog({
           </div>
         )}
 
-        {showInjectables && (
+        <ResearcherNotice className="mb-8" />
+
+        {showPeptides && (
           <Section
-            title="Injectable Vials"
-            subtitle="Lyophilized research peptides, sold as a single vial."
-            items={injectables}
+            title="Lyophilized Peptides"
+            subtitle="Single-vial lyophilized research peptides."
+            items={peptides}
           />
         )}
-        {showNasals && (
+        {showSupplies && (
           <Section
-            title="Nasal Sprays"
-            subtitle="Research-grade nasal spray formulations — MT-2, Selank, and Semax."
-            items={nasals}
-          />
-        )}
-        {showAccessories && (
-          <Section
-            title="Accessories"
-            subtitle="Reconstitution supplies for laboratory use."
-            items={accessories}
+            title="Laboratory Supplies"
+            subtitle="Laboratory supplies sold with the research catalog."
+            items={supplies}
           />
         )}
       </div>

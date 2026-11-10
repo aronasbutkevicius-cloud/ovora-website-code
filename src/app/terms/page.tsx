@@ -34,6 +34,15 @@ export default function TermsPage() {
             Prices are listed in USD. We reserve the right to cancel or refuse any order that
             appears fraudulent or outside our research-use policy.
           </p>
+          <h2>Promotional text messages</h2>
+          <p>
+            If you opt in, you agree to receive recurring automated promotional text messages from
+            Ovora Labs at the mobile number you provide. Consent is not a condition of purchase.
+            Message and data rates may apply. Message frequency varies. Reply STOP to opt out and
+            HELP for help. A first-order discount tied to this opt-in is available once per account,
+            only before any order is placed, and cannot be reused on another account with the same
+            phone number. The Privacy Policy describes how the number and consent record are stored.
+          </p>
           <h2>Limitation of liability</h2>
           <p>
             To the fullest extent permitted by law, Ovora Labs is not liable for misuse of products

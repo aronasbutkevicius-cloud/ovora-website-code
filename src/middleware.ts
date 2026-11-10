@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import { legacyCategoryRedirect, withheldProductRedirect } from "@/lib/legacy-paths";
+import { readSessionToken, SESSION_COOKIE } from "@/lib/auth/token";
 import { legacyProductRedirect } from "@/data/products";
 import { getSiteUrl } from "@/lib/site";
 
@@ -20,33 +22,82 @@ function productionHosts() {
   return hosts;
 }
 
-export function middleware(request: NextRequest) {
-  const { pathname } = request.nextUrl;
-  const productMatch = pathname.match(/^\/products\/([^/]+)\/?$/);
+function isProtectedPath(pathname: string) {
+  return (
+    pathname === "/store" ||
+    pathname.startsWith("/store/") ||
+    pathname === "/products" ||
+    pathname.startsWith("/products/") ||
+    pathname === "/cart" ||
+    pathname.startsWith("/cart/") ||
+    pathname === "/checkout" ||
+    pathname.startsWith("/checkout/") ||
+    pathname === "/account" ||
+    pathname.startsWith("/account/") ||
+    pathname === "/api/quote" ||
+    pathname.startsWith("/api/quote/") ||
+    pathname === "/api/orders" ||
+    pathname.startsWith("/api/orders/") ||
+    pathname === "/api/account" ||
+    pathname.startsWith("/api/account/")
+  );
+}
 
-  if (productMatch) {
-    const slug = decodeURIComponent(productMatch[1] ?? "");
-    const target = legacyProductRedirect(slug);
+function applyPreviewHeader(response: NextResponse, preview: boolean) {
+  if (preview) response.headers.set("X-Robots-Tag", "noindex, nofollow");
+  return response;
+}
+
+export async function middleware(request: NextRequest) {
+  const { pathname } = request.nextUrl;
+  const preview = Boolean(requestHost(request) && !productionHosts().has(requestHost(request)));
+
+  if (isProtectedPath(pathname)) {
+    const session = await readSessionToken(request.cookies.get(SESSION_COOKIE)?.value);
+    if (!session) {
+      if (pathname.startsWith("/api/")) {
+        return applyPreviewHeader(
+          NextResponse.json({ error: "Sign in required." }, { status: 401 }),
+          preview,
+        );
+      }
+      const url = request.nextUrl.clone();
+      url.pathname = "/login";
+      const callback = `${pathname}${request.nextUrl.search}`;
+      url.search = "";
+      url.searchParams.set("callbackUrl", callback);
+      return applyPreviewHeader(NextResponse.redirect(url), preview);
+    }
+
+    const categoryTarget = legacyCategoryRedirect(pathname);
+    const withheldTarget = withheldProductRedirect(pathname);
+    const productMatch = pathname.match(/^\/products\/([^/]+)\/?$/);
+    const legacySlug = productMatch ? legacyProductRedirect(decodeURIComponent(productMatch[1] ?? "")) : undefined;
+    const target = categoryTarget ?? withheldTarget ?? (legacySlug ? `/products/${legacySlug}` : null);
     if (target) {
       const url = request.nextUrl.clone();
-      url.pathname = `/products/${target}`;
-      return NextResponse.redirect(url, 301);
+      url.pathname = target;
+      return applyPreviewHeader(NextResponse.redirect(url, 308), preview);
     }
   }
 
   const response = NextResponse.next();
-  const host = requestHost(request);
-
-  if (host && !productionHosts().has(host)) {
+  if (preview) {
     response.headers.set("X-Robots-Tag", "noindex, nofollow");
     return response;
   }
 
-  if (pathname === "/store" || pathname.startsWith("/store/")) {
-    const query = request.nextUrl.searchParams.get("q")?.trim();
-    if (query) {
-      response.headers.set("X-Robots-Tag", "noindex, follow");
-    }
+  if (
+    pathname === "/store" ||
+    pathname.startsWith("/store/") ||
+    pathname.startsWith("/products/") ||
+    pathname === "/cart" ||
+    pathname === "/checkout" ||
+    pathname === "/account" ||
+    pathname === "/login" ||
+    pathname === "/signup"
+  ) {
+    response.headers.set("X-Robots-Tag", "noindex, nofollow");
   }
 
   return response;

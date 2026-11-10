@@ -4,13 +4,17 @@ import Link from "next/link";
 import { CutoutImage } from "@/components/CutoutImage";
 import { useCart } from "@/components/CartProvider";
 import { FreeShippingProgress } from "@/components/FreeShippingProgress";
-import { formatPrice } from "@/data/products";
-import { shippingCost } from "@/lib/shipping";
+import { ResearcherNotice } from "@/components/ProductCompliance";
+import { SmsOptInForm } from "@/components/SmsOptInForm";
+import { useServerQuote } from "@/components/useServerQuote";
+import { formatCents } from "@/lib/money";
 
 export default function CartPage() {
-  const { items, itemCount, subtotal, setQuantity, removeItem, ready } = useCart();
-  const shipping = shippingCost(subtotal);
-  const total = subtotal + shipping;
+  const { items, itemCount, setQuantity, removeItem, ready } = useCart();
+  const { quote, error, loading, reload } = useServerQuote(
+    items.map((item) => ({ variantSlug: item.variantSlug, quantity: item.quantity })),
+    ready && items.length > 0,
+  );
 
   return (
     <section className="py-12 lg:py-16 bg-[#f7f8fc] min-h-[60vh]">
@@ -26,6 +30,7 @@ export default function CartPage() {
                 : `${itemCount} item${itemCount === 1 ? "" : "s"} ready for checkout.`
               : "Loading cart…"}
           </p>
+          <ResearcherNotice className="mt-3" />
         </div>
 
         {!ready ? null : items.length === 0 ? (
@@ -69,13 +74,17 @@ export default function CartPage() {
                         >
                           {item.name}
                         </Link>
-                        <p className="text-sm text-[#6b7189] mt-0.5">
-                          {item.dose}
-                          {item.form === "nasal" ? "" : " · 1 vial"}
-                        </p>
+                        <p className="text-sm text-[#6b7189] mt-0.5">{item.dose} · Single vial</p>
                       </div>
                       <p className="font-semibold text-[#1e2235] shrink-0">
-                        {formatPrice(item.price * item.quantity)}
+                        {quote
+                          ? formatCents(
+                              quote.lines.find((line) => line.variantSlug === item.variantSlug)
+                                ?.lineCents ?? 0,
+                            )
+                          : loading
+                            ? "…"
+                            : ""}
                       </p>
                     </div>
                     <div className="mt-4 flex flex-wrap items-center gap-3">
@@ -110,23 +119,38 @@ export default function CartPage() {
               ))}
             </ul>
 
-            <aside className="rounded-2xl border border-[#d5dbed] bg-white p-6 sticky top-28">
-              <h2 className="text-lg font-semibold text-[#1e2235] mb-4">Order summary</h2>
-              <FreeShippingProgress subtotal={subtotal} />
-              <div className="mt-4 flex items-center justify-between text-sm mb-2">
+            <aside className="rounded-2xl border border-[#d5dbed] bg-white p-6 sticky top-28 space-y-4">
+              <h2 className="text-lg font-semibold text-[#1e2235]">Order summary</h2>
+              {quote && <FreeShippingProgress subtotal={quote.subtotalCents / 100} />}
+              {error && <p className="text-sm text-red-700">{error}</p>}
+              <div className="flex items-center justify-between text-sm">
                 <span className="text-[#6b7189]">Subtotal</span>
-                <span className="font-medium text-[#1e2235]">{formatPrice(subtotal)}</span>
-              </div>
-              <div className="flex items-center justify-between text-sm mb-6">
-                <span className="text-[#6b7189]">Shipping (US)</span>
                 <span className="font-medium text-[#1e2235]">
-                  {shipping === 0 ? "Free" : formatPrice(shipping)}
+                  {quote ? formatCents(quote.subtotalCents) : "…"}
                 </span>
               </div>
-              <div className="flex items-center justify-between text-base font-semibold text-[#1e2235] mb-6 pt-4 border-t border-[#d5dbed]">
-                <span>Total</span>
-                <span>{formatPrice(total)}</span>
+              {quote && quote.discountCents > 0 && (
+                <div className="flex items-center justify-between text-sm">
+                  <span className="text-[#6b7189]">First-order discount (15%)</span>
+                  <span className="font-medium text-[#1e2235]">-{formatCents(quote.discountCents)}</span>
+                </div>
+              )}
+              <div className="flex items-center justify-between text-sm">
+                <span className="text-[#6b7189]">Shipping (US)</span>
+                <span className="font-medium text-[#1e2235]">
+                  {!quote ? "…" : quote.shippingCents === 0 ? "Free" : formatCents(quote.shippingCents)}
+                </span>
               </div>
+              <div className="flex items-center justify-between text-base font-semibold text-[#1e2235] pt-4 border-t border-[#d5dbed]">
+                <span>Total</span>
+                <span>{quote ? formatCents(quote.totalCents) : "…"}</span>
+              </div>
+              {quote?.discountState === "used" && (
+                <p className="text-sm text-[#4a5168] bg-[#eef0f8] border border-[#d5dbed] rounded-xl px-4 py-3">
+                  This first-order discount has already been used on this account.
+                </p>
+              )}
+              {quote?.discountState === "needs_opt_in" && <SmsOptInForm onSaved={reload} />}
               <Link
                 href="/checkout"
                 className="w-full inline-flex items-center justify-center h-12 rounded-full bg-[#1e2235] text-[#f7f8fc] text-sm font-medium hover:bg-[#2a3148] transition-colors"
@@ -135,7 +159,7 @@ export default function CartPage() {
               </Link>
               <Link
                 href="/store"
-                className="mt-3 w-full inline-flex items-center justify-center h-11 rounded-full border border-[#d5dbed] text-[#1e2235] text-sm font-medium hover:bg-[#eef0f8] transition-colors"
+                className="w-full inline-flex items-center justify-center h-11 rounded-full border border-[#d5dbed] text-[#1e2235] text-sm font-medium hover:bg-[#eef0f8] transition-colors"
               >
                 Keep shopping
               </Link>

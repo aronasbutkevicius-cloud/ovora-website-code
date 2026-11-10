@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Anek_Telugu, Marcellus, Poppins, Roboto } from "next/font/google";
 import { SiteShell } from "@/components/SiteShell";
 import { TidioChat } from "@/components/TidioChat";
+import { getSession } from "@/lib/auth/session";
 import { ogImage, rootDescription, rootTitle, siteName } from "@/lib/site";
 import "./globals.css";
 
@@ -66,11 +67,12 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const session = await getSession();
   return (
     <html lang="en" data-mode="light">
       <head>
@@ -79,7 +81,7 @@ export default function RootLayout({
       <body
         className={`${anek.variable} ${poppins.variable} ${roboto.variable} ${marcellus.variable} font-sans antialiased`}
       >
-        <SiteShell>{children}</SiteShell>
+        <SiteShell session={session}>{children}</SiteShell>
         <TidioChat />
       </body>
     </html>

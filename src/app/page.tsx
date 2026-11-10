@@ -1,15 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { FloatingVials } from "@/components/FloatingVials";
-import { ProductVisual } from "@/components/ProductVisual";
-import {
-  doseOptionsLabel,
-  familyCatalogPath,
-  formatPrice,
-  getProductFamilies,
-  startingPrice,
-} from "@/data/products";
+import { ResearcherNotice } from "@/components/ProductCompliance";
 import { JsonLd } from "@/components/JsonLd";
+import { QUALIFIED_RESEARCHER_STATEMENT } from "@/lib/compliance";
 import { getSiteUrl, pageMetadata, rootDescription, rootTitle, siteName, supportEmail } from "@/lib/site";
 
 export const metadata: Metadata = pageMetadata({
@@ -30,7 +23,7 @@ const features = [
   },
   {
     title: "Third-Party Identity Testing",
-    body: "Every batch is independently checked for identity and content by ISO 17025 accredited laboratories. We publish full Certificates of Analysis (COA) for complete transparency.",
+    body: "Every batch is independently checked for identity and content by ISO 17025 accredited laboratories. A certificate of analysis is available on request.",
   },
   {
     title: "Controlled Synthesis Process",
@@ -39,10 +32,6 @@ const features = [
 ];
 
 export default function HomePage() {
-  const popular = getProductFamilies()
-    .filter((family) => family.popular)
-    .slice(0, 8);
-
   const siteUrl = getSiteUrl();
 
   return (
@@ -75,8 +64,6 @@ export default function HomePage() {
         }}
       />
       <section className="relative w-full min-h-[70vh] lg:min-h-[78vh] overflow-hidden hero-glow">
-        <FloatingVials />
-
         <div className="content-container relative z-20 h-full min-h-[70vh] lg:min-h-[78vh] flex items-center justify-center">
           <div className="text-center max-w-3xl mx-auto py-16 lg:py-24 animate-fade-up">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/80 backdrop-blur-sm border border-[#d5dbed] mb-6">
@@ -100,10 +87,10 @@ export default function HomePage() {
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
               <Link
-                href="/store"
+                href="/signup"
                 className="inline-flex items-center justify-center h-12 px-8 rounded-full bg-[#1e2235] text-[#f7f8fc] text-sm font-medium hover:bg-[#2a3148] transition-colors"
               >
-                Shop Products
+                Create a researcher account
               </Link>
               <Link
                 href="/research-use"
@@ -143,53 +130,29 @@ export default function HomePage() {
 
       <section className="relative py-16 lg:py-24 bg-[#e4e8f5]/50 overflow-hidden">
         <div className="content-container relative z-10">
-          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-10 reveal">
-            <div>
-              <h2 className="text-3xl lg:text-4xl font-semibold text-[#1e2235] tracking-tight mb-2">
-                Popular Research Peptides
-              </h2>
-              <p className="text-[#6b7189]">99%+ purity · COA included · Lyophilized powder</p>
+          <div className="max-w-3xl mx-auto text-center reveal">
+            <h2 className="text-3xl lg:text-4xl font-semibold text-[#1e2235] tracking-tight mb-4">
+              Catalog access for qualified researchers
+            </h2>
+            <p className="text-[#4a5168] text-lg leading-relaxed mb-4">
+              {QUALIFIED_RESEARCHER_STATEMENT} Create an account and sign in to view compounds,
+              quantities, and checkout. Prices are not shown on public pages.
+            </p>
+            <ResearcherNotice className="mb-8" />
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+              <Link
+                href="/signup"
+                className="inline-flex items-center justify-center h-12 px-8 rounded-full bg-[#1e2235] text-[#f7f8fc] text-sm font-medium hover:bg-[#2a3148] transition-colors"
+              >
+                Create a researcher account
+              </Link>
+              <Link
+                href="/login"
+                className="inline-flex items-center justify-center h-12 px-8 rounded-full bg-white border border-[#d5dbed] text-[#1e2235] text-sm font-medium hover:bg-[#f7f8fc] transition-colors"
+              >
+                Sign in
+              </Link>
             </div>
-            <Link
-              href="/store"
-              className="text-sm font-medium text-[#1e2235] underline underline-offset-4"
-            >
-              View all products →
-            </Link>
-          </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {popular.map((family) => {
-              const preview = family.variants[0];
-              const multi = family.variants.length > 1;
-              const fromPrice = startingPrice(family);
-              return (
-                <Link
-                  key={family.slug}
-                  href={familyCatalogPath(family)}
-                  className="group bg-[#f7f8fc]/95 rounded-2xl border border-[#d5dbed] overflow-hidden hover-lift"
-                >
-                  <div className="relative aspect-[4/3] bg-gradient-to-b from-[#eef0f8] to-[#f7f8fc]">
-                    <div className="absolute inset-3 flex items-center justify-center sm:inset-4">
-                      <ProductVisual
-                        product={preview}
-                        className="h-full w-auto max-w-full group-hover:scale-[1.03] transition-transform duration-500"
-                        sizes="(max-width: 768px) 90vw, 280px"
-                      />
-                    </div>
-                  </div>
-                  <div className="p-5">
-                    <h3 className="font-semibold text-[#1e2235] mb-1 group-hover:underline">
-                      {family.name}
-                    </h3>
-                    <p className="text-xs text-[#8a90a8] mb-2">{doseOptionsLabel(family)}</p>
-                    <p className="text-xs text-[#6b7189] line-clamp-2 mb-3">{family.description}</p>
-                    <p className="text-sm font-medium text-[#1e2235]">
-                      {multi ? `From ${formatPrice(fromPrice)}` : formatPrice(fromPrice)}
-                    </p>
-                  </div>
-                </Link>
-              );
-            })}
           </div>
         </div>
       </section>
@@ -229,7 +192,6 @@ export default function HomePage() {
               "Overnight delivery available",
               "Free shipping on orders over $100",
               "Free shipment protection on every order",
-              "Discreet packaging",
               "Tracking provided on all orders",
               "Damaged products replaced at no cost",
               "USA-based customer support",

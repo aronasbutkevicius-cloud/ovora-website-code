@@ -1,5 +1,4 @@
 import { CutoutImage } from "@/components/CutoutImage";
-import { NasalSpray } from "@/components/NasalSpray";
 import { Vial } from "@/components/Vial";
 import type { Product } from "@/data/products";
 
@@ -28,17 +27,6 @@ export function ProductVisual({
         sizes={sizes}
         priority={priority}
         shadow="soft"
-      />
-    );
-  }
-
-  if (product.form === "nasal") {
-    return (
-      <NasalSpray
-        name={product.name}
-        dose={product.dose}
-        theme={product.theme}
-        className={className}
       />
     );
   }

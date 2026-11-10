@@ -22,7 +22,7 @@ const points = [
   },
   {
     title: "Research use only",
-    body: "Products are sold for laboratory research. They are not for human or veterinary consumption.",
+    body: "Products are sold only to qualified researchers and licensed laboratories. They are not for human or veterinary consumption.",
   },
 ];
 

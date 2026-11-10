@@ -9,6 +9,25 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true,
   },
+  async redirects() {
+    return [
+      {
+        source: "/store/injectable-vials",
+        destination: "/store/lyophilized-peptides",
+        permanent: true,
+      },
+      {
+        source: "/store/nasal-sprays",
+        destination: "/store",
+        permanent: true,
+      },
+      {
+        source: "/store/accessories",
+        destination: "/store/laboratory-supplies",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;
