@@ -14,7 +14,7 @@ export default function ShippingPage() {
       <div className="content-container">
         <PageHero
           title="Shipping Information"
-          subtitle="Fast, discreet shipping with protection on every order."
+          subtitle="Processing times and shipment protection on every order."
         />
         <Prose>
           <h2>Processing</h2>
@@ -29,8 +29,8 @@ export default function ShippingPage() {
           </ul>
           <h2>Packaging</h2>
           <p>
-            All shipments use discreet packaging. Temperature-sensitive materials are packed with
-            appropriate insulation when required.
+            Orders are packed to protect the contents. Temperature-sensitive materials are packed
+            with appropriate insulation when required.
           </p>
           <h2>Shipment protection</h2>
           <p>

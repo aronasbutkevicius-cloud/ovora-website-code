@@ -34,7 +34,7 @@ export default function QualityPage() {
           <h2>Third-party testing</h2>
           <p>
             Every batch is independently checked for identity and content by ISO 17025 accredited
-            laboratories. We publish full Certificates of Analysis for complete transparency.
+            laboratories. Certificates of analysis are available on request.
           </p>
         </Prose>
       </div>

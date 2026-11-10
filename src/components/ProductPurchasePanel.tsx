@@ -4,7 +4,9 @@ import Link from "next/link";
 import { useState } from "react";
 import { useCart } from "@/components/CartProvider";
 import { ProductVisual } from "@/components/ProductVisual";
-import { formatPrice, type Product, type ProductFamily } from "@/data/products";
+import { formatPrice } from "@/lib/money";
+import { ProductCompliance } from "@/components/ProductCompliance";
+import type { Product, ProductFamily } from "@/data/products";
 
 type Props = {
   family: ProductFamily;
@@ -20,7 +22,7 @@ export function ProductPurchasePanel({ family, initialVariantSlug }: Props) {
     family.variants.find((item) => item.slug === initialVariantSlug) ?? family.variants[0];
 
   const hasMultiple = family.variants.length > 1;
-  const isSpray = family.form === "nasal";
+  const isSupply = family.form === "liquid";
 
   function handleAdd() {
     addItem(
@@ -56,49 +58,28 @@ export function ProductPurchasePanel({ family, initialVariantSlug }: Props) {
 
       <div>
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#eef0f8] text-[#7a8fd4] text-xs font-medium mb-4 border border-[#d5dbed]">
-          {isSpray
-            ? "Nasal Spray · Research Use"
-            : family.form === "accessory"
-              ? "Laboratory Accessory"
-              : "Injectable Vial · Research Use"}
+          {isSupply ? "Laboratory supply · Research use" : "Lyophilized powder · Research use"}
         </div>
         <h1 className="text-3xl lg:text-5xl font-semibold text-[#1e2235] tracking-tight mb-4">
           {family.name} {variant.dose}
         </h1>
         <p className="text-[#4a5168] text-lg leading-relaxed mb-6">{family.description}</p>
 
-        {family.alsoKnownAs && (
-          <p className="text-sm text-[#6b7189] mb-6">
-            <span className="font-medium text-[#4a5168]">Also known as: </span>
-            {family.alsoKnownAs.join(", ")}
-          </p>
-        )}
-
         <dl className="grid grid-cols-2 gap-4 mb-8 text-sm">
-          <div className="bg-[#eef0f8] rounded-xl p-4 border border-[#d5dbed]">
-            <dt className="text-[#6b7189] mb-1">Purity</dt>
-            <dd className="font-semibold text-[#1e2235]">99%+ guaranteed</dd>
-          </div>
           <div className="bg-[#eef0f8] rounded-xl p-4 border border-[#d5dbed]">
             <dt className="text-[#6b7189] mb-1">Form</dt>
             <dd className="font-semibold text-[#1e2235]">
-              {isSpray
-                ? "Nasal spray"
-                : family.form === "accessory"
-                  ? "Solution"
-                  : "Lyophilized powder"}
+              {isSupply ? "Liquid" : "Lyophilized powder"}
             </dd>
           </div>
           <div className="bg-[#eef0f8] rounded-xl p-4 border border-[#d5dbed]">
-            <dt className="text-[#6b7189] mb-1">Strength</dt>
+            <dt className="text-[#6b7189] mb-1">Quantity</dt>
             <dd className="font-semibold text-[#1e2235]">{variant.dose}</dd>
           </div>
-          {family.form !== "nasal" && (
-            <div className="bg-[#eef0f8] rounded-xl p-4 border border-[#d5dbed]">
-              <dt className="text-[#6b7189] mb-1">Sold as</dt>
-              <dd className="font-semibold text-[#1e2235]">1 vial</dd>
-            </div>
-          )}
+          <div className="bg-[#eef0f8] rounded-xl p-4 border border-[#d5dbed] col-span-2">
+            <dt className="text-[#6b7189] mb-1">Unit</dt>
+            <dd className="font-semibold text-[#1e2235]">Single vial</dd>
+          </div>
         </dl>
 
         {hasMultiple && (
@@ -176,12 +157,9 @@ export function ProductPurchasePanel({ family, initialVariantSlug }: Props) {
         )}
 
         <p className="mt-2 text-xs text-[#6b7189] leading-relaxed max-w-md">
-          For laboratory and research use only. Not for human or veterinary consumption. See our{" "}
-          <Link href="/research-use" className="underline hover:text-[#1e2235]">
-            Research Use
-          </Link>{" "}
-          page for full guidelines.
+          For laboratory and research use only. Not for human or veterinary consumption.
         </p>
+        <ProductCompliance family={family} variant={variant} />
       </div>
     </div>
   );

@@ -1,22 +1,21 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { notFound, permanentRedirect } from "next/navigation";
+import { notFound, permanentRedirect, redirect } from "next/navigation";
 import { JsonLd } from "@/components/JsonLd";
 import { familyStrengthSummary, ProductFamilyHub } from "@/components/ProductFamilyHub";
 import { ProductPurchasePanel } from "@/components/ProductPurchasePanel";
 import { storeCategories } from "@/data/categories";
 import {
+  getProduct,
   getProductFamily,
-  indexableProductPaths,
   isFamilyHubSlug,
   legacyProductRedirect,
   type ProductFamily,
 } from "@/data/products";
-import { getSiteUrl, pageMetadata, siteName } from "@/lib/site";
+import { gatedMetadata, getSiteUrl, siteName } from "@/lib/site";
 
 function categoryFor(family: ProductFamily) {
-  const id =
-    family.form === "nasal" ? "nasal" : family.form === "accessory" ? "accessory" : "injectable";
+  const id = family.form === "liquid" ? "supply" : "lyophilized";
   return storeCategories.find((entry) => entry.id === id);
 }
 
@@ -24,11 +23,7 @@ function ogImageFor(src: string | undefined, alt: string) {
   return src ? { url: src, alt } : undefined;
 }
 
-export function generateStaticParams() {
-  return indexableProductPaths().map((path) => ({
-    slug: path.slice("/products/".length),
-  }));
-}
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata({
   params,
@@ -42,21 +37,21 @@ export async function generateMetadata({
   if (!family) return { title: "Product Not Found" };
 
   if (isFamilyHubSlug(slug)) {
-    return pageMetadata({
+    return gatedMetadata({
       title: family.name,
       description: familyStrengthSummary(family),
       path: `/products/${family.slug}`,
-      image: ogImageFor(family.image, `${family.name} research product`),
+      image: ogImageFor(family.image, `${family.name} research material`),
     });
   }
 
   const variant = family.variants.find((item) => item.slug === slug);
   if (!variant) return { title: "Product Not Found" };
   const doseLabel = `${family.name} ${variant.dose}`;
-  return pageMetadata({
+  return gatedMetadata({
     title: doseLabel,
     absoluteTitle: `${doseLabel} | Ovora Labs`,
-    description: `${doseLabel} from Ovora Labs. ${family.description} Sold as a single unit for laboratory research use only.`,
+    description: `${doseLabel} from Ovora Labs. ${family.description} Sold as a single vial for laboratory research use only.`,
     path: `/products/${variant.slug}`,
     image: ogImageFor(variant.image, `${doseLabel} from Ovora Labs`),
   });
@@ -68,6 +63,8 @@ export default async function ProductPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
+  const direct = getProduct(slug);
+  if (direct?.withheld) redirect("/store");
   const redirectTo = legacyProductRedirect(slug);
   if (redirectTo) permanentRedirect(`/products/${redirectTo}`);
 

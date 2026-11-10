@@ -59,7 +59,7 @@ Useful pages for Lyro to scrape once the site is public: `/`, `/store`, `/faq`, 
 
 - `/` — Homepage
 - `/research-use` — Research Use Only
-- `/store` — Product catalog (injectable vials + nasal sprays)
+- `/store` — Researcher catalog (sign-in required)
 - `/products/[slug]` — Product detail
 - `/contact`, `/faq`, `/shipping`, `/quality`, `/coa`, `/research`
 - `/disclaimer`, `/terms`, `/privacy`, `/returns`

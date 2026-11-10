@@ -2,12 +2,13 @@ import Link from "next/link";
 import { JsonLd } from "@/components/JsonLd";
 import { ProductVisual } from "@/components/ProductVisual";
 import { storeCategories } from "@/data/categories";
-import { formatPrice, type ProductFamily } from "@/data/products";
+import { ProductCompliance } from "@/components/ProductCompliance";
+import { formatPrice } from "@/lib/money";
+import type { ProductFamily } from "@/data/products";
 import { getSiteUrl, siteName } from "@/lib/site";
 
 function categoryFor(family: ProductFamily) {
-  const id =
-    family.form === "nasal" ? "nasal" : family.form === "accessory" ? "accessory" : "injectable";
+  const id = family.form === "liquid" ? "supply" : "lyophilized";
   return storeCategories.find((entry) => entry.id === id);
 }
 
@@ -19,9 +20,6 @@ function joinDoses(doses: string[]) {
 
 export function familyStrengthSummary(family: ProductFamily) {
   const doses = joinDoses(family.variants.map((variant) => variant.dose));
-  if (family.form === "nasal") {
-    return `${family.name} from Ovora Labs, available as ${doses}. ${family.description} Research use only. Not for human or veterinary consumption.`;
-  }
   return `${family.name} from Ovora Labs, available in ${doses}, each sold as a single vial. ${family.description} Research use only. Not for human or veterinary consumption.`;
 }
 
@@ -29,7 +27,7 @@ export function ProductFamilyHub({ family }: { family: ProductFamily }) {
   const siteUrl = getSiteUrl();
   const category = categoryFor(family);
   const hubUrl = `${siteUrl}/products/${family.slug}`;
-  const soldAs = family.form === "nasal" ? "Nasal spray" : "Single vial";
+  const soldAs = family.form === "liquid" ? "Laboratory supply" : "Single vial";
 
   const breadcrumbs = [
     { name: "Home", item: siteUrl },
@@ -100,12 +98,6 @@ export function ProductFamilyHub({ family }: { family: ProductFamily }) {
             {family.name}
           </h1>
           <p className="text-[#4a5168] text-lg leading-relaxed">{family.description}</p>
-          {family.alsoKnownAs && family.alsoKnownAs.length > 0 && (
-            <p className="mt-4 text-sm text-[#6b7189]">
-              <span className="font-medium text-[#4a5168]">Also known as: </span>
-              {family.alsoKnownAs.join(", ")}
-            </p>
-          )}
         </div>
 
         <h2 className="text-2xl font-semibold text-[#1e2235] tracking-tight mb-6">
@@ -138,6 +130,8 @@ export function ProductFamilyHub({ family }: { family: ProductFamily }) {
             </Link>
           ))}
         </div>
+
+        <ProductCompliance family={family} />
 
         <p className="mt-10 max-w-3xl text-sm text-[#6b7189] leading-relaxed">
           For laboratory and research use only. Not for human or veterinary consumption. Each

@@ -65,3 +65,13 @@ export function pageMetadata({
     },
   };
 }
+
+/** Catalog, account, and checkout URLs stay out of search indexes. */
+export function gatedMetadata(
+  input: Parameters<typeof pageMetadata>[0],
+): Metadata {
+  return {
+    ...pageMetadata(input),
+    robots: { index: false, follow: false },
+  };
+}

@@ -1,11 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 import { CartDrawer } from "./CartDrawer";
 import { useCart } from "./CartProvider";
 import { Logo } from "./Logo";
+import { SITE_BANNER } from "@/lib/compliance";
+import type { SessionUser } from "@/lib/auth/token";
 
 const nav = [
   { href: "/store", label: "Products" },
@@ -14,16 +16,24 @@ const nav = [
   { href: "/contact", label: "Contact us" },
 ];
 
-export function Header() {
+export function Header({ session }: { session: SessionUser | null }) {
   const pathname = usePathname();
+  const router = useRouter();
   const [open, setOpen] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
   const { itemCount } = useCart();
 
+  async function signOut() {
+    await fetch("/api/auth/logout", { method: "POST" });
+    setOpen(false);
+    router.push("/");
+    router.refresh();
+  }
+
   return (
     <header className="sticky top-0 inset-x-0 z-50">
       <p className="bg-[#1e2235] px-4 py-2 text-center text-xs leading-snug text-[#f7f8fc] sm:text-sm">
-        Free shipping on orders over $100
+        {SITE_BANNER}
       </p>
       <div className="relative h-16 lg:h-[70px] bg-[#f7f8fc]/95 backdrop-blur-md border-b border-[#d5dbed]/80 shadow-[0_1px_3px_rgba(30,34,53,0.05)]">
         <div className="content-container relative flex items-center justify-between w-full h-full">
@@ -76,6 +86,30 @@ export function Header() {
                 className="h-9 w-36 xl:w-48 rounded-full border border-[#d5dbed] bg-white px-3 text-sm text-[#1e2235] outline-none placeholder:text-[#8a90a8] focus:ring-2 focus:ring-[#7a8fd4]/30"
               />
             </form>
+            {session ? (
+              <>
+                <Link
+                  href="/account"
+                  className="hidden sm:inline-flex items-center h-9 px-3 rounded-full text-[13px] font-medium text-[#4a5168] hover:bg-[#e4e8f5]/60"
+                >
+                  Account
+                </Link>
+                <button
+                  type="button"
+                  onClick={() => void signOut()}
+                  className="hidden sm:inline-flex items-center h-9 px-3 rounded-full text-[13px] font-medium text-[#4a5168] hover:bg-[#e4e8f5]/60"
+                >
+                  Sign out
+                </button>
+              </>
+            ) : (
+              <Link
+                href="/login"
+                className="hidden sm:inline-flex items-center h-9 px-4 rounded-full bg-[#1e2235] text-[#f7f8fc] text-[13px] font-medium hover:bg-[#2a3148]"
+              >
+                Sign in
+              </Link>
+            )}
             <button
               type="button"
               onClick={() => setCartOpen(true)}
@@ -122,6 +156,20 @@ export function Header() {
                 {item.label}
               </Link>
             ))}
+            {session ? (
+              <>
+                <Link href="/account" onClick={() => setOpen(false)} className="px-3 py-3 text-sm font-medium text-[#4a5168]">
+                  Account
+                </Link>
+                <button type="button" onClick={() => void signOut()} className="px-3 py-3 text-left text-sm font-medium text-[#4a5168]">
+                  Sign out
+                </button>
+              </>
+            ) : (
+              <Link href="/login" onClick={() => setOpen(false)} className="px-3 py-3 text-sm font-medium text-[#1e2235]">
+                Sign in
+              </Link>
+            )}
             </nav>
           </div>
         </div>

@@ -1,33 +1,23 @@
 export const storeCategories = [
   {
-    slug: "injectable-vials",
-    id: "injectable",
-    label: "Injectable Vials",
-    title: "Injectable Vials",
+    slug: "lyophilized-peptides",
+    id: "lyophilized",
+    label: "Lyophilized Peptides",
+    title: "Lyophilized Peptides",
     description:
-      "Shop injectable research peptides from Ovora Labs. Lyophilized single vials, 99%+ purity, with a certificate of analysis. Research use only.",
-    sectionTitle: "Injectable Vials",
-    sectionSubtitle: "Lyophilized research peptides in sterile vials.",
+      "Lyophilized research peptides from Ovora Labs. Each listing is a single vial. Purity ≥99% (HPLC), verified by independent third-party testing. Certificate of analysis available on request. Research use only.",
+    sectionTitle: "Lyophilized Peptides",
+    sectionSubtitle: "Single-vial lyophilized research peptides.",
   },
   {
-    slug: "nasal-sprays",
-    id: "nasal",
-    label: "Nasal Sprays",
-    title: "Nasal Sprays",
+    slug: "laboratory-supplies",
+    id: "supply",
+    label: "Laboratory Supplies",
+    title: "Laboratory Supplies",
     description:
-      "Shop research-grade nasal sprays from Ovora Labs, including MT-2, Selank, and Semax. Research use only.",
-    sectionTitle: "Nasal Sprays",
-    sectionSubtitle: "Research-grade nasal spray formulations — MT-2, Selank, and Semax.",
-  },
-  {
-    slug: "accessories",
-    id: "accessory",
-    label: "Accessories",
-    title: "Research Accessories",
-    description:
-      "Shop laboratory accessories from Ovora Labs, including bacteriostatic water for reconstitution. Research use only.",
-    sectionTitle: "Accessories",
-    sectionSubtitle: "Reconstitution supplies for laboratory use.",
+      "Laboratory supplies from Ovora Labs, including bacteriostatic water. Research use only. Sold only to qualified researchers and licensed laboratories.",
+    sectionTitle: "Laboratory Supplies",
+    sectionSubtitle: "Laboratory supplies sold with the research catalog.",
   },
 ] as const;
 

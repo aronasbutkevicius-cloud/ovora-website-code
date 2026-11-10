@@ -11,6 +11,10 @@ export const metadata: Metadata = pageMetadata({
 
 const faqs: { q: string; a: string; schemaAnswer?: string }[] = [
   {
+    q: "Who can view the catalog?",
+    a: "Create a researcher account and sign in. The catalog and checkout are shown only after sign-in. Products are sold only to qualified researchers and licensed laboratories.",
+  },
+  {
     q: "Are your products for human use?",
     a: "No. All Ovora Labs products are sold strictly for laboratory and research use only — not for human or veterinary consumption.",
   },

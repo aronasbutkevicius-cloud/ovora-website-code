@@ -1,4 +1,4 @@
-import { formatPrice } from "@/data/products";
+import { formatPrice } from "@/lib/money";
 import { amountUntilFreeShipping, freeShippingProgress } from "@/lib/shipping";
 
 export function FreeShippingProgress({ subtotal }: { subtotal: number }) {

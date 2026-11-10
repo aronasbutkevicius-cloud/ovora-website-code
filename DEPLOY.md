@@ -101,14 +101,15 @@ Open [http://localhost:3000](http://localhost:3000).
 
 These items are marked on the site with **Owner placeholder**, or they are claims already written into the pages. This deploy does not fill them in.
 
-- Payment provider. Checkout collects a shipping address and then stops. It does not charge a card or create an order.
+- Payment provider. Checkout can save an unpaid summary for a signed-in account. It does not charge a card.
+- Researcher accounts. Set `AUTH_SECRET` and `DATABASE_URL` in Vercel before relying on sign-in. Without them, catalog routes still redirect to sign-in and the pages do not crash.
 - Contact form and footer newsletter. Both open or instruct an email to `support@ovoralabs.com`. Nothing is stored.
 - Tidio public key, if you want the chat widget.
 - Legal entity name, mailing address, governing state, and policy effective dates on Terms and Privacy.
 - Phone number and street address on the contact page. Hours are currently written as Mon–Fri, 9am–6pm ET.
-- Public COA files. The COA page describes a certificate; it has no downloads.
-- Research citations. The research library lists catalog products only.
-- Product photos for the three nasal sprays (MT-2, Selank, Semax). Those pages use a drawn bottle.
+- Public COA files. Each catalog item says a certificate is available on request until a file is uploaded.
+- Research citations. The public research page does not list the catalog.
+- Three catalog records stay in the data file with `withheld: true` and are omitted from the store.
 - Whether `https://ovoralabs.com` is the domain you registered. If not, set `NEXT_PUBLIC_SITE_URL`.
 - Whether the mailbox `support@ovoralabs.com` exists.
 - Business copy already on the pages: 99%+ purity, ISO 17025 third-party testing, US operations, free shipping over $100, an $8.99 US shipping estimate under $100, overnight shipping, 0–2 business day processing, and the 14-day unopened-return note. Confirm each one before relying on it.

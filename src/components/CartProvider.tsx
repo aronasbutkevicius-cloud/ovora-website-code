@@ -18,7 +18,7 @@ export type CartItem = {
   price: number;
   quantity: number;
   image?: string;
-  form: "injectable" | "nasal" | "accessory";
+  form: string;
 };
 
 type CartContextValue = {
