@@ -32,14 +32,18 @@ export function pageMetadata({
   description,
   path,
   absoluteTitle,
+  image,
 }: {
   title: string;
   description: string;
   path: string;
   absoluteTitle?: string;
+  /** Product photo. Falls back to the site Open Graph image when omitted. */
+  image?: { url: string; alt: string };
 }): Metadata {
   const url = path.startsWith("/") ? path : `/${path}`;
   const fullTitle = absoluteTitle ?? `${title} | ${siteName}`;
+  const images = image ? [{ url: image.url, alt: image.alt }] : [ogImage];
 
   return {
     title: absoluteTitle ? { absolute: absoluteTitle } : title,
@@ -51,13 +55,13 @@ export function pageMetadata({
       url,
       siteName,
       type: "website",
-      images: [ogImage],
+      images,
     },
     twitter: {
       card: "summary_large_image",
       title: fullTitle,
       description,
-      images: [ogImage.url],
+      images: images.map((item) => item.url),
     },
   };
 }

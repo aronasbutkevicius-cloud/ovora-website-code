@@ -22,6 +22,21 @@ export function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/store/injectable-vials" className="hover:text-white transition-colors">
+                  Injectable Vials
+                </Link>
+              </li>
+              <li>
+                <Link href="/store/nasal-sprays" className="hover:text-white transition-colors">
+                  Nasal Sprays
+                </Link>
+              </li>
+              <li>
+                <Link href="/store/accessories" className="hover:text-white transition-colors">
+                  Accessories
+                </Link>
+              </li>
+              <li>
                 <Link href="/research-use" className="hover:text-white transition-colors">
                   Research Use Only
                 </Link>
@@ -58,6 +73,11 @@ export function Footer() {
           <div>
             <p className="text-sm font-semibold mb-4">Support</p>
             <ul className="space-y-2.5 text-sm text-white/60">
+              <li>
+                <Link href="/about" className="hover:text-white transition-colors">
+                  About
+                </Link>
+              </li>
               <li>
                 <Link href="/contact" className="hover:text-white transition-colors">
                   Contact Us

@@ -4,7 +4,6 @@ import { CutoutImage } from "@/components/CutoutImage";
 import Link from "next/link";
 import { useMemo, useState, type FormEvent } from "react";
 import { useCart } from "@/components/CartProvider";
-import { PlaceholderNote } from "@/components/PlaceholderNote";
 import { FreeShippingProgress } from "@/components/FreeShippingProgress";
 import { formatPrice } from "@/data/products";
 import { shippingCost } from "@/lib/shipping";
@@ -110,10 +109,6 @@ export default function CheckoutPage() {
               Shipping details for {form.fullName} ({form.email}) stayed in this browser only.
               Nothing was charged, and the cart was not cleared.
             </p>
-            <PlaceholderNote>
-              Choose a payment provider and connect it here before accepting live orders. Until
-              then, email the summary to {supportEmail} if you want a person to follow up.
-            </PlaceholderNote>
             <div className="mt-6 flex flex-col sm:flex-row gap-3">
               <a
                 href={mailto}
@@ -274,11 +269,6 @@ export default function CheckoutPage() {
               </p>
             )}
 
-            <PlaceholderNote>
-              Owner placeholder: no payment provider is connected. Continuing does not place or
-              reserve an order. US shipping is {formatPrice(8.99)} under $100 and free at $100 or
-              above.
-            </PlaceholderNote>
             <button
               type="submit"
               className="w-full sm:w-auto inline-flex items-center justify-center h-12 px-10 rounded-full bg-[#1e2235] text-[#f7f8fc] text-sm font-medium hover:bg-[#2a3148] transition-colors"

@@ -35,9 +35,7 @@ export function Newsletter() {
   function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const email = String(new FormData(e.currentTarget).get("email") || "").trim();
-    setStatus(
-      `${email || "That address"} was not saved. Email signup is not connected yet — write ${supportEmail} to be added manually.`,
-    );
+    setStatus(`Email ${supportEmail} from ${email || "your address"} to join research updates.`);
   }
 
   return (
@@ -70,8 +68,11 @@ export function Newsletter() {
           </button>
         </form>
         <p className="mt-3 text-xs text-[#8a90a8] leading-relaxed">
-          Owner placeholder: this form does not store addresses. Email {supportEmail} to join the
-          list manually.
+          To join the list, email{" "}
+          <a href={`mailto:${supportEmail}`} className="underline hover:text-[#4a5168]">
+            {supportEmail}
+          </a>
+          .
         </p>
         {status && (
           <p role="status" className="mt-3 text-sm text-[#4a5168]">

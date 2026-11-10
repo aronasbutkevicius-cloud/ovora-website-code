@@ -1,28 +1,33 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import { JsonLd } from "@/components/JsonLd";
+import { familyStrengthSummary, ProductFamilyHub } from "@/components/ProductFamilyHub";
 import { ProductPurchasePanel } from "@/components/ProductPurchasePanel";
 import { storeCategories } from "@/data/categories";
 import {
-  getProductFamilies,
-  resolveFamilyAndVariant,
+  getProductFamily,
+  indexableProductPaths,
+  isFamilyHubSlug,
+  legacyProductRedirect,
+  type ProductFamily,
 } from "@/data/products";
 import { getSiteUrl, pageMetadata, siteName } from "@/lib/site";
 
-export function generateStaticParams() {
-  const families = getProductFamilies();
-  const familySlugs = families.map((family) => ({ slug: family.slug }));
-  const variantSlugs = families.flatMap((family) =>
-    family.variants.map((variant) => ({ slug: variant.slug })),
-  );
+function categoryFor(family: ProductFamily) {
+  const id =
+    family.form === "nasal" ? "nasal" : family.form === "accessory" ? "accessory" : "injectable";
+  return storeCategories.find((entry) => entry.id === id);
+}
 
-  const seen = new Set<string>();
-  return [...familySlugs, ...variantSlugs].filter((entry) => {
-    if (seen.has(entry.slug)) return false;
-    seen.add(entry.slug);
-    return true;
-  });
+function ogImageFor(src: string | undefined, alt: string) {
+  return src ? { url: src, alt } : undefined;
+}
+
+export function generateStaticParams() {
+  return indexableProductPaths().map((path) => ({
+    slug: path.slice("/products/".length),
+  }));
 }
 
 export async function generateMetadata({
@@ -31,15 +36,29 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const resolved = resolveFamilyAndVariant(slug);
-  if (!resolved) return { title: "Product Not Found" };
-  const { family, variant } = resolved;
+  if (legacyProductRedirect(slug)) return { title: "Redirecting" };
+
+  const family = getProductFamily(slug);
+  if (!family) return { title: "Product Not Found" };
+
+  if (isFamilyHubSlug(slug)) {
+    return pageMetadata({
+      title: family.name,
+      description: familyStrengthSummary(family),
+      path: `/products/${family.slug}`,
+      image: ogImageFor(family.image, `${family.name} research product`),
+    });
+  }
+
+  const variant = family.variants.find((item) => item.slug === slug);
+  if (!variant) return { title: "Product Not Found" };
   const doseLabel = `${family.name} ${variant.dose}`;
   return pageMetadata({
     title: doseLabel,
     absoluteTitle: `${doseLabel} | Ovora Labs`,
     description: `${doseLabel} from Ovora Labs. ${family.description} Sold as a single unit for laboratory research use only.`,
-    path: `/products/${slug}`,
+    path: `/products/${variant.slug}`,
+    image: ogImageFor(variant.image, `${doseLabel} from Ovora Labs`),
   });
 }
 
@@ -49,26 +68,33 @@ export default async function ProductPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const resolved = resolveFamilyAndVariant(slug);
-  if (!resolved) notFound();
+  const redirectTo = legacyProductRedirect(slug);
+  if (redirectTo) permanentRedirect(`/products/${redirectTo}`);
 
-  const { family, variant } = resolved;
+  const family = getProductFamily(slug);
+  if (!family) notFound();
+
+  if (isFamilyHubSlug(slug)) {
+    return <ProductFamilyHub family={family} />;
+  }
+
+  const variant = family.variants.find((item) => item.slug === slug);
+  if (!variant) notFound();
+
   const siteUrl = getSiteUrl();
-  const productUrl = `${siteUrl}/products/${slug}`;
-  const categoryMatch =
-    family.form === "nasal"
-      ? storeCategories.find((entry) => entry.id === "nasal")
-      : family.form === "accessory"
-        ? storeCategories.find((entry) => entry.id === "accessory")
-        : storeCategories.find((entry) => entry.id === "injectable");
+  const productUrl = `${siteUrl}/products/${variant.slug}`;
+  const category = categoryFor(family);
   const doseLabel = `${family.name} ${variant.dose}`;
+  const hub =
+    family.variants.length > 1 && !family.variants.some((item) => item.slug === family.slug);
 
   const breadcrumbs = [
     { name: "Home", item: siteUrl },
     { name: "Products", item: `${siteUrl}/store` },
-    ...(categoryMatch
-      ? [{ name: categoryMatch.label, item: `${siteUrl}/store/${categoryMatch.slug}` }]
+    ...(category
+      ? [{ name: category.label, item: `${siteUrl}/store/${category.slug}` }]
       : []),
+    ...(hub ? [{ name: family.name, item: `${siteUrl}/products/${family.slug}` }] : []),
     { name: doseLabel, item: productUrl },
   ];
 
@@ -81,6 +107,8 @@ export default async function ProductPage({
             "@type": "Product",
             name: doseLabel,
             description: family.description,
+            url: productUrl,
+            sku: variant.slug,
             ...(variant.image ? { image: `${siteUrl}${variant.image}` } : {}),
             brand: { "@type": "Brand", name: siteName },
           },
@@ -101,11 +129,19 @@ export default async function ProductPage({
           <Link href="/store" className="hover:text-[#1e2235]">
             Products
           </Link>
-          {categoryMatch && (
+          {category && (
             <>
               <span className="mx-2">/</span>
-              <Link href={`/store/${categoryMatch.slug}`} className="hover:text-[#1e2235]">
-                {categoryMatch.label}
+              <Link href={`/store/${category.slug}`} className="hover:text-[#1e2235]">
+                {category.label}
+              </Link>
+            </>
+          )}
+          {hub && (
+            <>
+              <span className="mx-2">/</span>
+              <Link href={`/products/${family.slug}`} className="hover:text-[#1e2235]">
+                {family.name}
               </Link>
             </>
           )}
@@ -113,7 +149,11 @@ export default async function ProductPage({
           <span className="text-[#1e2235]">{doseLabel}</span>
         </div>
 
-        <ProductPurchasePanel family={family} initialVariantSlug={variant.slug} />
+        <ProductPurchasePanel
+          key={variant.slug}
+          family={family}
+          initialVariantSlug={variant.slug}
+        />
       </div>
     </section>
   );

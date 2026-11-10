@@ -554,6 +554,53 @@ export function resolveFamilyAndVariant(slug: string) {
   return { family, variant };
 }
 
+/**
+ * A family URL is a hub only when it lists more than one strength and does not
+ * collide with a variant slug. Single-strength families use the variant URL.
+ */
+export function isMultiStrengthHub(family: ProductFamily) {
+  return (
+    family.variants.length > 1 &&
+    !family.variants.some((variant) => variant.slug === family.slug)
+  );
+}
+
+export function isFamilyHubSlug(slug: string) {
+  const family = getProductFamilies().find((entry) => entry.slug === slug);
+  return Boolean(family && isMultiStrengthHub(family) && family.slug === slug);
+}
+
+/** Catalog and internal links should point at the indexable URL, not an alias. */
+export function familyCatalogPath(family: ProductFamily) {
+  return isMultiStrengthHub(family)
+    ? `/products/${family.slug}`
+    : `/products/${family.variants[0].slug}`;
+}
+
+/**
+ * Family slug that only duplicates its single variant, such as
+ * /products/mt-2-spray → /products/mt2-spray. Undefined when `slug` is already
+ * the canonical hub or variant URL.
+ */
+export function legacyProductRedirect(slug: string) {
+  const family = getProductFamilies().find((entry) => entry.slug === slug);
+  if (!family) return undefined;
+  if (family.variants.some((variant) => variant.slug === slug)) return undefined;
+  if (family.variants.length !== 1) return undefined;
+  const target = family.variants[0]?.slug;
+  if (!target || target === slug) return undefined;
+  return target;
+}
+
+export function indexableProductPaths() {
+  const paths: string[] = [];
+  for (const family of getProductFamilies()) {
+    if (isMultiStrengthHub(family)) paths.push(`/products/${family.slug}`);
+    for (const variant of family.variants) paths.push(`/products/${variant.slug}`);
+  }
+  return paths;
+}
+
 export function startingPrice(family: ProductFamily) {
   return Math.min(...family.variants.map((variant) => variant.price));
 }

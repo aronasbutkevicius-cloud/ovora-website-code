@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHero } from "@/components/PageBits";
-import { PlaceholderNote } from "@/components/PlaceholderNote";
-import { getProductFamilies } from "@/data/products";
+import { familyCatalogPath, getProductFamilies } from "@/data/products";
 import { pageMetadata } from "@/lib/site";
 
 export const metadata: Metadata = pageMetadata({
@@ -23,17 +22,11 @@ export default function ResearchPage() {
           title="Research Library"
           subtitle="Compound overviews and documentation context for laboratory investigators."
         />
-        <div className="mb-8 max-w-3xl">
-          <PlaceholderNote>
-            Citations and paper links are not published yet. This page only lists compounds that
-            are already in the catalog.
-          </PlaceholderNote>
-        </div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl">
           {featured.map((family) => (
             <Link
               key={family.slug}
-              href={`/products/${family.slug}`}
+              href={familyCatalogPath(family)}
               className="rounded-2xl border border-[#d5dbed] bg-[#eef0f8] p-6 hover:shadow-md transition-shadow"
             >
               <h2 className="font-semibold text-[#1e2235] mb-2">{family.name}</h2>

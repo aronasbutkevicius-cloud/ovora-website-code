@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { useCart } from "@/components/CartProvider";
 import { ProductVisual } from "@/components/ProductVisual";
 import { formatPrice, type Product, type ProductFamily } from "@/data/products";
@@ -13,15 +13,11 @@ type Props = {
 
 export function ProductPurchasePanel({ family, initialVariantSlug }: Props) {
   const { addItem } = useCart();
-  const [variantSlug, setVariantSlug] = useState(initialVariantSlug);
   const [quantity, setQuantity] = useState(1);
   const [added, setAdded] = useState(false);
 
-  const variant = useMemo(
-    () =>
-      family.variants.find((item) => item.slug === variantSlug) ?? family.variants[0],
-    [family.variants, variantSlug],
-  );
+  const variant =
+    family.variants.find((item) => item.slug === initialVariantSlug) ?? family.variants[0];
 
   const hasMultiple = family.variants.length > 1;
   const isSpray = family.form === "nasal";
@@ -56,11 +52,6 @@ export function ProductPurchasePanel({ family, initialVariantSlug }: Props) {
             />
           </div>
         </div>
-        {!variant.image && !family.image && (
-          <p className="mt-3 text-center text-xs text-[#6b7189]">
-            Owner placeholder: illustrated bottle. A product photo has not been added for this item.
-          </p>
-        )}
       </div>
 
       <div>
@@ -117,24 +108,28 @@ export function ProductPurchasePanel({ family, initialVariantSlug }: Props) {
               {family.variants.map((option) => {
                 const active = option.slug === variant.slug;
                 return (
-                  <button
+                  <Link
                     key={option.slug}
-                    type="button"
-                    onClick={() => {
-                      setVariantSlug(option.slug);
-                      setAdded(false);
-                    }}
-                    className={`min-w-[4.5rem] px-4 py-2.5 rounded-xl text-sm font-medium border transition-colors ${
+                    href={`/products/${option.slug}`}
+                    aria-current={active ? "page" : undefined}
+                    className={`inline-flex items-center justify-center min-w-[4.5rem] px-4 py-2.5 rounded-xl text-sm font-medium border transition-colors ${
                       active
                         ? "bg-[#1e2235] text-[#f7f8fc] border-[#1e2235]"
                         : "bg-[#f7f8fc] text-[#4a5168] border-[#d5dbed] hover:border-[#7a8fd4] hover:text-[#1e2235]"
                     }`}
                   >
                     {option.dose}
-                  </button>
+                  </Link>
                 );
               })}
             </div>
+            {!family.variants.some((option) => option.slug === family.slug) && (
+              <p className="mt-3 text-xs text-[#6b7189]">
+                <Link href={`/products/${family.slug}`} className="underline hover:text-[#1e2235]">
+                  All {family.name} strengths
+                </Link>
+              </p>
+            )}
           </div>
         )}
 

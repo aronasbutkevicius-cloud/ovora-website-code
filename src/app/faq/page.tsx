@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { FaqItem, PageHero } from "@/components/PageBits";
+import { JsonLd } from "@/components/JsonLd";
 import { pageMetadata } from "@/lib/site";
 
 export const metadata: Metadata = pageMetadata({
@@ -8,7 +9,7 @@ export const metadata: Metadata = pageMetadata({
   path: "/faq",
 });
 
-const faqs = [
+const faqs: { q: string; a: string; schemaAnswer?: string }[] = [
   {
     q: "Are your products for human use?",
     a: "No. All Ovora Labs products are sold strictly for laboratory and research use only — not for human or veterinary consumption.",
@@ -28,6 +29,8 @@ const faqs = [
   {
     q: "How fast do you ship?",
     a: "Orders are typically processed within 0–2 business days. Overnight delivery is available. US shipping is $8.99, and free on orders over $100.",
+    schemaAnswer:
+      "Orders are typically processed within 0–2 business days. Overnight delivery is available. Free shipping is offered on qualifying US orders.",
   },
   {
     q: "What if my order arrives damaged?",
@@ -35,9 +38,31 @@ const faqs = [
   },
 ];
 
+function answerForSchema(faq: { a: string; schemaAnswer?: string }) {
+  const text = faq.schemaAnswer ?? faq.a;
+  if (/\$\s?\d/.test(text)) {
+    throw new Error("FAQ schema must not include prices");
+  }
+  return text;
+}
+
 export default function FaqPage() {
   return (
     <section className="py-12 lg:py-16 bg-[#eef0f8] min-h-[50vh]">
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: faqs.map((faq) => ({
+            "@type": "Question",
+            name: faq.q,
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: answerForSchema(faq),
+            },
+          })),
+        }}
+      />
       <div className="content-container">
         <PageHero
           title="FAQ"

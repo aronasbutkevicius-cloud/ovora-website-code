@@ -4,6 +4,7 @@ import { storeCategories, type StoreCategoryId } from "@/data/categories";
 import {
   accessoryFamilies,
   doseOptionsLabel,
+  familyCatalogPath,
   formatPrice,
   injectableFamilies,
   nasalFamilies,
@@ -34,7 +35,7 @@ function ProductCard({ family }: { family: ProductFamily }) {
 
   return (
     <Link
-      href={`/products/${family.slug}`}
+      href={familyCatalogPath(family)}
       className="group bg-[#f7f8fc]/95 rounded-2xl border border-[#d5dbed] overflow-hidden hover-lift"
     >
       <div className="relative aspect-[4/3] bg-gradient-to-b from-[#eef0f8] to-[#f7f8fc]">
