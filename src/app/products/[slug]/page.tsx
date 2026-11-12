@@ -2,13 +2,12 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound, permanentRedirect, redirect } from "next/navigation";
 import { JsonLd } from "@/components/JsonLd";
-import { familyStrengthSummary, ProductFamilyHub } from "@/components/ProductFamilyHub";
 import { ProductPurchasePanel } from "@/components/ProductPurchasePanel";
 import { storeCategories } from "@/data/categories";
 import {
+  familyStrengthSummary,
   getProduct,
   getProductFamily,
-  isFamilyHubSlug,
   legacyProductRedirect,
   type ProductFamily,
 } from "@/data/products";
@@ -34,65 +33,44 @@ export async function generateMetadata({
   if (legacyProductRedirect(slug)) return { title: "Redirecting" };
 
   const family = getProductFamily(slug);
-  if (!family) return { title: "Product Not Found" };
+  if (!family || family.slug !== slug) return { title: "Product Not Found" };
 
-  if (isFamilyHubSlug(slug)) {
-    return gatedMetadata({
-      title: family.name,
-      description: familyStrengthSummary(family),
-      path: `/products/${family.slug}`,
-      image: ogImageFor(family.image, `${family.name} research material`),
-    });
-  }
-
-  const variant = family.variants.find((item) => item.slug === slug);
-  if (!variant) return { title: "Product Not Found" };
-  const doseLabel = `${family.name} ${variant.dose}`;
   return gatedMetadata({
-    title: doseLabel,
-    absoluteTitle: `${doseLabel} | Ovora Labs`,
-    description: `${doseLabel} from Ovora Labs. ${family.description} Sold as a single vial for laboratory research use only.`,
-    path: `/products/${variant.slug}`,
-    image: ogImageFor(variant.image, `${doseLabel} from Ovora Labs`),
+    title: family.name,
+    description: familyStrengthSummary(family),
+    path: `/products/${family.slug}`,
+    image: ogImageFor(family.image, `${family.name} research material`),
   });
 }
 
 export default async function ProductPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ slug: string }>;
+  searchParams: Promise<{ size?: string }>;
 }) {
   const { slug } = await params;
+  const query = await searchParams;
   const direct = getProduct(slug);
   if (direct?.withheld) redirect("/store");
+
   const redirectTo = legacyProductRedirect(slug);
-  if (redirectTo) permanentRedirect(`/products/${redirectTo}`);
+  if (redirectTo) permanentRedirect(redirectTo);
 
   const family = getProductFamily(slug);
-  if (!family) notFound();
-
-  if (isFamilyHubSlug(slug)) {
-    return <ProductFamilyHub family={family} />;
-  }
-
-  const variant = family.variants.find((item) => item.slug === slug);
-  if (!variant) notFound();
+  if (!family || family.slug !== slug) notFound();
 
   const siteUrl = getSiteUrl();
-  const productUrl = `${siteUrl}/products/${variant.slug}`;
+  const productUrl = `${siteUrl}/products/${family.slug}`;
   const category = categoryFor(family);
-  const doseLabel = `${family.name} ${variant.dose}`;
-  const hub =
-    family.variants.length > 1 && !family.variants.some((item) => item.slug === family.slug);
+  const initialSize = typeof query.size === "string" ? query.size : undefined;
 
   const breadcrumbs = [
     { name: "Home", item: siteUrl },
     { name: "Products", item: `${siteUrl}/store` },
-    ...(category
-      ? [{ name: category.label, item: `${siteUrl}/store/${category.slug}` }]
-      : []),
-    ...(hub ? [{ name: family.name, item: `${siteUrl}/products/${family.slug}` }] : []),
-    { name: doseLabel, item: productUrl },
+    ...(category ? [{ name: category.label, item: `${siteUrl}/store/${category.slug}` }] : []),
+    { name: family.name, item: productUrl },
   ];
 
   return (
@@ -102,11 +80,11 @@ export default async function ProductPage({
           {
             "@context": "https://schema.org",
             "@type": "Product",
-            name: doseLabel,
+            name: family.name,
             description: family.description,
             url: productUrl,
-            sku: variant.slug,
-            ...(variant.image ? { image: `${siteUrl}${variant.image}` } : {}),
+            sku: family.slug,
+            ...(family.image ? { image: `${siteUrl}${family.image}` } : {}),
             brand: { "@type": "Brand", name: siteName },
           },
           {
@@ -134,23 +112,11 @@ export default async function ProductPage({
               </Link>
             </>
           )}
-          {hub && (
-            <>
-              <span className="mx-2">/</span>
-              <Link href={`/products/${family.slug}`} className="hover:text-ink">
-                {family.name}
-              </Link>
-            </>
-          )}
           <span className="mx-2">/</span>
-          <span className="text-ink">{doseLabel}</span>
+          <span className="text-ink">{family.name}</span>
         </div>
 
-        <ProductPurchasePanel
-          key={variant.slug}
-          family={family}
-          initialVariantSlug={variant.slug}
-        />
+        <ProductPurchasePanel family={family} initialSize={initialSize} />
       </div>
     </section>
   );

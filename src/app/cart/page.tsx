@@ -7,6 +7,7 @@ import { FreeShippingProgress } from "@/components/FreeShippingProgress";
 import { ResearcherNotice } from "@/components/ProductCompliance";
 import { SmsOptInForm } from "@/components/SmsOptInForm";
 import { useServerQuote } from "@/components/useServerQuote";
+import { AcceptedPayments } from "@/components/AcceptedPayments";
 import { formatCents } from "@/lib/money";
 
 export default function CartPage() {
@@ -34,7 +35,7 @@ export default function CartPage() {
         </div>
 
         {!ready ? null : items.length === 0 ? (
-          <div className="rounded-2xl border border-line bg-white p-8 max-w-xl">
+          <div className="rounded-2xl border border-line glass-panel p-8 max-w-xl">
             <p className="text-ink-soft mb-6">
               Browse research peptides and add a strength to get started.
             </p>
@@ -51,7 +52,7 @@ export default function CartPage() {
               {items.map((item) => (
                 <li
                   key={item.variantSlug}
-                  className="rounded-2xl border border-line bg-white p-4 sm:p-5 flex gap-4"
+                  className="rounded-2xl border border-line glass-panel p-4 sm:p-5 flex gap-4"
                 >
                   <div className="w-20 h-24 sm:w-24 sm:h-28 rounded-xl bg-surface-2 border border-line flex items-center justify-center overflow-hidden shrink-0">
                     {item.image ? (
@@ -119,7 +120,7 @@ export default function CartPage() {
               ))}
             </ul>
 
-            <aside className="rounded-2xl border border-line bg-white p-6 sticky top-28 space-y-4">
+            <aside className="rounded-2xl border border-line glass-panel p-6 sticky top-28 space-y-4">
               <h2 className="text-lg font-semibold text-ink">Order summary</h2>
               {quote && <FreeShippingProgress subtotal={quote.subtotalCents / 100} />}
               {error && <p className="text-sm text-red-700">{error}</p>}
@@ -163,6 +164,7 @@ export default function CartPage() {
               >
                 Keep shopping
               </Link>
+              <AcceptedPayments />
             </aside>
           </div>
         )}

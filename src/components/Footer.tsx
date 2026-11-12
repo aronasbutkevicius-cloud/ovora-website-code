@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { AcceptedPayments } from "@/components/AcceptedPayments";
 
 export function Footer() {
   return (
@@ -138,6 +139,8 @@ export function Footer() {
               </Link>
             </p>
           </div>
+
+          <AcceptedPayments className="[&_span]:text-white/80 [&_p]:text-white/50" />
 
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <p className="text-xs text-white/40">

@@ -1,16 +1,12 @@
 import Link from "next/link";
-import { ProductVisual } from "@/components/ProductVisual";
 import { ResearcherNotice } from "@/components/ProductCompliance";
+import { StoreProductCard } from "@/components/StoreProductCard";
 import { storeCategories, type StoreCategoryId } from "@/data/categories";
 import {
-  doseOptionsLabel,
-  familyCatalogPath,
   lyophilizedFamilies,
-  startingPrice,
   supplyFamilies,
   type ProductFamily,
 } from "@/data/products";
-import { formatPrice } from "@/lib/money";
 
 const filters = [
   { id: "all" as const, label: "All Products", href: "/store" },
@@ -25,40 +21,6 @@ function categoryPath(category: StoreCategoryId) {
   if (category === "all") return "/store";
   const match = storeCategories.find((entry) => entry.id === category);
   return match ? `/store/${match.slug}` : "/store";
-}
-
-function ProductCard({ family }: { family: ProductFamily }) {
-  const preview = family.variants[0];
-  const multi = family.variants.length > 1;
-  const fromPrice = startingPrice(family);
-
-  return (
-    <Link
-      href={familyCatalogPath(family)}
-      className="group bg-white rounded-2xl border border-line overflow-hidden hover-lift"
-    >
-      <div className="relative aspect-[4/3] bg-gradient-to-b from-surface-2 to-canvas">
-        <div className="absolute inset-3 flex items-center justify-center sm:inset-4">
-          <ProductVisual
-            product={preview}
-            className="h-full w-auto max-w-full group-hover:scale-[1.03] transition-transform duration-500"
-            sizes="(max-width: 768px) 90vw, 280px"
-          />
-        </div>
-      </div>
-      <div className="p-5">
-        <p className="text-[11px] uppercase tracking-wider text-placeholder mb-1">
-          {family.form === "liquid" ? "Laboratory supply" : "Single vial"}
-        </p>
-        <h2 className="font-semibold text-ink mb-1 group-hover:underline">{family.name}</h2>
-        <p className="text-xs text-placeholder mb-2">{doseOptionsLabel(family)}</p>
-        <p className="text-xs text-muted line-clamp-2 mb-3">{family.description}</p>
-        <p className="text-sm font-medium text-ink">
-          {multi ? `From ${formatPrice(fromPrice)}` : formatPrice(fromPrice)}
-        </p>
-      </div>
-    </Link>
-  );
 }
 
 function matchesQuery(family: ProductFamily, query: string) {
@@ -95,7 +57,7 @@ function Section({
       </div>
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {items.map((family) => (
-          <ProductCard key={family.slug} family={family} />
+          <StoreProductCard key={family.slug} family={family} />
         ))}
       </div>
     </div>
@@ -173,7 +135,7 @@ export function StoreCatalog({
             name="q"
             defaultValue={query}
             placeholder="Search by name or dose"
-            className="flex-1 h-11 px-4 rounded-full border border-line bg-white text-base sm:text-sm text-ink outline-none placeholder:text-placeholder focus:ring-2 focus:ring-accent/30"
+            className="flex-1 h-11 px-4 rounded-full border border-line glass-panel text-base sm:text-sm text-ink outline-none placeholder:text-placeholder focus:ring-2 focus:ring-accent/30"
           />
           <button
             type="submit"
@@ -197,7 +159,7 @@ export function StoreCatalog({
         </p>
 
         {count === 0 && (
-          <div className="rounded-2xl border border-line bg-white p-8 max-w-xl mb-10">
+          <div className="rounded-2xl border border-line glass-panel p-8 max-w-xl mb-10">
             <p className="text-ink-soft">
               No products match that search. Try another name, or browse the full catalog.
             </p>

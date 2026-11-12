@@ -85,7 +85,7 @@ export function Header({ session }: { session: SessionUser | null }) {
                 type="search"
                 name="q"
                 placeholder="Search"
-                className="h-9 w-36 xl:w-48 rounded-full border border-line bg-white px-3 text-sm text-ink outline-none placeholder:text-placeholder focus:ring-2 focus:ring-accent/30"
+                className="h-9 w-36 xl:w-48 rounded-full border border-line glass-panel px-3 text-sm text-ink outline-none placeholder:text-placeholder focus:ring-2 focus:ring-accent/30"
               />
             </form>
             {session ? (
@@ -144,7 +144,7 @@ export function Header({ session }: { session: SessionUser | null }) {
                 type="search"
                 name="q"
                 placeholder="Search products"
-                className="w-full h-11 px-4 rounded-full border border-line bg-white text-base text-ink outline-none placeholder:text-placeholder focus:ring-2 focus:ring-accent/30"
+                className="w-full h-11 px-4 rounded-full border border-line glass-panel text-base text-ink outline-none placeholder:text-placeholder focus:ring-2 focus:ring-accent/30"
               />
             </form>
             <nav className="flex flex-col">

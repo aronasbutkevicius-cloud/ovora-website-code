@@ -59,7 +59,7 @@ export default async function AccountPage() {
 
 function Item({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-xl border border-line bg-white p-4">
+    <div className="rounded-xl border border-line glass-panel p-4">
       <dt className="text-muted mb-1">{label}</dt>
       <dd className="font-medium text-ink">{value}</dd>
     </div>

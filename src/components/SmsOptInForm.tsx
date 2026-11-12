@@ -49,7 +49,7 @@ export function SmsOptInForm({
   }
 
   return (
-    <form onSubmit={onSubmit} className="rounded-2xl border border-line bg-white p-5 space-y-4">
+    <form onSubmit={onSubmit} className="rounded-2xl border border-line glass-panel p-5 space-y-4">
       <div>
         <h2 className="text-lg font-semibold text-ink mb-1">Promotional updates</h2>
         <p className="text-sm text-ink-soft leading-relaxed">{FIRST_ORDER_OFFER}</p>

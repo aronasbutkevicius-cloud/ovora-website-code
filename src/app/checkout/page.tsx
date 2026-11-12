@@ -1,5 +1,6 @@
 "use client";
 
+import { AcceptedPayments } from "@/components/AcceptedPayments";
 import { CutoutImage } from "@/components/CutoutImage";
 import Link from "next/link";
 import { useState, type FormEvent } from "react";
@@ -135,7 +136,7 @@ export default function CheckoutPage() {
     return (
       <section className="py-12 lg:py-16 bg-canvas min-h-[60vh]">
         <div className="content-container max-w-2xl">
-          <div className="rounded-2xl border border-line bg-white p-8">
+          <div className="rounded-2xl border border-line glass-panel p-8">
             <p className="text-xs uppercase tracking-[0.16em] text-accent font-medium mb-3">
               Payment not connected
             </p>
@@ -214,7 +215,7 @@ export default function CheckoutPage() {
           className="grid lg:grid-cols-[1fr_360px] gap-8 items-start"
         >
           <div className="space-y-6">
-            <fieldset className="rounded-2xl border border-line bg-white p-6 space-y-4">
+            <fieldset className="rounded-2xl border border-line glass-panel p-6 space-y-4">
               <legend className="px-1 text-lg font-semibold text-ink">Contact</legend>
               <Field
                 label="Email"
@@ -230,7 +231,7 @@ export default function CheckoutPage() {
               />
             </fieldset>
 
-            <fieldset className="rounded-2xl border border-line bg-white p-6 space-y-4">
+            <fieldset className="rounded-2xl border border-line glass-panel p-6 space-y-4">
               <legend className="px-1 text-lg font-semibold text-ink">Shipping</legend>
               <Field
                 label="Full name"
@@ -293,7 +294,7 @@ export default function CheckoutPage() {
               </label>
             </fieldset>
 
-            <label className="flex gap-3 rounded-2xl border border-line bg-white p-5 text-sm text-ink-soft">
+            <label className="flex gap-3 rounded-2xl border border-line glass-panel p-5 text-sm text-ink-soft">
               <span className="block w-full">
                 <span className="block text-sm font-medium text-ink mb-2">
                   Research purpose
@@ -314,7 +315,7 @@ export default function CheckoutPage() {
               </span>
             </label>
 
-            <label className="flex gap-3 rounded-2xl border border-line bg-white p-5 text-sm text-ink-soft">
+            <label className="flex gap-3 rounded-2xl border border-line glass-panel p-5 text-sm text-ink-soft">
               <input
                 type="checkbox"
                 checked={form.researchAck}
@@ -342,7 +343,7 @@ export default function CheckoutPage() {
             </button>
           </div>
 
-          <aside className="rounded-2xl border border-line bg-white p-6 sticky top-24 space-y-4">
+          <aside className="rounded-2xl border border-line glass-panel p-6 sticky top-24 space-y-4">
             <h2 className="text-lg font-semibold text-ink">Order summary</h2>
             {quote && <FreeShippingProgress subtotal={quote.subtotalCents / 100} />}
             {quoteError && <p className="text-sm text-red-700">{quoteError}</p>}
@@ -402,6 +403,7 @@ export default function CheckoutPage() {
               </p>
             )}
             {quote?.discountState === "needs_opt_in" && <SmsOptInForm onSaved={reload} />}
+            <AcceptedPayments />
             <Link href="/cart" className="inline-block text-sm text-accent hover:underline">
               Edit cart
             </Link>

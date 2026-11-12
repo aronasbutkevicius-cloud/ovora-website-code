@@ -14,8 +14,8 @@ export default function OpenGraphImage() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
-          background: "#eef2f9",
-          color: "#182033",
+          background: "#070c18",
+          color: "#eef3ff",
           padding: "80px",
         }}
       >
@@ -32,8 +32,8 @@ export default function OpenGraphImage() {
               width: 56,
               height: 56,
               borderRadius: 28,
-              background: "#1b2c56",
-              color: "#7d92cf",
+              background: "#121a2e",
+              color: "#b9cbff",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
@@ -43,7 +43,7 @@ export default function OpenGraphImage() {
           >
             O
           </div>
-          <div style={{ fontSize: 22, letterSpacing: 3, color: "#2d468c" }}>
+          <div style={{ fontSize: 22, letterSpacing: 3, color: "#8eabff" }}>
             RESEARCH USE ONLY
           </div>
         </div>
@@ -55,7 +55,7 @@ export default function OpenGraphImage() {
             marginTop: 24,
             fontSize: 32,
             lineHeight: 1.35,
-            color: "#3c445c",
+            color: "#c9d4ec",
             maxWidth: 860,
           }}
         >

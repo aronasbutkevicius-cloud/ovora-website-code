@@ -5,7 +5,8 @@ import Link from "next/link";
 import { useEffect } from "react";
 import { useCart } from "@/components/CartProvider";
 import { FreeShippingProgress } from "@/components/FreeShippingProgress";
-import { formatPrice } from "@/lib/money";
+import { formatCents, formatPrice, toCents } from "@/lib/money";
+import { lineCentsFor } from "@/lib/storefront";
 import { shippingCost } from "@/lib/shipping";
 
 type Props = {
@@ -89,7 +90,7 @@ export function CartDrawer({ open, onClose }: Props) {
                     </p>
                   </div>
                   <p className="text-sm font-medium text-ink">
-                    {formatPrice(item.price * item.quantity)}
+                    {formatCents(lineCentsFor(toCents(item.price), item.quantity, item.form))}
                   </p>
                 </li>
               ))}
@@ -97,7 +98,7 @@ export function CartDrawer({ open, onClose }: Props) {
           )}
         </div>
 
-        <div className="border-t border-line bg-white px-5 py-4">
+        <div className="border-t border-line glass-panel px-5 py-4">
           {ready && itemCount > 0 && (
             <>
               <FreeShippingProgress subtotal={subtotal} />

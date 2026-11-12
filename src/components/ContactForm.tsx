@@ -30,7 +30,7 @@ export function ContactForm() {
           required
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="w-full h-11 px-4 rounded-xl border border-line bg-white text-base sm:text-sm outline-none focus:ring-2 focus:ring-accent/30"
+          className="w-full h-11 px-4 rounded-xl border border-line glass-panel text-base sm:text-sm outline-none focus:ring-2 focus:ring-accent/30"
           placeholder="Your name"
           autoComplete="name"
         />
@@ -46,7 +46,7 @@ export function ContactForm() {
           required
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="w-full h-11 px-4 rounded-xl border border-line bg-white text-base sm:text-sm outline-none focus:ring-2 focus:ring-accent/30"
+          className="w-full h-11 px-4 rounded-xl border border-line glass-panel text-base sm:text-sm outline-none focus:ring-2 focus:ring-accent/30"
           placeholder="you@lab.edu"
           autoComplete="email"
         />
@@ -62,7 +62,7 @@ export function ContactForm() {
           rows={5}
           value={message}
           onChange={(e) => setMessage(e.target.value)}
-          className="w-full px-4 py-3 rounded-xl border border-line bg-white text-base sm:text-sm outline-none focus:ring-2 focus:ring-accent/30 resize-y"
+          className="w-full px-4 py-3 rounded-xl border border-line glass-panel text-base sm:text-sm outline-none focus:ring-2 focus:ring-accent/30 resize-y"
           placeholder="How can we help?"
         />
       </div>

@@ -34,9 +34,9 @@ export default function CoaPage() {
             <li>Appearance and related quality notes</li>
           </ul>
         </Prose>
-        <ul className="mt-10 max-w-3xl divide-y divide-line rounded-2xl border border-line bg-white">
+        <ul className="mt-10 max-w-3xl divide-y divide-line rounded-2xl border border-line glass-panel">
           {items.map((product) => (
-            <li key={product.slug} className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 px-5 py-4">
+            <li id={`coa-${product.slug}`} key={product.slug} className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 px-5 py-4">
               <p className="font-medium text-ink">
                 {product.name} {product.dose}
               </p>
@@ -46,10 +46,11 @@ export default function CoaPage() {
                 </a>
               ) : (
                 <p className="text-sm text-muted">
-                  Certificate of analysis available on request via{" "}
+                  Coming soon. A certificate file is not uploaded yet. Available on request via{" "}
                   <a href={`mailto:${supportEmail}`} className="underline text-ink">
                     {supportEmail}
                   </a>
+                  .
                 </p>
               )}
             </li>
