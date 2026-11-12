@@ -97,7 +97,6 @@ body::after {
     linear-gradient(rgba(185, 203, 255, 0.045) 1px, transparent 1px),
     linear-gradient(90deg, rgba(185, 203, 255, 0.045) 1px, transparent 1px);
   background-size: 72px 72px;
-  mask-image: radial-gradient(ellipse at 50% 15%, #000 10%, transparent 72%);
 }
 
 .content-container {
@@ -369,73 +368,108 @@ body::after {
 .hero-aurora {
   position: absolute;
   inset: 0;
-  overflow: hidden;
+  overflow: visible;
   pointer-events: none;
   z-index: 0;
-  contain: paint;
   background: transparent;
-  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 68%, transparent 100%);
-  mask-image: linear-gradient(to bottom, #000 0%, #000 68%, transparent 100%);
 }
 
 .hero-grid {
   position: absolute;
-  inset: -20%;
+  inset: -10%;
   background-image:
-    linear-gradient(rgba(185, 203, 255, 0.08) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(185, 203, 255, 0.08) 1px, transparent 1px);
+    linear-gradient(rgba(185, 203, 255, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(185, 203, 255, 0.07) 1px, transparent 1px);
   background-size: 56px 56px;
+  -webkit-mask-image: radial-gradient(circle at 46% 42%, #000 0%, rgba(0, 0, 0, 0.45) 34%, rgba(0, 0, 0, 0) 62%);
+  mask-image: radial-gradient(circle at 46% 42%, #000 0%, rgba(0, 0, 0, 0.45) 34%, rgba(0, 0, 0, 0) 62%);
   animation: grid-drift 36s linear infinite;
 }
 
 .hero-aurora__orb {
   position: absolute;
-  border-radius: 9999px;
+  width: 78vw;
+  height: 78vw;
+  border-radius: 0;
+  background-repeat: no-repeat;
   transform: translate3d(0, 0, 0);
 }
 
 .hero-aurora__orb-a {
-  width: 58%;
-  height: 70%;
-  left: -12%;
-  top: -18%;
-  background: radial-gradient(circle, rgba(52, 91, 212, 0.72) 0%, rgba(52, 91, 212, 0) 68%);
+  left: -4vw;
+  top: -16vw;
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(52, 91, 212, 0.5) 0%,
+    rgba(52, 91, 212, 0.16) 26%,
+    rgba(52, 91, 212, 0.04) 42%,
+    rgba(52, 91, 212, 0) 56%,
+    rgba(52, 91, 212, 0) 100%
+  );
   animation: aurora-a 24s ease-in-out infinite;
   animation-delay: -6s;
 }
 .hero-aurora__orb-b {
-  width: 48%;
-  height: 62%;
-  right: -10%;
-  top: -8%;
-  background: radial-gradient(circle, rgba(98, 72, 190, 0.55) 0%, rgba(98, 72, 190, 0) 70%);
+  right: -2vw;
+  top: -12vw;
+  width: 70vw;
+  height: 70vw;
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(98, 72, 190, 0.42) 0%,
+    rgba(98, 72, 190, 0.12) 24%,
+    rgba(98, 72, 190, 0.03) 40%,
+    rgba(98, 72, 190, 0) 54%,
+    rgba(98, 72, 190, 0) 100%
+  );
   animation: aurora-b 31s ease-in-out infinite;
   animation-delay: -12s;
 }
 .hero-aurora__orb-c {
-  width: 52%;
-  height: 58%;
-  left: 28%;
-  bottom: -22%;
-  background: radial-gradient(circle, rgba(24, 150, 160, 0.42) 0%, rgba(24, 150, 160, 0) 68%);
+  left: 18vw;
+  bottom: -28vw;
+  width: 72vw;
+  height: 72vw;
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(24, 150, 160, 0.32) 0%,
+    rgba(24, 150, 160, 0.1) 24%,
+    rgba(24, 150, 160, 0.02) 40%,
+    rgba(24, 150, 160, 0) 54%,
+    rgba(24, 150, 160, 0) 100%
+  );
   animation: aurora-c 28s ease-in-out infinite;
   animation-delay: -18s;
 }
 .hero-aurora__orb-d {
-  width: 36%;
-  height: 46%;
-  left: 42%;
-  top: 8%;
-  background: radial-gradient(circle, rgba(140, 170, 255, 0.35) 0%, rgba(140, 170, 255, 0) 70%);
+  left: 28vw;
+  top: -8vw;
+  width: 64vw;
+  height: 64vw;
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(140, 170, 255, 0.28) 0%,
+    rgba(140, 170, 255, 0.08) 22%,
+    rgba(140, 170, 255, 0.02) 38%,
+    rgba(140, 170, 255, 0) 52%,
+    rgba(140, 170, 255, 0) 100%
+  );
   animation: aurora-d 19s ease-in-out infinite;
   animation-delay: -4s;
 }
 .hero-aurora__orb-e {
-  width: 30%;
-  height: 40%;
-  right: 12%;
-  bottom: 6%;
-  background: radial-gradient(circle, rgba(70, 110, 230, 0.4) 0%, rgba(70, 110, 230, 0) 70%);
+  right: -8vw;
+  bottom: -10vw;
+  width: 58vw;
+  height: 58vw;
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(70, 110, 230, 0.3) 0%,
+    rgba(70, 110, 230, 0.08) 22%,
+    rgba(70, 110, 230, 0.02) 38%,
+    rgba(70, 110, 230, 0) 52%,
+    rgba(70, 110, 230, 0) 100%
+  );
   animation: aurora-e 22s ease-in-out infinite;
   animation-delay: -9s;
 }

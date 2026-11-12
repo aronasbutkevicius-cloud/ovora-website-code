@@ -65,7 +65,7 @@ export default function HomePage() {
           ],
         }}
       />
-      <section className="relative w-full min-h-[88vh] overflow-hidden">
+      <section className="relative w-full min-h-[88vh]">
         <HeroAurora />
         <div className="content-container relative z-20 min-h-[88vh] flex items-center">
           <div className="max-w-3xl py-20 lg:py-28 animate-fade-up">
