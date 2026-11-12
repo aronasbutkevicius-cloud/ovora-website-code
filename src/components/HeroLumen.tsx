@@ -62,16 +62,10 @@ function rotate(point: Vec3, yaw: number, pitch: number): Vec3 {
   };
 }
 
-function readRgb(color: string): [number, number, number] {
-  const parts = color.match(/[\d.]+/g);
-  if (!parts || parts.length < 3) return [243, 248, 252];
-  return [Number(parts[0]), Number(parts[1]), Number(parts[2])];
-}
-
 /**
  * Flowing ice/pearl field, drifting bonds, and a slowly tumbling backbone.
- * Canvas radials fade to zero alpha, then a vignette returns the edge to the
- * page color so the field has no tiled gradient seams.
+ * The canvas stays transparent. Every glow ends at alpha 0 inside the frame,
+ * so the field has no painted rectangle.
  */
 export function HeroLumen({ className = "" }: { className?: string }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -103,7 +97,6 @@ export function HeroLumen({ className = "" }: { className?: string }) {
     let reduced = motion.matches;
     let width = 0;
     let height = 0;
-    let bg: [number, number, number] = [243, 248, 252];
 
     function resize() {
       const rect = canvas.getBoundingClientRect();
@@ -115,23 +108,20 @@ export function HeroLumen({ className = "" }: { className?: string }) {
       canvas.width = Math.round(width * dpr);
       canvas.height = Math.round(height * dpr);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      const parsed = readRgb(getComputedStyle(document.body).backgroundColor);
-      bg = parsed;
     }
 
     function edgeFade(x: number, y: number) {
       const nx = x / width;
       const ny = y / height;
-      const dx = Math.min(nx, 1 - nx);
-      const dy = Math.min(ny, 1 - ny);
-      return Math.min(1, dx * 7, dy * 6);
+      const dx = Math.min(nx, 1 - nx) / 0.14;
+      const dy = Math.min(ny, 1 - ny) / 0.16;
+      const t = Math.max(0, Math.min(1, Math.min(dx, dy)));
+      return t * t * (3 - 2 * t);
     }
 
     function draw(time: number, dt: number) {
       if (width < 2 || height < 2) return;
       ctx.clearRect(0, 0, width, height);
-      ctx.fillStyle = `rgb(${bg[0]}, ${bg[1]}, ${bg[2]})`;
-      ctx.fillRect(0, 0, width, height);
 
       const mobile = width < 760;
       const t = time * 0.001;
@@ -139,7 +129,10 @@ export function HeroLumen({ className = "" }: { className?: string }) {
       for (const blob of BLOBS) {
         const x = width * (blob.sx + Math.sin(t * blob.px * 1.7) * (mobile ? 0.1 : 0.14));
         const y = height * (blob.sy + Math.cos(t * blob.py * 1.7 + blob.sx) * (mobile ? 0.09 : 0.12));
-        const radius = Math.max(width, height) * (blob.rx + Math.sin(t * 0.35 + blob.py) * 0.03);
+        const room = Math.min(x, y, width - x, height - y) - 2;
+        const desired = Math.max(width, height) * (blob.rx + Math.sin(t * 0.35 + blob.py) * 0.03);
+        const radius = Math.min(desired, room);
+        if (radius < 24) continue;
         const gradient = ctx.createRadialGradient(x, y, 0, x, y, radius);
         const [r, g, b] = blob.color;
         gradient.addColorStop(0, `rgba(${r}, ${g}, ${b}, ${blob.alpha})`);
@@ -215,8 +208,10 @@ export function HeroLumen({ className = "" }: { className?: string }) {
       for (const [from, to] of MOLECULE.bonds) {
         const a = projected[from];
         const b = projected[to];
+        const fade = Math.min(edgeFade(a.x, a.y), edgeFade(b.x, b.y));
+        if (fade < 0.04) continue;
         const depth = ((a.z + b.z) * 0.5 + 1.4) / 2.6;
-        ctx.strokeStyle = `rgba(10, 88, 124, ${0.35 + depth * 0.5})`;
+        ctx.strokeStyle = `rgba(10, 88, 124, ${(0.35 + depth * 0.5) * fade})`;
         ctx.beginPath();
         ctx.moveTo(a.x, a.y);
         ctx.lineTo(b.x, b.y);
@@ -228,33 +223,25 @@ export function HeroLumen({ className = "" }: { className?: string }) {
         const point = item.point;
         const depth = (point.z + 1.4) / 2.6;
         const radius = 3.2 + depth * 4.2;
-        const glow = ctx.createRadialGradient(point.x, point.y, 0, point.x, point.y, radius * 2.4);
-        glow.addColorStop(0, `rgba(255, 255, 255, ${0.85})`);
-        glow.addColorStop(0.45, `rgba(126, 196, 228, ${0.35 + depth * 0.25})`);
+        const fade = edgeFade(point.x, point.y);
+        const room = Math.min(point.x, point.y, width - point.x, height - point.y) - 1;
+        if (fade < 0.04 || room < 3) continue;
+        const glowRadius = Math.min(radius * 2.4, room);
+        const glow = ctx.createRadialGradient(point.x, point.y, 0, point.x, point.y, glowRadius);
+        glow.addColorStop(0, `rgba(255, 255, 255, ${0.85 * fade})`);
+        glow.addColorStop(0.45, `rgba(126, 196, 228, ${(0.35 + depth * 0.25) * fade})`);
         glow.addColorStop(1, "rgba(126, 196, 228, 0)");
         ctx.fillStyle = glow;
         ctx.beginPath();
-        ctx.arc(point.x, point.y, radius * 2.4, 0, Math.PI * 2);
+        ctx.arc(point.x, point.y, glowRadius, 0, Math.PI * 2);
         ctx.fill();
-        ctx.fillStyle = item.index % 4 === 0 ? "rgba(232, 220, 255, 0.95)" : "rgba(255, 255, 255, 0.95)";
+        ctx.fillStyle = item.index % 4 === 0 ? `rgba(232, 220, 255, ${0.95 * fade})` : `rgba(255, 255, 255, ${0.95 * fade})`;
         ctx.beginPath();
         ctx.arc(point.x, point.y, radius, 0, Math.PI * 2);
         ctx.fill();
-        ctx.strokeStyle = "rgba(12, 106, 150, 0.65)";
+        ctx.strokeStyle = `rgba(12, 106, 150, ${0.65 * fade})`;
         ctx.stroke();
       }
-
-      const vignette = ctx.createLinearGradient(0, height * 0.78, 0, height);
-      vignette.addColorStop(0, `rgba(${bg[0]}, ${bg[1]}, ${bg[2]}, 0)`);
-      vignette.addColorStop(1, `rgba(${bg[0]}, ${bg[1]}, ${bg[2]}, 1)`);
-      ctx.fillStyle = vignette;
-      ctx.fillRect(0, height * 0.78, width, height * 0.22);
-
-      const top = ctx.createLinearGradient(0, 0, 0, height * 0.12);
-      top.addColorStop(0, `rgba(${bg[0]}, ${bg[1]}, ${bg[2]}, 0.85)`);
-      top.addColorStop(1, `rgba(${bg[0]}, ${bg[1]}, ${bg[2]}, 0)`);
-      ctx.fillStyle = top;
-      ctx.fillRect(0, 0, width, height * 0.12);
     }
 
     function tick(now: number) {

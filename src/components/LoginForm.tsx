@@ -44,7 +44,7 @@ export function LoginForm({ callbackUrl }: { callbackUrl: string }) {
     <section className="grid min-h-[calc(100svh-7.25rem)] bg-canvas lg:grid-cols-2">
       <div className="relative min-h-[42vh] lg:min-h-full">
         <HeroLumen />
-        <div className="hero-scrim relative z-10 flex h-full min-h-[42vh] items-end p-8 pb-16 lg:p-12 lg:pb-16">
+        <div className="relative z-10 flex h-full min-h-[42vh] items-end p-8 pb-16 lg:p-12 lg:pb-16">
           <div>
             <Logo className="mb-6 h-9 w-auto" />
             <p className="max-w-sm font-display text-4xl font-medium leading-tight text-ink">

@@ -88,7 +88,7 @@ export default function HomePage() {
       <section className="hero-lumen relative min-h-[calc(100svh-7.25rem)]">
         <HeroLumen />
         <div className="content-container relative z-10 flex min-h-[calc(100svh-7.25rem)] items-end lg:items-center">
-          <div className="hero-scrim w-full max-w-xl pb-20 pt-16 lg:max-w-2xl lg:py-20 animate-fade-up">
+          <div className="w-full max-w-xl pb-20 pt-16 lg:max-w-2xl lg:py-20 animate-fade-up">
             <p className="section-kicker">Laboratory grade · United States</p>
             <h1 className="mt-4 font-display text-[2.7rem] font-medium leading-[1.02] tracking-tight text-ink sm:text-6xl lg:text-7xl">
               Research peptides,{" "}
@@ -107,13 +107,9 @@ export default function HomePage() {
               </Link>
             </div>
             <p className="mt-6 max-w-md text-sm leading-relaxed text-muted">
-              The moving field is illustrative. Compounds, quantities, and checkout stay behind a
-              researcher account.
+              Catalog access requires a verified researcher account.
             </p>
           </div>
-          <p className="pointer-events-none absolute bottom-8 right-0 hidden max-w-[14rem] text-right text-xs leading-relaxed text-ink-soft lg:block">
-            Illustrative backbone. The light field keeps drifting while this page is on screen.
-          </p>
         </div>
       </section>
 

@@ -276,8 +276,7 @@ button.rounded-full.bg-brand:hover {
 .lumen-stage {
   position: absolute;
   inset: 0;
-  overflow: hidden;
-  background-color: var(--background);
+  background: transparent;
   pointer-events: none;
 }
 
@@ -289,14 +288,6 @@ button.rounded-full.bg-brand:hover {
   touch-action: pan-y;
 }
 
-.hero-scrim {
-  background: radial-gradient(
-    ellipse 115% 130% at 0% 55%,
-    rgba(243, 248, 252, 0.94) 0%,
-    rgba(243, 248, 252, 0.78) 42%,
-    rgba(243, 248, 252, 0) 72%
-  );
-}
 
 .section-plain,
 .section-wash,
@@ -472,17 +463,6 @@ html.reveal-ready .reveal:not(.is-in) {
 .font-poppins,
 .font-roboto {
   font-family: var(--font-sans);
-}
-
-@media (max-width: 1023px) {
-  .hero-scrim {
-    background: radial-gradient(
-      ellipse 150% 95% at 50% 118%,
-      rgba(243, 248, 252, 0.98) 0%,
-      rgba(243, 248, 252, 0.94) 48%,
-      rgba(243, 248, 252, 0) 76%
-    );
-  }
 }
 
 @media (max-width: 640px) {
