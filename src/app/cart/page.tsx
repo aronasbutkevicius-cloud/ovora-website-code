@@ -17,13 +17,13 @@ export default function CartPage() {
   );
 
   return (
-    <section className="py-12 lg:py-16 bg-[#f7f8fc] min-h-[60vh]">
+    <section className="py-12 lg:py-16 bg-canvas min-h-[60vh]">
       <div className="content-container">
         <div className="max-w-3xl mb-10">
-          <h1 className="text-4xl lg:text-5xl font-semibold text-[#1e2235] tracking-tight mb-3">
+          <h1 className="text-4xl lg:text-5xl font-semibold text-ink tracking-tight mb-3">
             Cart
           </h1>
-          <p className="text-[#6b7189]">
+          <p className="text-muted">
             {ready
               ? itemCount === 0
                 ? "Your cart is empty."
@@ -34,13 +34,13 @@ export default function CartPage() {
         </div>
 
         {!ready ? null : items.length === 0 ? (
-          <div className="rounded-2xl border border-[#d5dbed] bg-white p-8 max-w-xl">
-            <p className="text-[#4a5168] mb-6">
+          <div className="rounded-2xl border border-line bg-white p-8 max-w-xl">
+            <p className="text-ink-soft mb-6">
               Browse research peptides and add a strength to get started.
             </p>
             <Link
               href="/store"
-              className="inline-flex items-center justify-center h-11 px-6 rounded-full bg-[#1e2235] text-[#f7f8fc] text-sm font-medium hover:bg-[#2a3148] transition-colors"
+              className="inline-flex items-center justify-center h-11 px-6 rounded-full bg-brand text-on-ink text-sm font-medium hover:bg-brand-hover transition-colors"
             >
               Shop products
             </Link>
@@ -51,9 +51,9 @@ export default function CartPage() {
               {items.map((item) => (
                 <li
                   key={item.variantSlug}
-                  className="rounded-2xl border border-[#d5dbed] bg-white p-4 sm:p-5 flex gap-4"
+                  className="rounded-2xl border border-line bg-white p-4 sm:p-5 flex gap-4"
                 >
-                  <div className="w-20 h-24 sm:w-24 sm:h-28 rounded-xl bg-[#eef0f8] border border-[#d5dbed] flex items-center justify-center overflow-hidden shrink-0">
+                  <div className="w-20 h-24 sm:w-24 sm:h-28 rounded-xl bg-surface-2 border border-line flex items-center justify-center overflow-hidden shrink-0">
                     {item.image ? (
                       <CutoutImage
                         src={item.image}
@@ -62,7 +62,7 @@ export default function CartPage() {
                         shadow="soft"
                       />
                     ) : (
-                      <span className="text-xs text-[#8a90a8]">No image</span>
+                      <span className="text-xs text-placeholder">No image</span>
                     )}
                   </div>
                   <div className="flex-1 min-w-0">
@@ -70,13 +70,13 @@ export default function CartPage() {
                       <div>
                         <Link
                           href={`/products/${item.familySlug}`}
-                          className="font-semibold text-[#1e2235] hover:underline"
+                          className="font-semibold text-ink hover:underline"
                         >
                           {item.name}
                         </Link>
-                        <p className="text-sm text-[#6b7189] mt-0.5">{item.dose} · Single vial</p>
+                        <p className="text-sm text-muted mt-0.5">{item.dose} · Single vial</p>
                       </div>
-                      <p className="font-semibold text-[#1e2235] shrink-0">
+                      <p className="font-semibold text-ink shrink-0">
                         {quote
                           ? formatCents(
                               quote.lines.find((line) => line.variantSlug === item.variantSlug)
@@ -88,8 +88,8 @@ export default function CartPage() {
                       </p>
                     </div>
                     <div className="mt-4 flex flex-wrap items-center gap-3">
-                      <label className="inline-flex items-center gap-2 h-10 px-3 rounded-full border border-[#d5dbed] bg-[#f7f8fc]">
-                        <span className="text-[11px] uppercase tracking-wide text-[#6b7189]">
+                      <label className="inline-flex items-center gap-2 h-10 px-3 rounded-full border border-line bg-canvas">
+                        <span className="text-[11px] uppercase tracking-wide text-muted">
                           Qty
                         </span>
                         <input
@@ -103,13 +103,13 @@ export default function CartPage() {
                               Math.max(1, Math.min(99, Number(e.target.value) || 1)),
                             )
                           }
-                          className="w-12 bg-transparent text-[#1e2235] font-medium outline-none"
+                          className="w-12 bg-transparent text-ink font-medium outline-none"
                         />
                       </label>
                       <button
                         type="button"
                         onClick={() => removeItem(item.variantSlug)}
-                        className="text-sm text-[#6b7189] hover:text-[#1e2235] underline"
+                        className="text-sm text-muted hover:text-ink underline"
                       >
                         Remove
                       </button>
@@ -119,47 +119,47 @@ export default function CartPage() {
               ))}
             </ul>
 
-            <aside className="rounded-2xl border border-[#d5dbed] bg-white p-6 sticky top-28 space-y-4">
-              <h2 className="text-lg font-semibold text-[#1e2235]">Order summary</h2>
+            <aside className="rounded-2xl border border-line bg-white p-6 sticky top-28 space-y-4">
+              <h2 className="text-lg font-semibold text-ink">Order summary</h2>
               {quote && <FreeShippingProgress subtotal={quote.subtotalCents / 100} />}
               {error && <p className="text-sm text-red-700">{error}</p>}
               <div className="flex items-center justify-between text-sm">
-                <span className="text-[#6b7189]">Subtotal</span>
-                <span className="font-medium text-[#1e2235]">
+                <span className="text-muted">Subtotal</span>
+                <span className="font-medium text-ink">
                   {quote ? formatCents(quote.subtotalCents) : "…"}
                 </span>
               </div>
               {quote && quote.discountCents > 0 && (
                 <div className="flex items-center justify-between text-sm">
-                  <span className="text-[#6b7189]">First-order discount (15%)</span>
-                  <span className="font-medium text-[#1e2235]">-{formatCents(quote.discountCents)}</span>
+                  <span className="text-muted">First-order discount (15%)</span>
+                  <span className="font-medium text-ink">-{formatCents(quote.discountCents)}</span>
                 </div>
               )}
               <div className="flex items-center justify-between text-sm">
-                <span className="text-[#6b7189]">Shipping (US)</span>
-                <span className="font-medium text-[#1e2235]">
+                <span className="text-muted">Shipping (US)</span>
+                <span className="font-medium text-ink">
                   {!quote ? "…" : quote.shippingCents === 0 ? "Free" : formatCents(quote.shippingCents)}
                 </span>
               </div>
-              <div className="flex items-center justify-between text-base font-semibold text-[#1e2235] pt-4 border-t border-[#d5dbed]">
+              <div className="flex items-center justify-between text-base font-semibold text-ink pt-4 border-t border-line">
                 <span>Total</span>
                 <span>{quote ? formatCents(quote.totalCents) : "…"}</span>
               </div>
               {quote?.discountState === "used" && (
-                <p className="text-sm text-[#4a5168] bg-[#eef0f8] border border-[#d5dbed] rounded-xl px-4 py-3">
+                <p className="text-sm text-ink-soft bg-surface-2 border border-line rounded-xl px-4 py-3">
                   This first-order discount has already been used on this account.
                 </p>
               )}
               {quote?.discountState === "needs_opt_in" && <SmsOptInForm onSaved={reload} />}
               <Link
                 href="/checkout"
-                className="w-full inline-flex items-center justify-center h-12 rounded-full bg-[#1e2235] text-[#f7f8fc] text-sm font-medium hover:bg-[#2a3148] transition-colors"
+                className="w-full inline-flex items-center justify-center h-12 rounded-full bg-brand text-on-ink text-sm font-medium hover:bg-brand-hover transition-colors"
               >
                 Continue to checkout
               </Link>
               <Link
                 href="/store"
-                className="w-full inline-flex items-center justify-center h-11 rounded-full border border-[#d5dbed] text-[#1e2235] text-sm font-medium hover:bg-[#eef0f8] transition-colors"
+                className="w-full inline-flex items-center justify-center h-11 rounded-full border border-line text-ink text-sm font-medium hover:bg-surface-2 transition-colors"
               >
                 Keep shopping
               </Link>

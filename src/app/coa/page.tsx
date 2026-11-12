@@ -14,7 +14,7 @@ export default function CoaPage() {
   const items = catalogProducts();
 
   return (
-    <section className="py-12 lg:py-16 bg-[#f7f8fc]">
+    <section className="py-12 lg:py-16 bg-canvas">
       <div className="content-container">
         <PageHero
           title="Certificates of Analysis"
@@ -34,20 +34,20 @@ export default function CoaPage() {
             <li>Appearance and related quality notes</li>
           </ul>
         </Prose>
-        <ul className="mt-10 max-w-3xl divide-y divide-[#d5dbed] rounded-2xl border border-[#d5dbed] bg-white">
+        <ul className="mt-10 max-w-3xl divide-y divide-line rounded-2xl border border-line bg-white">
           {items.map((product) => (
             <li key={product.slug} className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 px-5 py-4">
-              <p className="font-medium text-[#1e2235]">
+              <p className="font-medium text-ink">
                 {product.name} {product.dose}
               </p>
               {product.coaPdf ? (
-                <a href={product.coaPdf} className="text-sm underline text-[#1e2235]" download>
+                <a href={product.coaPdf} className="text-sm underline text-ink" download>
                   Download certificate of analysis
                 </a>
               ) : (
-                <p className="text-sm text-[#6b7189]">
+                <p className="text-sm text-muted">
                   Certificate of analysis available on request via{" "}
-                  <a href={`mailto:${supportEmail}`} className="underline text-[#1e2235]">
+                  <a href={`mailto:${supportEmail}`} className="underline text-ink">
                     {supportEmail}
                   </a>
                 </p>

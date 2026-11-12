@@ -95,9 +95,9 @@ export default function CheckoutPage() {
 
   if (!ready) {
     return (
-      <section className="py-16 bg-[#f7f8fc] min-h-[50vh]">
+      <section className="py-16 bg-canvas min-h-[50vh]">
         <div className="content-container">
-          <p className="text-[#6b7189]">Loading checkout…</p>
+          <p className="text-muted">Loading checkout…</p>
         </div>
       </section>
     );
@@ -133,16 +133,16 @@ export default function CheckoutPage() {
     const mailto = `mailto:${supportEmail}?subject=${encodeURIComponent("Checkout inquiry")}&body=${encodeURIComponent(summary)}`;
 
     return (
-      <section className="py-12 lg:py-16 bg-[#f7f8fc] min-h-[60vh]">
+      <section className="py-12 lg:py-16 bg-canvas min-h-[60vh]">
         <div className="content-container max-w-2xl">
-          <div className="rounded-2xl border border-[#d5dbed] bg-white p-8">
-            <p className="text-xs uppercase tracking-[0.16em] text-[#7a8fd4] font-medium mb-3">
+          <div className="rounded-2xl border border-line bg-white p-8">
+            <p className="text-xs uppercase tracking-[0.16em] text-accent font-medium mb-3">
               Payment not connected
             </p>
-            <h1 className="text-3xl font-semibold text-[#1e2235] tracking-tight mb-3">
+            <h1 className="text-3xl font-semibold text-ink tracking-tight mb-3">
               Payment was not collected
             </h1>
-            <p className="text-[#4a5168] leading-relaxed mb-6">
+            <p className="text-ink-soft leading-relaxed mb-6">
               Nothing was charged. Reference {placed?.orderId} was saved for {form.fullName} ({form.email}).
               {placed?.discountApplied
                 ? " The 15% first-order discount was applied to this summary and cannot be used again."
@@ -151,7 +151,7 @@ export default function CheckoutPage() {
             <div className="mt-6 flex flex-col sm:flex-row gap-3">
               <a
                 href={mailto}
-                className="inline-flex items-center justify-center h-11 px-6 rounded-full bg-[#1e2235] text-[#f7f8fc] text-sm font-medium hover:bg-[#2a3148] transition-colors"
+                className="inline-flex items-center justify-center h-11 px-6 rounded-full bg-brand text-on-ink text-sm font-medium hover:bg-brand-hover transition-colors"
               >
                 Email this summary
               </a>
@@ -161,13 +161,13 @@ export default function CheckoutPage() {
                   setState("form");
                   void reload();
                 }}
-                className="inline-flex items-center justify-center h-11 px-6 rounded-full border border-[#d5dbed] text-[#1e2235] text-sm font-medium hover:bg-[#eef0f8] transition-colors"
+                className="inline-flex items-center justify-center h-11 px-6 rounded-full border border-line text-ink text-sm font-medium hover:bg-surface-2 transition-colors"
               >
                 Back to details
               </button>
               <Link
                 href="/cart"
-                className="inline-flex items-center justify-center h-11 px-6 rounded-full border border-[#d5dbed] text-[#1e2235] text-sm font-medium hover:bg-[#eef0f8] transition-colors"
+                className="inline-flex items-center justify-center h-11 px-6 rounded-full border border-line text-ink text-sm font-medium hover:bg-surface-2 transition-colors"
               >
                 Return to cart
               </Link>
@@ -180,13 +180,13 @@ export default function CheckoutPage() {
 
   if (itemCount === 0) {
     return (
-      <section className="py-12 lg:py-16 bg-[#f7f8fc] min-h-[60vh]">
+      <section className="py-12 lg:py-16 bg-canvas min-h-[60vh]">
         <div className="content-container max-w-xl">
-          <h1 className="text-4xl font-semibold text-[#1e2235] tracking-tight mb-3">Checkout</h1>
-          <p className="text-[#6b7189] mb-6">Your cart is empty — add a product before checkout.</p>
+          <h1 className="text-4xl font-semibold text-ink tracking-tight mb-3">Checkout</h1>
+          <p className="text-muted mb-6">Your cart is empty — add a product before checkout.</p>
           <Link
             href="/store"
-            className="inline-flex items-center justify-center h-11 px-6 rounded-full bg-[#1e2235] text-[#f7f8fc] text-sm font-medium hover:bg-[#2a3148] transition-colors"
+            className="inline-flex items-center justify-center h-11 px-6 rounded-full bg-brand text-on-ink text-sm font-medium hover:bg-brand-hover transition-colors"
           >
             Shop products
           </Link>
@@ -196,13 +196,13 @@ export default function CheckoutPage() {
   }
 
   return (
-    <section className="py-12 lg:py-16 bg-[#f7f8fc] min-h-[60vh]">
+    <section className="py-12 lg:py-16 bg-canvas min-h-[60vh]">
       <div className="content-container">
         <div className="max-w-3xl mb-10">
-          <h1 className="text-4xl lg:text-5xl font-semibold text-[#1e2235] tracking-tight mb-3">
+          <h1 className="text-4xl lg:text-5xl font-semibold text-ink tracking-tight mb-3">
             Checkout
           </h1>
-          <p className="text-[#6b7189]">
+          <p className="text-muted">
             Enter shipping details to review the cart. Payment processing is not connected, so this
             step cannot charge a card.
           </p>
@@ -214,8 +214,8 @@ export default function CheckoutPage() {
           className="grid lg:grid-cols-[1fr_360px] gap-8 items-start"
         >
           <div className="space-y-6">
-            <fieldset className="rounded-2xl border border-[#d5dbed] bg-white p-6 space-y-4">
-              <legend className="px-1 text-lg font-semibold text-[#1e2235]">Contact</legend>
+            <fieldset className="rounded-2xl border border-line bg-white p-6 space-y-4">
+              <legend className="px-1 text-lg font-semibold text-ink">Contact</legend>
               <Field
                 label="Email"
                 required
@@ -230,8 +230,8 @@ export default function CheckoutPage() {
               />
             </fieldset>
 
-            <fieldset className="rounded-2xl border border-[#d5dbed] bg-white p-6 space-y-4">
-              <legend className="px-1 text-lg font-semibold text-[#1e2235]">Shipping</legend>
+            <fieldset className="rounded-2xl border border-line bg-white p-6 space-y-4">
+              <legend className="px-1 text-lg font-semibold text-ink">Shipping</legend>
               <Field
                 label="Full name"
                 required
@@ -283,26 +283,26 @@ export default function CheckoutPage() {
                 />
               </div>
               <label className="block">
-                <span className="block text-sm text-[#4a5168] mb-1.5">Order notes (optional)</span>
+                <span className="block text-sm text-ink-soft mb-1.5">Order notes (optional)</span>
                 <textarea
                   rows={3}
                   value={form.notes}
                   onChange={(e) => update("notes", e.target.value)}
-                  className="w-full rounded-xl border border-[#d5dbed] bg-[#f7f8fc] px-3 py-2.5 text-sm text-[#1e2235] outline-none focus:border-[#7a8fd4]"
+                  className="w-full rounded-xl border border-line bg-canvas px-3 py-2.5 text-sm text-ink outline-none focus:border-accent"
                 />
               </label>
             </fieldset>
 
-            <label className="flex gap-3 rounded-2xl border border-[#d5dbed] bg-white p-5 text-sm text-[#4a5168]">
+            <label className="flex gap-3 rounded-2xl border border-line bg-white p-5 text-sm text-ink-soft">
               <span className="block w-full">
-                <span className="block text-sm font-medium text-[#1e2235] mb-2">
+                <span className="block text-sm font-medium text-ink mb-2">
                   Research purpose
                 </span>
                 <select
                   required
                   value={form.researchPurpose}
                   onChange={(e) => update("researchPurpose", e.target.value)}
-                  className="w-full rounded-xl border border-[#d5dbed] bg-[#f7f8fc] px-3 py-2.5 text-sm text-[#1e2235] outline-none focus:border-[#7a8fd4]"
+                  className="w-full rounded-xl border border-line bg-canvas px-3 py-2.5 text-sm text-ink outline-none focus:border-accent"
                 >
                   <option value="">Select research purpose</option>
                   {RESEARCH_PURPOSES.map((purpose) => (
@@ -314,7 +314,7 @@ export default function CheckoutPage() {
               </span>
             </label>
 
-            <label className="flex gap-3 rounded-2xl border border-[#d5dbed] bg-white p-5 text-sm text-[#4a5168]">
+            <label className="flex gap-3 rounded-2xl border border-line bg-white p-5 text-sm text-ink-soft">
               <input
                 type="checkbox"
                 checked={form.researchAck}
@@ -336,14 +336,14 @@ export default function CheckoutPage() {
             <button
               type="submit"
               disabled={pending || loading || !quote}
-              className="w-full sm:w-auto inline-flex items-center justify-center h-12 px-10 rounded-full bg-[#1e2235] text-[#f7f8fc] text-sm font-medium hover:bg-[#2a3148] transition-colors disabled:opacity-60"
+              className="w-full sm:w-auto inline-flex items-center justify-center h-12 px-10 rounded-full bg-brand text-on-ink text-sm font-medium hover:bg-brand-hover transition-colors disabled:opacity-60"
             >
               {pending ? "Saving summary…" : "Review summary"}
             </button>
           </div>
 
-          <aside className="rounded-2xl border border-[#d5dbed] bg-white p-6 sticky top-24 space-y-4">
-            <h2 className="text-lg font-semibold text-[#1e2235]">Order summary</h2>
+          <aside className="rounded-2xl border border-line bg-white p-6 sticky top-24 space-y-4">
+            <h2 className="text-lg font-semibold text-ink">Order summary</h2>
             {quote && <FreeShippingProgress subtotal={quote.subtotalCents / 100} />}
             {quoteError && <p className="text-sm text-red-700">{quoteError}</p>}
             <ul className="space-y-3">
@@ -351,7 +351,7 @@ export default function CheckoutPage() {
                 const line = quote?.lines.find((entry) => entry.variantSlug === item.variantSlug);
                 return (
                   <li key={item.variantSlug} className="flex gap-3">
-                    <div className="w-14 h-16 rounded-lg bg-[#eef0f8] border border-[#d5dbed] overflow-hidden shrink-0 flex items-center justify-center">
+                    <div className="w-14 h-16 rounded-lg bg-surface-2 border border-line overflow-hidden shrink-0 flex items-center justify-center">
                       {item.image ? (
                         <CutoutImage
                           src={item.image}
@@ -362,47 +362,47 @@ export default function CheckoutPage() {
                       ) : null}
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium text-[#1e2235] truncate">
+                      <p className="text-sm font-medium text-ink truncate">
                         {item.name} · {item.dose}
                       </p>
-                      <p className="text-xs text-[#6b7189]">Qty {item.quantity}</p>
+                      <p className="text-xs text-muted">Qty {item.quantity}</p>
                     </div>
-                    <p className="text-sm font-medium text-[#1e2235]">
+                    <p className="text-sm font-medium text-ink">
                       {line ? formatCents(line.lineCents) : "…"}
                     </p>
                   </li>
                 );
               })}
             </ul>
-            <div className="space-y-2 text-sm border-t border-[#d5dbed] pt-4">
+            <div className="space-y-2 text-sm border-t border-line pt-4">
               <div className="flex justify-between">
-                <span className="text-[#6b7189]">Subtotal</span>
-                <span className="text-[#1e2235]">{quote ? formatCents(quote.subtotalCents) : "…"}</span>
+                <span className="text-muted">Subtotal</span>
+                <span className="text-ink">{quote ? formatCents(quote.subtotalCents) : "…"}</span>
               </div>
               {quote && quote.discountCents > 0 && (
                 <div className="flex justify-between">
-                  <span className="text-[#6b7189]">First-order discount (15%)</span>
-                  <span className="text-[#1e2235]">-{formatCents(quote.discountCents)}</span>
+                  <span className="text-muted">First-order discount (15%)</span>
+                  <span className="text-ink">-{formatCents(quote.discountCents)}</span>
                 </div>
               )}
               <div className="flex justify-between">
-                <span className="text-[#6b7189]">Shipping estimate</span>
-                <span className="text-[#1e2235]">
+                <span className="text-muted">Shipping estimate</span>
+                <span className="text-ink">
                   {!quote ? "…" : quote.shippingCents === 0 ? "Free" : formatCents(quote.shippingCents)}
                 </span>
               </div>
               <div className="flex justify-between text-base font-semibold pt-2">
-                <span className="text-[#1e2235]">Total</span>
-                <span className="text-[#1e2235]">{quote ? formatCents(quote.totalCents) : "…"}</span>
+                <span className="text-ink">Total</span>
+                <span className="text-ink">{quote ? formatCents(quote.totalCents) : "…"}</span>
               </div>
             </div>
             {quote?.discountState === "used" && (
-              <p className="text-sm text-[#4a5168] bg-[#eef0f8] border border-[#d5dbed] rounded-xl px-4 py-3">
+              <p className="text-sm text-ink-soft bg-surface-2 border border-line rounded-xl px-4 py-3">
                 This first-order discount has already been used on this account.
               </p>
             )}
             {quote?.discountState === "needs_opt_in" && <SmsOptInForm onSaved={reload} />}
-            <Link href="/cart" className="inline-block text-sm text-[#7a8fd4] hover:underline">
+            <Link href="/cart" className="inline-block text-sm text-accent hover:underline">
               Edit cart
             </Link>
           </aside>
@@ -427,7 +427,7 @@ function Field({
 }) {
   return (
     <label className="block">
-      <span className="block text-sm text-[#4a5168] mb-1.5">
+      <span className="block text-sm text-ink-soft mb-1.5">
         {label}
         {required ? " *" : ""}
       </span>
@@ -436,7 +436,7 @@ function Field({
         required={required}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full rounded-xl border border-[#d5dbed] bg-[#f7f8fc] px-3 py-2.5 text-sm text-[#1e2235] outline-none focus:border-[#7a8fd4]"
+        className="w-full rounded-xl border border-line bg-canvas px-3 py-2.5 text-sm text-ink outline-none focus:border-accent"
       />
     </label>
   );

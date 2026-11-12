@@ -35,9 +35,9 @@ function ProductCard({ family }: { family: ProductFamily }) {
   return (
     <Link
       href={familyCatalogPath(family)}
-      className="group bg-[#f7f8fc]/95 rounded-2xl border border-[#d5dbed] overflow-hidden hover-lift"
+      className="group bg-white rounded-2xl border border-line overflow-hidden hover-lift"
     >
-      <div className="relative aspect-[4/3] bg-gradient-to-b from-[#eef0f8] to-[#f7f8fc]">
+      <div className="relative aspect-[4/3] bg-gradient-to-b from-surface-2 to-canvas">
         <div className="absolute inset-3 flex items-center justify-center sm:inset-4">
           <ProductVisual
             product={preview}
@@ -47,13 +47,13 @@ function ProductCard({ family }: { family: ProductFamily }) {
         </div>
       </div>
       <div className="p-5">
-        <p className="text-[11px] uppercase tracking-wider text-[#8a90a8] mb-1">
+        <p className="text-[11px] uppercase tracking-wider text-placeholder mb-1">
           {family.form === "liquid" ? "Laboratory supply" : "Single vial"}
         </p>
-        <h2 className="font-semibold text-[#1e2235] mb-1 group-hover:underline">{family.name}</h2>
-        <p className="text-xs text-[#8a90a8] mb-2">{doseOptionsLabel(family)}</p>
-        <p className="text-xs text-[#6b7189] line-clamp-2 mb-3">{family.description}</p>
-        <p className="text-sm font-medium text-[#1e2235]">
+        <h2 className="font-semibold text-ink mb-1 group-hover:underline">{family.name}</h2>
+        <p className="text-xs text-placeholder mb-2">{doseOptionsLabel(family)}</p>
+        <p className="text-xs text-muted line-clamp-2 mb-3">{family.description}</p>
+        <p className="text-sm font-medium text-ink">
           {multi ? `From ${formatPrice(fromPrice)}` : formatPrice(fromPrice)}
         </p>
       </div>
@@ -88,10 +88,10 @@ function Section({
   return (
     <div className="mb-16">
       <div className="mb-8">
-        <h2 className="text-2xl lg:text-3xl font-semibold text-[#1e2235] tracking-tight mb-2">
+        <h2 className="text-2xl lg:text-3xl font-semibold text-ink tracking-tight mb-2">
           {title}
         </h2>
-        <p className="text-[#6b7189] text-sm">{subtitle}</p>
+        <p className="text-muted text-sm">{subtitle}</p>
       </div>
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {items.map((family) => (
@@ -125,13 +125,13 @@ export function StoreCatalog({
   const basePath = categoryPath(category);
 
   return (
-    <section className="py-12 lg:py-16 bg-[#f7f8fc] min-h-[60vh]">
+    <section className="py-12 lg:py-16 bg-canvas min-h-[60vh]">
       <div className="content-container">
         <div className="max-w-3xl mb-10">
-          <h1 className="text-4xl lg:text-5xl font-semibold text-[#1e2235] tracking-tight mb-3">
+          <h1 className="text-4xl lg:text-5xl font-semibold text-ink tracking-tight mb-3">
             {active ? active.sectionTitle : "All Products"}
           </h1>
-          <p className="text-[#6b7189] text-lg">
+          <p className="text-muted text-lg">
             {active
               ? active.description
               : "Research peptides and laboratory supplies from Ovora Labs. Purity ≥99% (HPLC), verified by independent third-party testing. Certificate of analysis available on request."}
@@ -148,8 +148,8 @@ export function StoreCatalog({
                 href={href}
                 className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
                   selected
-                    ? "bg-[#1e2235] text-[#f7f8fc]"
-                    : "bg-[#eef0f8] text-[#4a5168] hover:bg-[#e4e8f5]"
+                    ? "bg-brand text-on-ink"
+                    : "bg-surface-2 text-ink-soft hover:bg-surface-3"
                 }`}
               >
                 {filter.label}
@@ -173,17 +173,17 @@ export function StoreCatalog({
             name="q"
             defaultValue={query}
             placeholder="Search by name or dose"
-            className="flex-1 h-11 px-4 rounded-full border border-[#d5dbed] bg-white text-base sm:text-sm text-[#1e2235] outline-none placeholder:text-[#8a90a8] focus:ring-2 focus:ring-[#7a8fd4]/30"
+            className="flex-1 h-11 px-4 rounded-full border border-line bg-white text-base sm:text-sm text-ink outline-none placeholder:text-placeholder focus:ring-2 focus:ring-accent/30"
           />
           <button
             type="submit"
-            className="h-11 px-6 rounded-full bg-[#1e2235] text-[#f7f8fc] text-sm font-medium hover:bg-[#2a3148] transition-colors"
+            className="h-11 px-6 rounded-full bg-brand text-on-ink text-sm font-medium hover:bg-brand-hover transition-colors"
           >
             Search
           </button>
         </form>
 
-        <p className="text-sm text-[#6b7189] mb-8">
+        <p className="text-sm text-muted mb-8">
           {count} product{count === 1 ? "" : "s"}
           {query ? (
             <>
@@ -197,8 +197,8 @@ export function StoreCatalog({
         </p>
 
         {count === 0 && (
-          <div className="rounded-2xl border border-[#d5dbed] bg-white p-8 max-w-xl mb-10">
-            <p className="text-[#4a5168]">
+          <div className="rounded-2xl border border-line bg-white p-8 max-w-xl mb-10">
+            <p className="text-ink-soft">
               No products match that search. Try another name, or browse the full catalog.
             </p>
           </div>

@@ -39,7 +39,7 @@ export function ProductFamilyHub({ family }: { family: ProductFamily }) {
   ];
 
   return (
-    <section className="py-12 lg:py-16 bg-[#f7f8fc]">
+    <section className="py-12 lg:py-16 bg-canvas">
       <JsonLd
         data={{
           "@context": "https://schema.org",
@@ -74,33 +74,33 @@ export function ProductFamilyHub({ family }: { family: ProductFamily }) {
         }}
       />
       <div className="content-container">
-        <div className="mb-6 text-sm text-[#6b7189]">
-          <Link href="/store" className="hover:text-[#1e2235]">
+        <div className="mb-6 text-sm text-muted">
+          <Link href="/store" className="hover:text-ink">
             Products
           </Link>
           {category && (
             <>
               <span className="mx-2">/</span>
-              <Link href={`/store/${category.slug}`} className="hover:text-[#1e2235]">
+              <Link href={`/store/${category.slug}`} className="hover:text-ink">
                 {category.label}
               </Link>
             </>
           )}
           <span className="mx-2">/</span>
-          <span className="text-[#1e2235]">{family.name}</span>
+          <span className="text-ink">{family.name}</span>
         </div>
 
         <div className="max-w-3xl mb-10">
-          <p className="text-xs uppercase tracking-[0.16em] text-[#7a8fd4] font-medium mb-3">
+          <p className="text-xs uppercase tracking-[0.16em] text-accent font-medium mb-3">
             {soldAs} · Research use only
           </p>
-          <h1 className="text-4xl lg:text-5xl font-semibold text-[#1e2235] tracking-tight mb-4">
+          <h1 className="text-4xl lg:text-5xl font-semibold text-ink tracking-tight mb-4">
             {family.name}
           </h1>
-          <p className="text-[#4a5168] text-lg leading-relaxed">{family.description}</p>
+          <p className="text-ink-soft text-lg leading-relaxed">{family.description}</p>
         </div>
 
-        <h2 className="text-2xl font-semibold text-[#1e2235] tracking-tight mb-6">
+        <h2 className="text-2xl font-semibold text-ink tracking-tight mb-6">
           Available strengths
         </h2>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -108,9 +108,9 @@ export function ProductFamilyHub({ family }: { family: ProductFamily }) {
             <Link
               key={variant.slug}
               href={`/products/${variant.slug}`}
-              className="group bg-[#f7f8fc]/95 rounded-2xl border border-[#d5dbed] overflow-hidden hover-lift"
+              className="group bg-canvas/95 rounded-2xl border border-line overflow-hidden hover-lift"
             >
-              <div className="relative aspect-[4/3] bg-gradient-to-b from-[#eef0f8] to-[#f7f8fc]">
+              <div className="relative aspect-[4/3] bg-gradient-to-b from-surface-2 to-canvas">
                 <div className="absolute inset-3 flex items-center justify-center sm:inset-4">
                   <ProductVisual
                     product={variant}
@@ -120,12 +120,12 @@ export function ProductFamilyHub({ family }: { family: ProductFamily }) {
                 </div>
               </div>
               <div className="p-5">
-                <p className="text-[11px] uppercase tracking-wider text-[#8a90a8] mb-1">{soldAs}</p>
-                <h3 className="font-semibold text-[#1e2235] mb-1 group-hover:underline">
+                <p className="text-[11px] uppercase tracking-wider text-placeholder mb-1">{soldAs}</p>
+                <h3 className="font-semibold text-ink mb-1 group-hover:underline">
                   {family.name}
                 </h3>
-                <p className="text-sm text-[#4a5168] mb-3">{variant.dose}</p>
-                <p className="text-sm font-medium text-[#1e2235]">{formatPrice(variant.price)}</p>
+                <p className="text-sm text-ink-soft mb-3">{variant.dose}</p>
+                <p className="text-sm font-medium text-ink">{formatPrice(variant.price)}</p>
               </div>
             </Link>
           ))}
@@ -133,18 +133,18 @@ export function ProductFamilyHub({ family }: { family: ProductFamily }) {
 
         <ProductCompliance family={family} />
 
-        <p className="mt-10 max-w-3xl text-sm text-[#6b7189] leading-relaxed">
+        <p className="mt-10 max-w-3xl text-sm text-muted leading-relaxed">
           For laboratory and research use only. Not for human or veterinary consumption. Each
           strength is its own vial. See{" "}
-          <Link href="/quality" className="underline hover:text-[#1e2235]">
+          <Link href="/quality" className="underline hover:text-ink">
             quality assurance
           </Link>
           ,{" "}
-          <Link href="/coa" className="underline hover:text-[#1e2235]">
+          <Link href="/coa" className="underline hover:text-ink">
             certificates of analysis
           </Link>
           , and the{" "}
-          <Link href="/research-use" className="underline hover:text-[#1e2235]">
+          <Link href="/research-use" className="underline hover:text-ink">
             research-use policy
           </Link>
           .

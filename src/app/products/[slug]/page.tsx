@@ -96,7 +96,7 @@ export default async function ProductPage({
   ];
 
   return (
-    <section className="py-12 lg:py-16 bg-[#f7f8fc]">
+    <section className="py-12 lg:py-16 bg-canvas">
       <JsonLd
         data={[
           {
@@ -122,14 +122,14 @@ export default async function ProductPage({
         ]}
       />
       <div className="content-container">
-        <div className="mb-6 text-sm text-[#6b7189]">
-          <Link href="/store" className="hover:text-[#1e2235]">
+        <div className="mb-6 text-sm text-muted">
+          <Link href="/store" className="hover:text-ink">
             Products
           </Link>
           {category && (
             <>
               <span className="mx-2">/</span>
-              <Link href={`/store/${category.slug}`} className="hover:text-[#1e2235]">
+              <Link href={`/store/${category.slug}`} className="hover:text-ink">
                 {category.label}
               </Link>
             </>
@@ -137,13 +137,13 @@ export default async function ProductPage({
           {hub && (
             <>
               <span className="mx-2">/</span>
-              <Link href={`/products/${family.slug}`} className="hover:text-[#1e2235]">
+              <Link href={`/products/${family.slug}`} className="hover:text-ink">
                 {family.name}
               </Link>
             </>
           )}
           <span className="mx-2">/</span>
-          <span className="text-[#1e2235]">{doseLabel}</span>
+          <span className="text-ink">{doseLabel}</span>
         </div>
 
         <ProductPurchasePanel

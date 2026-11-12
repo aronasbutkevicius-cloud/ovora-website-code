@@ -30,7 +30,7 @@ export default function AboutPage() {
   const siteUrl = getSiteUrl();
 
   return (
-    <section className="py-12 lg:py-16 bg-[#f7f8fc]">
+    <section className="py-12 lg:py-16 bg-canvas">
       <JsonLd
         data={{
           "@context": "https://schema.org",
@@ -57,10 +57,10 @@ export default function AboutPage() {
           {points.map((point) => (
             <div
               key={point.title}
-              className="bg-[#eef0f8] rounded-2xl p-6 border border-[#d5dbed]"
+              className="bg-surface-2 rounded-2xl p-6 border border-line"
             >
-              <h2 className="text-lg font-semibold text-[#1e2235] mb-2">{point.title}</h2>
-              <p className="text-sm text-[#4a5168] leading-relaxed">{point.body}</p>
+              <h2 className="text-lg font-semibold text-ink mb-2">{point.title}</h2>
+              <p className="text-sm text-ink-soft leading-relaxed">{point.body}</p>
             </div>
           ))}
         </div>
