@@ -8,18 +8,19 @@ export function PageHero({
   subtitle?: string;
 }) {
   return (
-    <div className="max-w-3xl mb-10">
-      <h1 className="text-4xl lg:text-5xl font-semibold text-[#1e2235] tracking-tight mb-3">
+    <div className="mb-12 max-w-3xl">
+      <hr className="pearl-rule mb-6" />
+      <h1 className="mb-3 font-display text-4xl font-medium tracking-tight text-ink lg:text-6xl">
         {title}
       </h1>
-      {subtitle && <p className="text-[#1e2235]/60 text-lg leading-relaxed">{subtitle}</p>}
+      {subtitle && <p className="text-lg leading-relaxed text-ink-soft">{subtitle}</p>}
     </div>
   );
 }
 
 export function Prose({ children }: { children: React.ReactNode }) {
   return (
-    <div className="prose-ovora max-w-3xl space-y-4 text-[15px] leading-relaxed text-[#1e2235]/70 [&_h2]:text-xl [&_h2]:font-semibold [&_h2]:text-[#1e2235] [&_h2]:mt-10 [&_h2]:mb-3 [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:space-y-2 [&_a]:underline [&_a]:text-[#1e2235]">
+    <div className="prose-ovora max-w-3xl space-y-4 text-[15px] leading-relaxed text-ink/70 [&_h2]:text-xl [&_h2]:font-semibold [&_h2]:text-ink [&_h2]:mt-10 [&_h2]:mb-3 [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:space-y-2 [&_a]:underline [&_a]:text-ink">
       {children}
     </div>
   );
@@ -27,14 +28,14 @@ export function Prose({ children }: { children: React.ReactNode }) {
 
 export function FaqItem({ q, a }: { q: string; a: string }) {
   return (
-    <details className="group bg-[#f7f8fc] rounded-2xl border border-[#d5dbed] p-5 open:shadow-sm">
-      <summary className="cursor-pointer list-none font-medium text-[#1e2235] flex items-center justify-between gap-4">
+    <details className="group border-b border-line py-5">
+      <summary className="cursor-pointer list-none font-medium text-ink flex items-center justify-between gap-4">
         {q}
-        <span className="text-[#1e2235]/30 group-open:rotate-45 transition-transform text-xl leading-none">
+        <span className="text-ink/30 group-open:rotate-45 transition-transform text-xl leading-none">
           +
         </span>
       </summary>
-      <p className="mt-3 text-sm text-[#1e2235]/60 leading-relaxed">{a}</p>
+      <p className="mt-3 text-sm text-ink/60 leading-relaxed">{a}</p>
     </details>
   );
 }

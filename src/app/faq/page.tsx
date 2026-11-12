@@ -52,7 +52,7 @@ function answerForSchema(faq: { a: string; schemaAnswer?: string }) {
 
 export default function FaqPage() {
   return (
-    <section className="py-12 lg:py-16 bg-[#eef0f8] min-h-[50vh]">
+    <section className="py-12 lg:py-16 bg-surface-2 min-h-[50vh]">
       <JsonLd
         data={{
           "@context": "https://schema.org",

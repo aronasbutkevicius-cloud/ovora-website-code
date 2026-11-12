@@ -6,21 +6,22 @@ import { supportEmail } from "@/lib/site";
 
 export function CtaBand() {
   return (
-    <section className="relative py-16 lg:py-20 bg-[#f7f8fc] overflow-hidden">
-      <div className="content-container text-center max-w-3xl mx-auto relative z-10">
-        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#1e2235] leading-[1.35] mb-6 lg:mb-8 tracking-tight">
+    <section className="relative overflow-hidden py-16 section-wash lg:py-20">
+      <div className="content-container relative z-10 max-w-3xl">
+        <p className="index-label mb-3">Catalog</p>
+        <h2 className="mb-6 font-display text-3xl font-medium leading-[1.2] tracking-tight text-ink sm:text-4xl lg:mb-8 lg:text-5xl">
           All the research peptides you need, with the{" "}
           <span className="relative inline-block">
             <span className="relative z-10">peace of mind</span>
             <span className="absolute bottom-0 left-0 w-full h-[4px] lg:h-[5px] overflow-hidden rounded-full">
-              <span className="absolute inset-0 bg-gradient-to-r from-[#a8b6e8] via-[#7a8fd4] to-[#8b9ad9] rounded-full origin-left animate-underline" />
+              <span className="absolute inset-0 bg-gradient-to-r from-accent-soft via-accent to-accent-mid rounded-full origin-left animate-underline" />
             </span>
           </span>{" "}
           and research community at your fingertips.
         </h2>
         <Link
           href="/store"
-          className="inline-flex items-center justify-center h-12 px-8 rounded-full bg-[#1e2235] text-[#f7f8fc] text-sm font-medium hover:bg-[#2a3148] transition-colors hover-lift"
+          className="btn-primary"
         >
           Shop Now
         </Link>
@@ -39,12 +40,13 @@ export function Newsletter() {
   }
 
   return (
-    <section className="py-12 lg:py-16 bg-[#eef0f8] border-t border-[#d5dbed]">
-      <div className="content-container max-w-2xl mx-auto text-center">
-        <h2 className="text-xl lg:text-2xl font-semibold text-[#1e2235] mb-2">
+    <section className="border-t border-transparent py-12 lg:py-16">
+      <div className="content-container max-w-2xl">
+        <hr className="pearl-rule mb-8" />
+        <h2 className="mb-2 font-display text-2xl font-medium text-ink lg:text-3xl">
           Research updates from Ovora Labs
         </h2>
-        <p className="text-sm text-[#6b7189] mb-6">
+        <p className="text-sm text-muted mb-6">
           Catalog updates and quality documentation news, once an email list is connected.
         </p>
         <form className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto" onSubmit={onSubmit}>
@@ -58,24 +60,24 @@ export function Newsletter() {
             required
             placeholder="you@lab.edu"
             autoComplete="email"
-            className="flex-1 h-11 px-4 rounded-full border border-[#d5dbed] bg-[#f7f8fc] text-base sm:text-sm outline-none focus:ring-2 focus:ring-[#7a8fd4]/25"
+            className="h-11 flex-1 rounded-lg border border-line bg-white px-4 text-base outline-none focus:border-accent sm:text-sm"
           />
           <button
             type="submit"
-            className="h-11 px-6 rounded-full bg-[#1e2235] text-[#f7f8fc] text-sm font-medium hover:bg-[#2a3148] transition-colors"
+            className="btn-primary h-11 min-h-0 px-6 text-sm"
           >
             Subscribe
           </button>
         </form>
-        <p className="mt-3 text-xs text-[#8a90a8] leading-relaxed">
+        <p className="mt-3 text-xs text-placeholder leading-relaxed">
           To join the list, email{" "}
-          <a href={`mailto:${supportEmail}`} className="underline hover:text-[#4a5168]">
+          <a href={`mailto:${supportEmail}`} className="underline hover:text-ink-soft">
             {supportEmail}
           </a>
           .
         </p>
         {status && (
-          <p role="status" className="mt-3 text-sm text-[#4a5168]">
+          <p role="status" className="mt-3 text-sm text-ink-soft">
             {status}
           </p>
         )}

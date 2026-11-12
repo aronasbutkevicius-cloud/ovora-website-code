@@ -12,26 +12,26 @@ export const metadata: Metadata = pageMetadata({
 
 export default function ResearchPage() {
   return (
-    <section className="py-12 lg:py-16 bg-[#f7f8fc]">
+    <section className="py-12 lg:py-16 bg-canvas">
       <div className="content-container max-w-3xl">
         <PageHero
           title="Research Library"
           subtitle="Handling context for laboratory investigators. The compound catalog is available after sign-in."
         />
-        <p className="text-[#4a5168] leading-relaxed mb-6">
+        <p className="text-ink-soft leading-relaxed mb-6">
           Citations and paper links are not published on this page. Signed-in researchers can review
           compound identity, quantity, storage, and certificates of analysis from the catalog.
         </p>
         <div className="flex flex-col sm:flex-row gap-3">
           <Link
             href="/signup"
-            className="inline-flex items-center justify-center h-11 px-6 rounded-full bg-[#1e2235] text-[#f7f8fc] text-sm font-medium"
+            className="inline-flex items-center justify-center h-11 px-6 rounded-full bg-brand text-on-ink text-sm font-medium"
           >
             Create a researcher account
           </Link>
           <Link
             href="/research-use"
-            className="inline-flex items-center justify-center h-11 px-6 rounded-full border border-[#d5dbed] text-[#1e2235] text-sm font-medium"
+            className="inline-flex items-center justify-center h-11 px-6 rounded-full border border-line text-ink text-sm font-medium"
           >
             Research-use policy
           </Link>

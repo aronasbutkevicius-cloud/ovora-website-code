@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Newsletter } from "@/components/CtaBand";
+import { HeroLumen } from "@/components/HeroLumen";
 import { ResearcherNotice } from "@/components/ProductCompliance";
 import { JsonLd } from "@/components/JsonLd";
 import { QUALIFIED_RESEARCHER_STATEMENT } from "@/lib/compliance";
@@ -29,6 +31,25 @@ const features = [
     title: "Controlled Synthesis Process",
     body: "Our manufacturing follows documented internal quality procedures designed to support consistency from batch to batch.",
   },
+];
+
+const questions: Array<[string, string]> = [
+  [
+    "Who can view the catalog?",
+    "Create a researcher account and sign in. The catalog and checkout are shown only after sign-in. Products are sold only to qualified researchers and licensed laboratories.",
+  ],
+  [
+    "Are your products for human use?",
+    "No. All Ovora Labs products are sold strictly for laboratory and research use only — not for human or veterinary consumption.",
+  ],
+  [
+    "What purity do you guarantee?",
+    "We guarantee 99%+ purity on every peptide we sell. Batches that do not meet our standards do not ship.",
+  ],
+  [
+    "How fast do you ship?",
+    "Orders are typically processed within 0–2 business days. Overnight delivery is available. Free shipping is offered on qualifying US orders.",
+  ],
 ];
 
 export default function HomePage() {
@@ -63,160 +84,149 @@ export default function HomePage() {
           ],
         }}
       />
-      <section className="relative w-full min-h-[70vh] lg:min-h-[78vh] overflow-hidden hero-glow">
-        <div className="content-container relative z-20 h-full min-h-[70vh] lg:min-h-[78vh] flex items-center justify-center">
-          <div className="text-center max-w-3xl mx-auto py-16 lg:py-24 animate-fade-up">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/80 backdrop-blur-sm border border-[#d5dbed] mb-6">
-              <svg className="w-4 h-4 text-[#7a8fd4]" fill="currentColor" viewBox="0 0 20 20">
-                <path
-                  fillRule="evenodd"
-                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                  clipRule="evenodd"
-                />
-              </svg>
-              <span className="text-sm font-medium text-[#4a5168]">
-                Laboratory Grade · USA Based
-              </span>
-            </div>
-            <h1 className="font-anek text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-semibold text-[#1e2235] leading-[1.02] tracking-tight mb-4 lg:mb-6">
-              Ovora Labs
+
+      <section className="hero-lumen relative min-h-[calc(100svh-7.25rem)]">
+        <HeroLumen variant="ornament" />
+        <div className="content-container relative z-10 flex min-h-[calc(100svh-7.25rem)] items-end lg:items-center">
+          <div className="w-full max-w-xl pb-20 pt-16 lg:max-w-2xl lg:py-20 animate-fade-up">
+            <p className="section-kicker">Laboratory grade · United States</p>
+            <h1 className="mt-4 font-display text-[2.7rem] font-medium leading-[1.02] tracking-tight text-ink sm:text-6xl lg:text-7xl">
+              Research peptides,{" "}
+              <em className="font-medium text-accent-deep">held in the light.</em>
             </h1>
-            <p className="text-lg sm:text-xl lg:text-2xl text-[#4a5168] leading-relaxed max-w-2xl mx-auto mb-8">
-              Premium research-grade peptides with a 99%+ purity guarantee. Built for labs that
-              demand documentation, consistency, and third-party verification.
+            <p className="mt-5 max-w-xl text-lg leading-relaxed text-ink-soft">
+              Premium research-grade peptides with a 99%+ purity guarantee. Documentation,
+              consistency, and third-party verification for qualified laboratories.
             </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-              <Link
-                href="/signup"
-                className="inline-flex items-center justify-center h-12 px-8 rounded-full bg-[#1e2235] text-[#f7f8fc] text-sm font-medium hover:bg-[#2a3148] transition-colors"
-              >
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <Link href="/signup" className="btn-primary">
                 Create a researcher account
               </Link>
-              <Link
-                href="/research-use"
-                className="inline-flex items-center justify-center h-12 px-8 rounded-full bg-white/90 border border-[#d5dbed] text-[#1e2235] text-sm font-medium hover:bg-white transition-colors"
-              >
+              <Link href="/research-use" className="btn-secondary">
                 Research Use Only
               </Link>
             </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="relative py-16 lg:py-24 bg-[#f7f8fc] overflow-hidden">
-        <div className="content-container relative z-10">
-          <div className="text-center max-w-2xl mx-auto mb-12 reveal">
-            <h2 className="text-3xl lg:text-4xl font-semibold text-[#1e2235] tracking-tight mb-3">
-              Why Choose Ovora Labs?
-            </h2>
-            <p className="text-[#6b7189]">
-              The leading standard for research-grade peptides — purity, transparency, and US-based
-              support.
+            <p className="mt-6 max-w-md text-sm leading-relaxed text-muted">
+              Catalog access requires a verified researcher account.
             </p>
           </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {features.map((f, i) => (
-              <div
-                key={f.title}
-                className={`bg-[#eef0f8]/90 backdrop-blur-sm rounded-2xl p-6 border border-[#d5dbed] hover-lift reveal reveal-delay-${(i % 3) + 1}`}
-              >
-                <h3 className="text-lg font-semibold text-[#1e2235] mb-2">{f.title}</h3>
-                <p className="text-sm text-[#4a5168] leading-relaxed">{f.body}</p>
+        </div>
+      </section>
+
+      <section className="relative border-t border-transparent py-8">
+        <div className="content-container">
+          <hr className="pearl-rule" />
+          <dl className="grid gap-6 py-8 sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              ["≥99%", "HPLC purity before a lot is released"],
+              ["ISO 17025", "Independent identity testing"],
+              ["COA", "Certificate available on request"],
+              ["United States", "Support and shipping operations"],
+            ].map(([stat, label]) => (
+              <div key={stat} className="border-l border-line pl-4">
+                <dt className="font-display text-3xl text-ink">{stat}</dt>
+                <dd className="mt-1 text-sm leading-relaxed text-ink-soft">{label}</dd>
               </div>
             ))}
+          </dl>
+        </div>
+      </section>
+
+      <section className="relative py-16 lg:py-24 section-wash">
+        <div className="content-container grid items-start gap-10 lg:grid-cols-12">
+          <div className="lg:sticky lg:top-28 lg:col-span-4 reveal">
+            <p className="index-label">02 — The bench</p>
+            <h2 className="mt-3 font-display text-4xl font-medium tracking-tight text-ink lg:text-5xl">
+              How a batch earns a place in the catalog
+            </h2>
+          </div>
+          <ol className="lg:col-span-8">
+            {features.map((step, index) => (
+              <li key={step.title} className="grid grid-cols-[auto_1fr] gap-5 border-t border-line py-7 reveal">
+                <span className="font-display text-3xl italic text-accent">0{index + 1}</span>
+                <div>
+                  <h3 className="font-display text-2xl font-medium text-ink">{step.title}</h3>
+                  <p className="mt-2 max-w-xl text-sm leading-relaxed text-ink-soft">{step.body}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      <section className="relative py-16 lg:py-24 section-depth">
+        <div className="content-container">
+          <div className="folio grid items-center gap-10 p-8 lg:grid-cols-2 lg:p-12 reveal">
+            <div>
+              <p className="index-label">03 — Documentation</p>
+              <p className="mt-3 font-display text-7xl font-medium tracking-tight text-ink lg:text-8xl">≥99%</p>
+              <p className="mt-4 max-w-md text-lg leading-relaxed text-ink-soft">
+                HPLC tested for purity verification. A certificate of analysis is available on request
+                for every batch. Files appear on the certificate page when they are uploaded.
+              </p>
+              <Link href="/coa" className="mt-6 inline-flex text-sm font-medium text-accent underline underline-offset-4">
+                Certificates of analysis
+              </Link>
+            </div>
+            <ul className="divide-y divide-line border-y border-line">
+              {[
+                "Batch identity checked by an independent laboratory",
+                "Purity verified before a lot is released",
+                "Certificate of analysis available on request",
+                "USA-based support for documentation questions",
+              ].map((item) => (
+                <li key={item} className="py-4 text-sm leading-relaxed text-ink-soft">
+                  {item}
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </section>
 
-      <section className="relative py-16 lg:py-24 bg-[#e4e8f5]/50 overflow-hidden">
-        <div className="content-container relative z-10">
-          <div className="max-w-3xl mx-auto text-center reveal">
-            <h2 className="text-3xl lg:text-4xl font-semibold text-[#1e2235] tracking-tight mb-4">
-              Catalog access for qualified researchers
+      <section className="relative py-16 lg:py-24">
+        <div className="content-container grid items-center gap-10 lg:grid-cols-[1.1fr_0.9fr]">
+          <div className="reveal">
+            <p className="index-label">04 — Members catalog</p>
+            <h2 className="mt-3 max-w-xl font-display text-4xl font-medium tracking-tight text-ink lg:text-5xl">
+              Compounds and checkout stay behind a researcher account
             </h2>
-            <p className="text-[#4a5168] text-lg leading-relaxed mb-4">
+            <p className="mt-5 max-w-xl text-lg leading-relaxed text-ink-soft">
               {QUALIFIED_RESEARCHER_STATEMENT} Create an account and sign in to view compounds,
               quantities, and checkout. Prices are not shown on public pages.
             </p>
-            <ResearcherNotice className="mb-8" />
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-              <Link
-                href="/signup"
-                className="inline-flex items-center justify-center h-12 px-8 rounded-full bg-[#1e2235] text-[#f7f8fc] text-sm font-medium hover:bg-[#2a3148] transition-colors"
-              >
-                Create a researcher account
-              </Link>
-              <Link
-                href="/login"
-                className="inline-flex items-center justify-center h-12 px-8 rounded-full bg-white border border-[#d5dbed] text-[#1e2235] text-sm font-medium hover:bg-[#f7f8fc] transition-colors"
-              >
-                Sign in
-              </Link>
-            </div>
+            <ResearcherNotice className="mt-4 max-w-xl" />
+          </div>
+          <div className="folio space-y-4 p-6 reveal">
+            <Link href="/signup" className="btn-primary w-full">
+              Create a researcher account
+            </Link>
+            <Link href="/login" className="btn-secondary w-full">
+              Sign in
+            </Link>
           </div>
         </div>
       </section>
 
-      <section className="py-16 lg:py-20 bg-[#f7f8fc]">
-        <div className="content-container">
-          <div className="relative bg-gradient-to-br from-[#eef0f8] to-[#e4e8f5] rounded-3xl p-8 lg:p-12 border border-[#d5dbed] overflow-hidden">
-            <div className="relative z-10 grid lg:grid-cols-3 gap-8 text-center">
-              <div className="stat-pulse">
-                <p className="text-4xl font-bold text-[#7a8fd4] mb-2">99%+</p>
-                <p className="font-semibold text-[#1e2235] mb-1">Purity Verified</p>
-                <p className="text-sm text-[#6b7189]">HPLC tested for purity verification</p>
-              </div>
-              <div className="stat-pulse" style={{ animationDelay: "0.6s" }}>
-                <p className="text-4xl font-bold text-[#7a8fd4] mb-2">3rd</p>
-                <p className="font-semibold text-[#1e2235] mb-1">Party Tested</p>
-                <p className="text-sm text-[#6b7189]">Independent lab verification</p>
-              </div>
-              <div className="stat-pulse" style={{ animationDelay: "1.2s" }}>
-                <p className="text-4xl font-bold text-[#7a8fd4] mb-2">CoA</p>
-                <p className="font-semibold text-[#1e2235] mb-1">Included</p>
-                <p className="text-sm text-[#6b7189]">Certificate of Analysis with every batch</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="relative py-16 lg:py-24 bg-[#e4e8f5]/40 overflow-hidden">
-        <div className="content-container max-w-4xl mx-auto relative z-10">
-          <h2 className="text-3xl font-semibold text-[#1e2235] text-center mb-10 tracking-tight reveal">
-            Fast Shipping & Shipment Protection
-          </h2>
-          <ul className="grid sm:grid-cols-2 gap-4 text-sm text-[#4a5168]">
-            {[
-              "Orders processed within 0–2 business days",
-              "Overnight delivery available",
-              "Free shipping on orders over $100",
-              "Free shipment protection on every order",
-              "Tracking provided on all orders",
-              "Damaged products replaced at no cost",
-              "USA-based customer support",
-            ].map((item) => (
-              <li
-                key={item}
-                className="flex items-start gap-3 bg-[#f7f8fc]/95 rounded-xl p-4 border border-[#d5dbed] hover-lift"
-              >
-                <svg
-                  className="w-5 h-5 text-[#7a8fd4] shrink-0 mt-0.5"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-                {item}
-              </li>
+      <section className="relative pb-8 lg:pb-12">
+        <div className="content-container max-w-3xl">
+          <h2 className="mb-6 font-display text-3xl font-medium tracking-tight text-ink">Questions from the bench</h2>
+          <div>
+            {questions.map(([q, a], index) => (
+              <details key={q} className="group border-t border-line py-5 reveal">
+                <summary className="flex cursor-pointer list-none items-baseline gap-4 font-medium text-ink">
+                  <span className="font-display italic text-accent">0{index + 1}</span>
+                  <span>{q}</span>
+                </summary>
+                <p className="mt-3 pl-10 text-sm leading-relaxed text-ink-soft">{a}</p>
+              </details>
             ))}
-          </ul>
+            <hr className="pearl-rule" />
+          </div>
         </div>
       </section>
+
+      <Newsletter />
     </>
   );
 }

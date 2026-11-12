@@ -23,6 +23,8 @@ export type Product = {
   cas: string;
   molecularWeight: string;
   storage: string;
+  /** Optional compare-at price. Ignored unless storefront.compareAtEnabled is true. */
+  compareAtPrice?: number;
 };
 
 const powder = LYOPHILIZED_STORAGE;
@@ -616,28 +618,31 @@ export function isFamilyHubSlug(slug: string) {
 }
 
 export function familyCatalogPath(family: ProductFamily) {
-  return isMultiStrengthHub(family)
-    ? `/products/${family.slug}`
-    : `/products/${family.variants[0].slug}`;
+  return `/products/${family.slug}`;
 }
 
+/** Old per-size URLs redirect to the one compound page with that size selected. */
 export function legacyProductRedirect(slug: string) {
-  const family = getProductFamilies().find((entry) => entry.slug === slug);
-  if (!family) return undefined;
-  if (family.variants.some((variant) => variant.slug === slug)) return undefined;
-  if (family.variants.length !== 1) return undefined;
-  const target = family.variants[0]?.slug;
-  if (!target || target === slug) return undefined;
-  return target;
+  const product = getProduct(slug);
+  if (!product || product.withheld) return undefined;
+  const family = getProductFamily(product.slug);
+  if (!family || family.slug === slug) return undefined;
+  return `/products/${family.slug}?size=${encodeURIComponent(product.dose)}`;
 }
 
 export function indexableProductPaths() {
-  const paths: string[] = [];
-  for (const family of getProductFamilies()) {
-    if (isMultiStrengthHub(family)) paths.push(`/products/${family.slug}`);
-    for (const variant of family.variants) paths.push(`/products/${variant.slug}`);
-  }
-  return paths;
+  return getProductFamilies().map((family) => `/products/${family.slug}`);
+}
+
+export function familyStrengthSummary(family: ProductFamily) {
+  const doses = family.variants.map((variant) => variant.dose);
+  const list =
+    doses.length <= 1
+      ? (doses[0] ?? "")
+      : doses.length === 2
+        ? `${doses[0]} and ${doses[1]}`
+        : `${doses.slice(0, -1).join(", ")}, and ${doses[doses.length - 1]}`;
+  return `${family.name} from Ovora Labs, available in ${list}, each sold as a single vial. ${family.description} Research use only. Not for human or veterinary consumption.`;
 }
 
 export function startingPrice(family: ProductFamily) {

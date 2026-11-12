@@ -1,6 +1,8 @@
 import { FIRST_ORDER_RATE } from "@/lib/compliance";
 import { getProduct, getProductFamily } from "@/data/products";
 import { toCents } from "@/lib/money";
+import { FREE_SHIPPING_THRESHOLD, FLAT_SHIPPING_USD } from "@/lib/shipping";
+import { lineCentsFor } from "@/lib/storefront";
 import type { DiscountState } from "@/lib/auth/accounts";
 import type { OrderLine } from "@/lib/auth/accounts";
 
@@ -21,8 +23,8 @@ export type CartQuote = {
 
 export function shippingCentsFor(subtotalCents: number) {
   if (subtotalCents <= 0) return 0;
-  if (subtotalCents >= 10000) return 0;
-  return 899;
+  if (subtotalCents >= toCents(FREE_SHIPPING_THRESHOLD)) return 0;
+  return toCents(FLAT_SHIPPING_USD);
 }
 
 export function quoteLines(items: { variantSlug: string; quantity: number }[]): {
@@ -52,7 +54,7 @@ export function quoteLines(items: { variantSlug: string; quantity: number }[]): 
       dose: product.dose,
       quantity,
       unitCents,
-      lineCents: unitCents * quantity,
+      lineCents: lineCentsFor(unitCents, quantity, product.form),
       image: product.image,
     });
   }

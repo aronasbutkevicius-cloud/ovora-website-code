@@ -21,10 +21,10 @@ export default async function AccountPage() {
   const discount = await getDiscountState(session.id);
 
   return (
-    <section className="py-12 lg:py-16 bg-[#f7f8fc] min-h-[60vh]">
+    <section className="py-12 lg:py-16 bg-canvas min-h-[60vh]">
       <div className="content-container max-w-3xl">
-        <h1 className="text-4xl font-semibold text-[#1e2235] tracking-tight mb-3">Account</h1>
-        <p className="text-[#6b7189] mb-8">
+        <h1 className="text-4xl font-semibold text-ink tracking-tight mb-3">Account</h1>
+        <p className="text-muted mb-8">
           Signed in as {profile.email}. Products are sold only to qualified researchers and licensed
           laboratories.
         </p>
@@ -34,8 +34,8 @@ export default async function AccountPage() {
           <Item label="Research purpose" value={profile.researchPurpose} />
           <Item label="Email" value={profile.email} />
         </dl>
-        <div className="mb-6 rounded-2xl border border-[#d5dbed] bg-[#eef0f8] p-5 text-sm text-[#4a5168] leading-relaxed">
-          <p className="font-medium text-[#1e2235] mb-1">{FIRST_ORDER_OFFER}</p>
+        <div className="mb-6 rounded-2xl border border-line bg-surface-2 p-5 text-sm text-ink-soft leading-relaxed">
+          <p className="font-medium text-ink mb-1">{FIRST_ORDER_OFFER}</p>
           {discount === "eligible" && (
             <p>Your account is eligible. The 15% line appears in cart and checkout totals.</p>
           )}
@@ -48,7 +48,7 @@ export default async function AccountPage() {
         </div>
         <SmsOptInForm phoneE164={profile.phoneE164} />
         <p className="mt-8 text-sm">
-          <Link href="/store" className="underline text-[#1e2235]">
+          <Link href="/store" className="underline text-ink">
             Browse the catalog
           </Link>
         </p>
@@ -59,9 +59,9 @@ export default async function AccountPage() {
 
 function Item({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-xl border border-[#d5dbed] bg-white p-4">
-      <dt className="text-[#6b7189] mb-1">{label}</dt>
-      <dd className="font-medium text-[#1e2235]">{value}</dd>
+    <div className="rounded-xl border border-line glass-panel p-4">
+      <dt className="text-muted mb-1">{label}</dt>
+      <dd className="font-medium text-ink">{value}</dd>
     </div>
   );
 }

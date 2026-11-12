@@ -11,7 +11,7 @@ export const metadata: Metadata = pageMetadata({
 
 export default function ContactPage() {
   return (
-    <section className="py-12 lg:py-16 bg-[#f7f8fc] min-h-[50vh]">
+    <section className="py-12 lg:py-16 bg-canvas min-h-[50vh]">
       <div className="content-container">
         <PageHero
           title="Contact Us"
@@ -19,22 +19,22 @@ export default function ContactPage() {
         />
         <div className="grid lg:grid-cols-2 gap-10 max-w-5xl">
           <div className="space-y-6">
-            <div className="bg-[#eef0f8] rounded-2xl p-6 border border-[#d5dbed]">
-              <p className="text-sm text-[#1e2235]/45 mb-1">Email</p>
+            <div className="bg-surface-2 rounded-2xl p-6 border border-line">
+              <p className="text-sm text-ink/45 mb-1">Email</p>
               <a
                 href={`mailto:${supportEmail}`}
-                className="text-lg font-medium text-[#1e2235] hover:underline"
+                className="text-lg font-medium text-ink hover:underline"
               >
                 {supportEmail}
               </a>
             </div>
-            <div className="bg-[#eef0f8] rounded-2xl p-6 border border-[#d5dbed]">
-              <p className="text-sm text-[#1e2235]/45 mb-1">Location</p>
-              <p className="text-lg font-medium text-[#1e2235]">United States</p>
+            <div className="bg-surface-2 rounded-2xl p-6 border border-line">
+              <p className="text-sm text-ink/45 mb-1">Location</p>
+              <p className="text-lg font-medium text-ink">United States</p>
             </div>
-            <div className="bg-[#eef0f8] rounded-2xl p-6 border border-[#d5dbed]">
-              <p className="text-sm text-[#1e2235]/45 mb-1">Hours</p>
-              <p className="text-lg font-medium text-[#1e2235]">Mon–Fri, 9am–6pm ET</p>
+            <div className="bg-surface-2 rounded-2xl p-6 border border-line">
+              <p className="text-sm text-ink/45 mb-1">Hours</p>
+              <p className="text-lg font-medium text-ink">Mon–Fri, 9am–6pm ET</p>
             </div>
           </div>
           <ContactForm />
