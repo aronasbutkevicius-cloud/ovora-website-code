@@ -23,25 +23,48 @@ export default function OpenGraphImage() {
           style={{
             display: "flex",
             alignItems: "center",
-            gap: 18,
+            gap: 22,
             marginBottom: 28,
           }}
         >
           <div
             style={{
-              width: 56,
-              height: 56,
-              borderRadius: 28,
-              background: "#121a2e",
-              color: "#b9cbff",
+              width: 96,
+              height: 96,
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              fontSize: 28,
-              fontWeight: 700,
+              position: "relative",
             }}
           >
-            O
+            <div
+              style={{
+                position: "absolute",
+                width: 88,
+                height: 36,
+                border: "4px solid #d5e2ff",
+                borderRadius: 999,
+                transform: "rotate(-32deg)",
+              }}
+            />
+            <div
+              style={{
+                position: "absolute",
+                width: 88,
+                height: 36,
+                border: "4px solid #d5e2ff",
+                borderRadius: 999,
+                transform: "rotate(32deg)",
+              }}
+            />
+            <div
+              style={{
+                width: 16,
+                height: 16,
+                borderRadius: 8,
+                background: "#7ee0ea",
+              }}
+            />
           </div>
           <div style={{ fontSize: 22, letterSpacing: 3, color: "#8eabff" }}>
             RESEARCH USE ONLY

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { AcceptedPayments } from "@/components/AcceptedPayments";
+import { Logo } from "@/components/Logo";
 
 export function Footer() {
   return (
@@ -7,7 +8,7 @@ export function Footer() {
       <div className="content-container py-14 lg:py-16">
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-10 mb-12">
           <div className="col-span-2 lg:col-span-1">
-            <p className="font-semibold text-lg mb-3 tracking-tight">Ovora Labs</p>
+            <Logo className="mb-3 h-8 w-auto" />
             <p className="text-sm text-white/60 leading-relaxed max-w-xs">
               Research-grade peptides for controlled laboratory studies. Third-party tested, with
               certificates of analysis available on request.
