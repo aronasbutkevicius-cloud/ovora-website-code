@@ -55,7 +55,7 @@ function Section({
         </h2>
         <p className="text-muted text-sm">{subtitle}</p>
       </div>
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
         {items.map((family) => (
           <StoreProductCard key={family.slug} family={family} />
         ))}

@@ -7,11 +7,10 @@ import { useCart } from "@/components/CartProvider";
 import { ProductVisual } from "@/components/ProductVisual";
 import { ShipCountdown } from "@/components/ShipCountdown";
 import { ProductCompliance } from "@/components/ProductCompliance";
-import { vialThemes } from "@/data/vialThemes";
 import type { Product, ProductFamily } from "@/data/products";
 import { formatCents, formatPrice, toCents } from "@/lib/money";
 import { FREE_SHIPPING_THRESHOLD } from "@/lib/shipping";
-import { activeBundle, lineCentsFor, storefront } from "@/lib/storefront";
+import { lineCentsFor, storefront } from "@/lib/storefront";
 
 type Props = {
   family: ProductFamily;
@@ -37,16 +36,15 @@ export function ProductPurchasePanel({ family, initialSize }: Props) {
 
   const variant = family.variants.find((item) => item.slug === slug) ?? family.variants[0];
   const isSupply = family.form === "liquid";
-  const tint = vialThemes[variant.theme]?.glass ?? "#dfe7f6";
   const totalCents = lineCentsFor(toCents(variant.price), quantity, family.form);
-  const rate = activeBundle(quantity, family.form).rate;
+  const applied = storefront.bundles.reduce((best, tier) =>
+    !isSupply && quantity >= tier.quantity ? tier : best,
+  );
   const showCompare =
     storefront.compareAtEnabled &&
     typeof variant.compareAtPrice === "number" &&
     variant.compareAtPrice > variant.price;
-
   const tiers = useMemo(() => (isSupply ? [] : storefront.bundles), [isSupply]);
-
   function chooseSize(next: Product) {
     setSlug(next.slug);
     setAdded(false);
@@ -74,69 +72,68 @@ export function ProductPurchasePanel({ family, initialSize }: Props) {
   }
 
   return (
-    <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-start">
-      <div>
-        <div
-          className="relative aspect-square overflow-hidden rounded-3xl border border-line"
-          style={{ background: `linear-gradient(180deg, ${tint}, rgba(7,12,24,0.2))` }}
-        >
-          <div className="absolute inset-4 flex items-center justify-center sm:inset-8">
-            <ProductVisual
-              key={variant.slug}
-              product={variant}
-              className="h-full w-auto max-w-full"
-              sizes="(max-width: 1024px) 90vw, 480px"
-              priority
-            />
-          </div>
+    <div className="grid items-start gap-12 lg:grid-cols-12">
+      <div className="lg:col-span-5">
+        <div className="relative flex min-h-[560px] items-end justify-center overflow-visible">
+          <span className="pointer-events-none absolute bottom-16 left-1/2 h-24 w-56 -translate-x-1/2 rounded-full bg-[#345bd4]/30 blur-3xl" />
+          <span className="pointer-events-none absolute bottom-20 left-1/2 h-3 w-40 -translate-x-1/2 rounded-full bg-white/15 blur-md" />
+          <span className="pointer-events-none absolute inset-x-8 top-6 bottom-10 border border-white/10" />
+          <ProductVisual
+            key={variant.slug}
+            product={variant}
+            className="relative z-10 h-[480px] w-auto max-w-[78%]"
+            sizes="(max-width: 1024px) 80vw, 420px"
+            priority
+          />
         </div>
-        <div className="mt-4 flex flex-wrap gap-2">
-          <span className="inline-flex items-center h-8 px-3 rounded-full border border-line bg-white/5 text-xs text-ink-soft">
-            Third-party tested
-          </span>
-          <span className="inline-flex items-center h-8 px-3 rounded-full border border-line bg-white/5 text-xs text-ink-soft">
-            ≥99% purity
-          </span>
-        </div>
+        <p className="mt-2 text-center font-mono text-[10px] uppercase tracking-[0.22em] text-muted">
+          Specimen {variant.slug}
+        </p>
       </div>
 
-      <div>
-        <p className="text-xs uppercase tracking-[0.16em] text-accent font-medium mb-3">
-          {isSupply ? "Laboratory supply · Research use" : "Single vial · Research use"}
+      <div className="lg:col-span-7">
+        <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-accent">
+          {isSupply ? "Laboratory supply" : "Single vial"} · Research use only
         </p>
-        <h1 className="text-3xl lg:text-5xl font-semibold text-ink tracking-tight mb-4">{family.name}</h1>
-        <p className="text-ink-soft text-lg leading-relaxed mb-6">{variant.description}</p>
+        <h1 className="mt-3 font-anek text-5xl font-semibold tracking-tight text-ink lg:text-6xl">
+          {family.name}
+        </h1>
+        <p className="mt-4 max-w-xl text-base leading-relaxed text-ink-soft">{variant.description}</p>
 
         {family.variants.length > 1 && (
-          <div className="mb-6">
-            <p className="text-sm font-medium text-ink mb-3">Vial size</p>
-            <div className="flex flex-wrap gap-2" role="group" aria-label="Vial size">
-              {family.variants.map((option) => {
-                const active = option.slug === variant.slug;
-                return (
-                  <button
-                    key={option.slug}
-                    type="button"
-                    aria-pressed={active}
-                    onClick={() => chooseSize(option)}
-                    className={`inline-flex items-center justify-center min-w-[4.5rem] px-4 py-2.5 rounded-full text-sm font-medium border transition-colors ${
-                      active
-                        ? "bg-brand text-on-ink border-brand"
-                        : "bg-white/5 text-ink-soft border-line hover:text-ink"
-                    }`}
-                  >
-                    {option.dose}
-                  </button>
-                );
-              })}
+          <div className="mt-8">
+            <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted">Vial size</p>
+            <div className="relative mt-4" role="group" aria-label="Vial size">
+              <div className="absolute left-0 right-0 top-3 h-px bg-white/15" />
+              <div className="relative flex justify-between gap-2">
+                {family.variants.map((option) => {
+                  const active = option.slug === variant.slug;
+                  return (
+                    <button
+                      key={option.slug}
+                      type="button"
+                      aria-pressed={active}
+                      onClick={() => chooseSize(option)}
+                      className="flex min-w-0 flex-1 flex-col items-center"
+                    >
+                      <span className={`w-px ${active ? "h-6 bg-accent" : "h-3 bg-white/30"}`} />
+                      <span
+                        className={`mt-2 font-mono text-xs tracking-wide ${active ? "text-ink" : "text-muted"}`}
+                      >
+                        {option.dose}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
             </div>
           </div>
         )}
 
         {tiers.length > 0 && (
-          <div className="mb-6">
-            <p className="text-sm font-medium text-ink mb-3">Quantity</p>
-            <div className="grid sm:grid-cols-3 gap-2">
+          <div className="mt-8">
+            <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted">Quantity</p>
+            <div className="mt-3 flex flex-wrap gap-6">
               {tiers.map((tier) => {
                 const selected = quantity === tier.quantity;
                 const each = lineCentsFor(toCents(variant.price), tier.quantity, family.form);
@@ -146,21 +143,28 @@ export function ProductPurchasePanel({ family, initialSize }: Props) {
                     type="button"
                     aria-pressed={selected}
                     onClick={() => setQuantity(tier.quantity)}
-                    className={`rounded-2xl border px-3 py-3 text-left transition-colors ${
-                      selected ? "border-accent bg-white/10" : "border-line bg-white/5 hover:border-accent"
-                    }`}
+                    className={`flex items-end gap-2 border-b pb-2 ${selected ? "border-accent" : "border-transparent"}`}
                   >
-                    {tier.badge && (
-                      <span className="block text-[10px] uppercase tracking-[0.14em] text-accent mb-1">
-                        {tier.badge}
-                      </span>
-                    )}
-                    <span className="block text-sm font-semibold text-ink">
-                      {tier.quantity} vial{tier.quantity === 1 ? "" : "s"}
+                    <span className="flex items-end gap-1" aria-hidden="true">
+                      {Array.from({ length: tier.quantity }).map((_, index) => (
+                        <span
+                          key={index}
+                          className={`block w-2.5 rounded-sm border ${
+                            selected ? "h-8 border-accent bg-accent/20" : "h-6 border-white/25"
+                          }`}
+                        />
+                      ))}
                     </span>
-                    <span className="block text-xs text-muted mt-1">
-                      {tier.rate > 0 ? `${Math.round(tier.rate * 100)}% off · ` : ""}
-                      {formatCents(each)}
+                    <span className="text-left">
+                      {tier.badge && (
+                        <span className="block font-mono text-[10px] uppercase tracking-[0.14em] text-accent">
+                          {tier.badge}
+                        </span>
+                      )}
+                      <span className="block font-mono text-xs text-ink">
+                        {tier.rate > 0 ? `${Math.round(tier.rate * 100)}% off · ` : ""}
+                        {formatCents(each)}
+                      </span>
                     </span>
                   </button>
                 );
@@ -169,21 +173,23 @@ export function ProductPurchasePanel({ family, initialSize }: Props) {
           </div>
         )}
 
-        <div className="flex flex-wrap items-end gap-4 mb-4">
+        <div className="mt-8 flex flex-wrap items-end justify-between gap-4 border-y border-white/10 py-5">
           <div>
             {showCompare && (
-              <p className="text-sm text-muted line-through">{formatPrice(variant.compareAtPrice ?? 0)}</p>
+              <p className="font-mono text-sm text-muted line-through">
+                {formatPrice(variant.compareAtPrice ?? 0)}
+              </p>
             )}
-            <p className="text-3xl font-semibold text-ink">
-              {formatPrice(variant.price)}{" "}
-              <span className="text-base font-normal text-muted">USD / vial</span>
-            </p>
-            {rate > 0 && (
-              <p className="text-sm text-accent mt-1">{Math.round(rate * 100)}% off this quantity</p>
+            <p className="text-4xl font-semibold tracking-tight text-ink">{formatPrice(variant.price)}</p>
+            <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-muted">USD per vial</p>
+            {applied.rate > 0 && (
+              <p className="mt-1 font-mono text-xs text-accent">
+                {Math.round(applied.rate * 100)}% off this quantity
+              </p>
             )}
           </div>
-          <label className="inline-flex items-center gap-2 h-12 px-4 rounded-full border border-line bg-surface">
-            <span className="text-xs uppercase tracking-wide text-muted">Qty</span>
+          <label className="flex items-center gap-3 font-mono text-xs uppercase tracking-[0.16em] text-muted">
+            Qty
             <input
               type="number"
               min={1}
@@ -192,7 +198,7 @@ export function ProductPurchasePanel({ family, initialSize }: Props) {
               onChange={(event) =>
                 setQuantity(Math.max(1, Math.min(99, Number(event.target.value) || 1)))
               }
-              className="w-14 bg-transparent text-ink font-medium outline-none"
+              className="w-16 border-b border-white/20 bg-transparent py-1 text-lg text-ink outline-none"
             />
           </label>
         </div>
@@ -200,54 +206,71 @@ export function ProductPurchasePanel({ family, initialSize }: Props) {
         <button
           type="button"
           onClick={handleAdd}
-          className="w-full inline-flex items-center justify-center h-12 px-8 rounded-full bg-brand text-on-ink text-sm font-medium hover:bg-brand-hover transition-colors"
+          className="mt-5 w-full border border-accent bg-brand py-4 font-mono text-xs uppercase tracking-[0.2em] text-on-ink hover:bg-brand-hover"
         >
-          {added ? "Added to cart" : `Add ${quantity} · ${formatCents(totalCents)}`}
+          {added ? "Placed on the bench" : `Add ${quantity} · ${formatCents(totalCents)}`}
         </button>
-
         {added && (
-          <p className="mt-3 text-sm text-accent">
+          <p className="mt-3 font-mono text-xs text-accent">
             {variant.dose} added.{" "}
-            <Link href="/cart" className="underline hover:text-ink">
+            <Link href="/cart" className="underline">
               View cart
             </Link>
           </p>
         )}
 
-        <div className="mt-4">
-          {variant.coaPdf ? (
-            <a
-              href={variant.coaPdf}
-              download
-              className="inline-flex items-center justify-center h-11 px-5 rounded-full border border-line text-sm text-ink hover:bg-white/10"
-            >
-              Download certificate of analysis
-            </a>
-          ) : (
-            <Link
-              href={`/coa#coa-${variant.slug}`}
-              className="inline-flex items-center justify-center h-11 px-5 rounded-full border border-line text-sm text-ink hover:bg-white/10"
-            >
-              ≥99% purity · View COA
-            </Link>
-          )}
+        <div className="mt-10">
+          <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted">Datasheet</p>
+          <table className="mt-3 w-full border-collapse font-mono text-xs">
+            <tbody>
+              {[
+                ["Dose", variant.dose],
+                ["Form", isSupply ? "Liquid" : "Lyophilized powder"],
+                ["Unit", "Single vial"],
+                ["CAS", variant.cas],
+                ["Molecular weight", variant.molecularWeight],
+                ["Storage", variant.storage],
+                ["Purity", "≥99% (HPLC), third-party identity check"],
+              ].map(([label, value]) => (
+                <tr key={label} className="border-b border-white/10">
+                  <th className="w-40 py-2 pr-4 text-left font-medium text-muted">{label}</th>
+                  <td className="py-2 text-ink">{value}</td>
+                </tr>
+              ))}
+              <tr className="border-b border-white/10">
+                <th className="py-2 pr-4 text-left font-medium text-muted">COA</th>
+                <td className="py-2">
+                  {variant.coaPdf ? (
+                    <a href={variant.coaPdf} download className="text-accent underline">
+                      Download certificate
+                    </a>
+                  ) : (
+                    <Link href={`/coa#coa-${variant.slug}`} className="text-accent underline">
+                      Coming soon · view certificate page
+                    </Link>
+                  )}
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
 
-        <div className="mt-8 space-y-4 rounded-2xl border border-line glass-panel p-5">
+        <div className="mt-10 border-l border-white/15 pl-5">
           <ShipCountdown />
-          <p className="text-sm text-ink-soft leading-relaxed">
-            Free shipping on orders over {formatPrice(FREE_SHIPPING_THRESHOLD)}. Every order includes
-            shipment protection. Overnight delivery is available, and tracking is sent on all orders.
-          </p>
-          <ul className="text-sm text-ink-soft space-y-1.5">
-            <li>Orders processed within 0–2 business days</li>
-            <li>Same-day shipping when ordered before 3:30 PM Central</li>
-            <li>Damaged vials replaced at no cost</li>
-          </ul>
+          <div className="mt-5">
+            <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-accent">Protection</p>
+            <p className="text-sm text-ink-soft">
+              Free shipping on orders over {formatPrice(FREE_SHIPPING_THRESHOLD)}. Shipment protection is
+              included. Damaged vials are replaced at no cost. Tracking is sent on every order.
+            </p>
+          </div>
+        </div>
+
+        <div className="mt-8 border-t border-white/10 pt-5">
           <AcceptedPayments />
         </div>
 
-        <p className="mt-4 text-xs text-muted leading-relaxed max-w-md">
+        <p className="mt-6 text-xs leading-relaxed text-muted">
           For laboratory and research use only. Not for human or veterinary consumption.
         </p>
         <ProductCompliance family={family} variant={variant} />
