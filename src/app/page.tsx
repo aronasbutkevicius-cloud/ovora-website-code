@@ -86,7 +86,7 @@ export default function HomePage() {
       />
 
       <section className="hero-lumen relative min-h-[calc(100svh-7.25rem)]">
-        <HeroLumen />
+        <HeroLumen variant="ornament" />
         <div className="content-container relative z-10 flex min-h-[calc(100svh-7.25rem)] items-end lg:items-center">
           <div className="w-full max-w-xl pb-20 pt-16 lg:max-w-2xl lg:py-20 animate-fade-up">
             <p className="section-kicker">Laboratory grade · United States</p>
