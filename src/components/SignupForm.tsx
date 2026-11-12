@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState, type FormEvent } from "react";
+import { HeroLumen } from "@/components/HeroLumen";
 import { Logo } from "@/components/Logo";
 import { RESEARCH_PURPOSES } from "@/lib/compliance";
 
@@ -45,16 +46,17 @@ export function SignupForm({ configured }: { configured: boolean }) {
   }
 
   return (
-    <section className="py-16 lg:py-24 bg-canvas">
-      <div className="content-container">
-        <div className="panel-card mx-auto w-full max-w-xl rounded-3xl p-8 sm:p-10">
-          <div className="flex justify-center mb-6">
-            <Logo className="h-9 w-auto" />
-          </div>
-          <h1 className="text-3xl font-semibold text-center text-ink tracking-tight mb-2">
+    <section className="bg-canvas">
+      <div className="relative h-56 sm:h-64">
+        <HeroLumen />
+      </div>
+      <div className="content-container -mt-10 pb-16">
+        <div className="folio relative z-10 mx-auto w-full max-w-xl p-8 sm:p-10">
+          <Logo className="mb-6 h-9 w-auto" />
+          <h1 className="mb-2 font-display text-4xl font-medium tracking-tight text-ink">
             Create a researcher account
           </h1>
-          <p className="text-center text-sm text-muted leading-relaxed mb-8">
+          <p className="mb-8 text-sm leading-relaxed text-muted">
             Products are sold only to qualified researchers and licensed laboratories. An account is
             required before the catalog, prices, or checkout are shown.
           </p>
@@ -110,7 +112,7 @@ export function SignupForm({ configured }: { configured: boolean }) {
             <button
               type="submit"
               disabled={pending || !configured}
-              className="w-full h-12 rounded-full bg-brand text-on-ink text-sm font-medium hover:bg-brand-hover transition-colors disabled:opacity-60"
+              className="btn-primary w-full disabled:opacity-60"
             >
               {pending ? "Creating account…" : "Create account"}
             </button>

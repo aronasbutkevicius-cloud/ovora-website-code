@@ -8,11 +8,12 @@ export function PageHero({
   subtitle?: string;
 }) {
   return (
-    <div className="max-w-3xl mb-10">
-      <h1 className="text-4xl lg:text-5xl font-semibold text-ink tracking-tight mb-3">
+    <div className="mb-12 max-w-3xl">
+      <hr className="pearl-rule mb-6" />
+      <h1 className="mb-3 font-display text-4xl font-medium tracking-tight text-ink lg:text-6xl">
         {title}
       </h1>
-      {subtitle && <p className="text-ink/60 text-lg leading-relaxed">{subtitle}</p>}
+      {subtitle && <p className="text-lg leading-relaxed text-ink-soft">{subtitle}</p>}
     </div>
   );
 }
@@ -27,7 +28,7 @@ export function Prose({ children }: { children: React.ReactNode }) {
 
 export function FaqItem({ q, a }: { q: string; a: string }) {
   return (
-    <details className="group bg-canvas rounded-2xl border border-line p-5 open:shadow-sm">
+    <details className="group border-b border-line py-5">
       <summary className="cursor-pointer list-none font-medium text-ink flex items-center justify-between gap-4">
         {q}
         <span className="text-ink/30 group-open:rotate-45 transition-transform text-xl leading-none">

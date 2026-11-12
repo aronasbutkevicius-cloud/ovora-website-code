@@ -21,7 +21,7 @@ export default function CartPage() {
     <section className="py-12 lg:py-16 bg-canvas min-h-[60vh]">
       <div className="content-container">
         <div className="max-w-3xl mb-10">
-          <h1 className="text-4xl lg:text-5xl font-semibold text-ink tracking-tight mb-3">
+          <h1 className="mb-3 font-display text-4xl font-medium tracking-tight text-ink lg:text-6xl">
             Cart
           </h1>
           <p className="text-muted">
@@ -35,13 +35,13 @@ export default function CartPage() {
         </div>
 
         {!ready ? null : items.length === 0 ? (
-          <div className="rounded-2xl border border-line glass-panel p-8 max-w-xl">
+          <div className="folio max-w-xl p-8">
             <p className="text-ink-soft mb-6">
               Browse research peptides and add a strength to get started.
             </p>
             <Link
               href="/store"
-              className="inline-flex items-center justify-center h-11 px-6 rounded-full bg-brand text-on-ink text-sm font-medium hover:bg-brand-hover transition-colors"
+              className="btn-primary"
             >
               Shop products
             </Link>
@@ -52,9 +52,9 @@ export default function CartPage() {
               {items.map((item) => (
                 <li
                   key={item.variantSlug}
-                  className="rounded-2xl border border-line glass-panel p-4 sm:p-5 flex gap-4"
+                  className="folio flex gap-4 p-4 sm:p-5"
                 >
-                  <div className="w-20 h-24 sm:w-24 sm:h-28 rounded-xl bg-surface-2 border border-line flex items-center justify-center overflow-hidden shrink-0">
+                  <div className="specimen-well flex h-28 w-20 shrink-0 items-center justify-center sm:h-32 sm:w-24">
                     {item.image ? (
                       <CutoutImage
                         src={item.image}
@@ -89,7 +89,7 @@ export default function CartPage() {
                       </p>
                     </div>
                     <div className="mt-4 flex flex-wrap items-center gap-3">
-                      <label className="inline-flex items-center gap-2 h-10 px-3 rounded-full border border-line bg-canvas">
+                      <label className="inline-flex h-10 items-center gap-2 rounded-lg border border-line bg-white px-3">
                         <span className="text-[11px] uppercase tracking-wide text-muted">
                           Qty
                         </span>
@@ -120,7 +120,7 @@ export default function CartPage() {
               ))}
             </ul>
 
-            <aside className="rounded-2xl border border-line glass-panel p-6 sticky top-28 space-y-4">
+            <aside className="folio sticky top-28 space-y-4 p-6">
               <h2 className="text-lg font-semibold text-ink">Order summary</h2>
               {quote && <FreeShippingProgress subtotal={quote.subtotalCents / 100} />}
               {error && <p className="text-sm text-red-700">{error}</p>}
@@ -154,13 +154,13 @@ export default function CartPage() {
               {quote?.discountState === "needs_opt_in" && <SmsOptInForm onSaved={reload} />}
               <Link
                 href="/checkout"
-                className="w-full inline-flex items-center justify-center h-12 rounded-full bg-brand text-on-ink text-sm font-medium hover:bg-brand-hover transition-colors"
+                className="btn-primary w-full"
               >
                 Continue to checkout
               </Link>
               <Link
                 href="/store"
-                className="w-full inline-flex items-center justify-center h-11 rounded-full border border-line text-ink text-sm font-medium hover:bg-surface-2 transition-colors"
+                className="btn-secondary w-full"
               >
                 Keep shopping
               </Link>

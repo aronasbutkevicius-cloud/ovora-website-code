@@ -72,68 +72,57 @@ export function ProductPurchasePanel({ family, initialSize }: Props) {
   }
 
   return (
-    <div className="grid items-start gap-12 lg:grid-cols-12">
+    <div className="grid items-start gap-10 lg:grid-cols-12 lg:gap-14">
       <div className="lg:col-span-5">
-        <div className="relative flex min-h-[560px] items-end justify-center overflow-visible">
-          <span className="pointer-events-none absolute bottom-16 left-1/2 h-24 w-56 -translate-x-1/2 rounded-full bg-[#345bd4]/30 blur-3xl" />
-          <span className="pointer-events-none absolute bottom-20 left-1/2 h-3 w-40 -translate-x-1/2 rounded-full bg-white/15 blur-md" />
-          <span className="pointer-events-none absolute inset-x-8 top-6 bottom-10 border border-white/10" />
+        <div className="specimen-well relative flex min-h-[520px] items-end justify-center overflow-visible">
           <ProductVisual
             key={variant.slug}
             product={variant}
-            className="relative z-10 h-[480px] w-auto max-w-[78%]"
+            className="relative z-10 h-[460px] w-auto max-w-[78%]"
             sizes="(max-width: 1024px) 80vw, 420px"
             priority
           />
         </div>
-        <p className="mt-2 text-center font-mono text-[10px] uppercase tracking-[0.22em] text-muted">
-          Specimen {variant.slug}
-        </p>
+        <p className="index-label mt-4 text-center">Specimen {variant.slug}</p>
       </div>
 
       <div className="lg:col-span-7">
-        <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-accent">
-          {isSupply ? "Laboratory supply" : "Single vial"} · Research use only
-        </p>
-        <h1 className="mt-3 font-anek text-5xl font-semibold tracking-tight text-ink lg:text-6xl">
+        <p className="index-label">{isSupply ? "Laboratory supply" : "Single vial"} · Research use only</p>
+        <h1 className="mt-3 font-display text-5xl font-medium tracking-tight text-ink lg:text-6xl">
           {family.name}
         </h1>
         <p className="mt-4 max-w-xl text-base leading-relaxed text-ink-soft">{variant.description}</p>
 
         {family.variants.length > 1 && (
           <div className="mt-8">
-            <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted">Vial size</p>
-            <div className="relative mt-4" role="group" aria-label="Vial size">
-              <div className="absolute left-0 right-0 top-3 h-px bg-white/15" />
-              <div className="relative flex justify-between gap-2">
-                {family.variants.map((option) => {
-                  const active = option.slug === variant.slug;
-                  return (
-                    <button
-                      key={option.slug}
-                      type="button"
-                      aria-pressed={active}
-                      onClick={() => chooseSize(option)}
-                      className="flex min-w-0 flex-1 flex-col items-center"
-                    >
-                      <span className={`w-px ${active ? "h-6 bg-accent" : "h-3 bg-white/30"}`} />
-                      <span
-                        className={`mt-2 font-mono text-xs tracking-wide ${active ? "text-ink" : "text-muted"}`}
-                      >
-                        {option.dose}
-                      </span>
-                    </button>
-                  );
-                })}
-              </div>
+            <p className="index-label">Vial size</p>
+            <div className="mt-3 flex flex-wrap gap-2" role="group" aria-label="Vial size">
+              {family.variants.map((option) => {
+                const active = option.slug === variant.slug;
+                return (
+                  <button
+                    key={option.slug}
+                    type="button"
+                    aria-pressed={active}
+                    onClick={() => chooseSize(option)}
+                    className={`min-w-16 rounded-lg border px-3 py-2 text-sm ${
+                      active
+                        ? "border-accent bg-white text-ink shadow-[inset_0_0_0_1px_var(--accent)]"
+                        : "border-line bg-white/50 text-muted hover:text-ink"
+                    }`}
+                  >
+                    {option.dose}
+                  </button>
+                );
+              })}
             </div>
           </div>
         )}
 
         {tiers.length > 0 && (
           <div className="mt-8">
-            <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted">Quantity</p>
-            <div className="mt-3 flex flex-wrap gap-6">
+            <p className="index-label">Quantity</p>
+            <div className="mt-3 grid grid-cols-3 gap-3">
               {tiers.map((tier) => {
                 const selected = quantity === tier.quantity;
                 const each = lineCentsFor(toCents(variant.price), tier.quantity, family.form);
@@ -143,28 +132,25 @@ export function ProductPurchasePanel({ family, initialSize }: Props) {
                     type="button"
                     aria-pressed={selected}
                     onClick={() => setQuantity(tier.quantity)}
-                    className={`flex items-end gap-2 border-b pb-2 ${selected ? "border-accent" : "border-transparent"}`}
+                    className={`rounded-xl border px-3 py-3 text-left ${
+                      selected ? "border-accent bg-white" : "border-line bg-white/40 hover:bg-white"
+                    }`}
                   >
                     <span className="flex items-end gap-1" aria-hidden="true">
                       {Array.from({ length: tier.quantity }).map((_, index) => (
                         <span
                           key={index}
-                          className={`block w-2.5 rounded-sm border ${
-                            selected ? "h-8 border-accent bg-accent/20" : "h-6 border-white/25"
-                          }`}
+                          className={`block w-2 rounded-sm ${selected ? "h-7 bg-accent" : "h-5 bg-accent-mid/70"}`}
                         />
                       ))}
                     </span>
-                    <span className="text-left">
-                      {tier.badge && (
-                        <span className="block font-mono text-[10px] uppercase tracking-[0.14em] text-accent">
-                          {tier.badge}
-                        </span>
-                      )}
-                      <span className="block font-mono text-xs text-ink">
-                        {tier.rate > 0 ? `${Math.round(tier.rate * 100)}% off · ` : ""}
-                        {formatCents(each)}
-                      </span>
+                    {tier.badge && <span className="index-label mt-2 block">{tier.badge}</span>}
+                    <span className="mt-1 block text-sm text-ink">
+                      {tier.quantity} vial{tier.quantity === 1 ? "" : "s"}
+                    </span>
+                    <span className="block text-xs text-ink-soft">
+                      {tier.rate > 0 ? `${Math.round(tier.rate * 100)}% off · ` : ""}
+                      {formatCents(each)}
                     </span>
                   </button>
                 );
@@ -173,22 +159,18 @@ export function ProductPurchasePanel({ family, initialSize }: Props) {
           </div>
         )}
 
-        <div className="mt-8 flex flex-wrap items-end justify-between gap-4 border-y border-white/10 py-5">
+        <div className="mt-8 flex flex-wrap items-end justify-between gap-4 border-y border-line py-5">
           <div>
             {showCompare && (
-              <p className="font-mono text-sm text-muted line-through">
-                {formatPrice(variant.compareAtPrice ?? 0)}
-              </p>
+              <p className="text-sm text-muted line-through">{formatPrice(variant.compareAtPrice ?? 0)}</p>
             )}
-            <p className="text-4xl font-semibold tracking-tight text-ink">{formatPrice(variant.price)}</p>
-            <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-muted">USD per vial</p>
+            <p className="font-display text-4xl font-medium tracking-tight text-ink">{formatPrice(variant.price)}</p>
+            <p className="index-label mt-1">USD per vial</p>
             {applied.rate > 0 && (
-              <p className="mt-1 font-mono text-xs text-accent">
-                {Math.round(applied.rate * 100)}% off this quantity
-              </p>
+              <p className="mt-1 text-xs text-accent">{Math.round(applied.rate * 100)}% off this quantity</p>
             )}
           </div>
-          <label className="flex items-center gap-3 font-mono text-xs uppercase tracking-[0.16em] text-muted">
+          <label className="index-label flex items-center gap-3">
             Qty
             <input
               type="number"
@@ -198,20 +180,16 @@ export function ProductPurchasePanel({ family, initialSize }: Props) {
               onChange={(event) =>
                 setQuantity(Math.max(1, Math.min(99, Number(event.target.value) || 1)))
               }
-              className="w-16 border-b border-white/20 bg-transparent py-1 text-lg text-ink outline-none"
+              className="w-16 border-b border-line bg-transparent py-1 text-lg normal-case tracking-normal text-ink outline-none"
             />
           </label>
         </div>
 
-        <button
-          type="button"
-          onClick={handleAdd}
-          className="mt-5 w-full border border-accent bg-brand py-4 font-mono text-xs uppercase tracking-[0.2em] text-on-ink hover:bg-brand-hover"
-        >
-          {added ? "Placed on the bench" : `Add ${quantity} · ${formatCents(totalCents)}`}
+        <button type="button" onClick={handleAdd} className="btn-primary mt-5 w-full">
+          {added ? "Added to cart" : `Add ${quantity} · ${formatCents(totalCents)}`}
         </button>
         {added && (
-          <p className="mt-3 font-mono text-xs text-accent">
+          <p className="mt-3 text-sm text-accent">
             {variant.dose} added.{" "}
             <Link href="/cart" className="underline">
               View cart
@@ -220,8 +198,8 @@ export function ProductPurchasePanel({ family, initialSize }: Props) {
         )}
 
         <div className="mt-10">
-          <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted">Datasheet</p>
-          <table className="mt-3 w-full border-collapse font-mono text-xs">
+          <p className="index-label">Datasheet</p>
+          <table className="mt-3 w-full border-collapse text-sm">
             <tbody>
               {[
                 ["Dose", variant.dose],
@@ -232,14 +210,14 @@ export function ProductPurchasePanel({ family, initialSize }: Props) {
                 ["Storage", variant.storage],
                 ["Purity", "≥99% (HPLC), third-party identity check"],
               ].map(([label, value]) => (
-                <tr key={label} className="border-b border-white/10">
-                  <th className="w-40 py-2 pr-4 text-left font-medium text-muted">{label}</th>
-                  <td className="py-2 text-ink">{value}</td>
+                <tr key={label} className="border-b border-line">
+                  <th className="w-40 py-2.5 pr-4 text-left font-medium text-muted">{label}</th>
+                  <td className="py-2.5 text-ink">{value}</td>
                 </tr>
               ))}
-              <tr className="border-b border-white/10">
-                <th className="py-2 pr-4 text-left font-medium text-muted">COA</th>
-                <td className="py-2">
+              <tr className="border-b border-line">
+                <th className="py-2.5 pr-4 text-left font-medium text-muted">COA</th>
+                <td className="py-2.5">
                   {variant.coaPdf ? (
                     <a href={variant.coaPdf} download className="text-accent underline">
                       Download certificate
@@ -255,18 +233,18 @@ export function ProductPurchasePanel({ family, initialSize }: Props) {
           </table>
         </div>
 
-        <div className="mt-10 border-l border-white/15 pl-5">
+        <div className="folio mt-10 px-6 py-6">
           <ShipCountdown />
-          <div className="mt-5">
-            <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-accent">Protection</p>
-            <p className="text-sm text-ink-soft">
+          <div className="mt-5 border-t border-line pt-5">
+            <p className="index-label">Protection</p>
+            <p className="mt-1 text-sm text-ink-soft">
               Free shipping on orders over {formatPrice(FREE_SHIPPING_THRESHOLD)}. Shipment protection is
               included. Damaged vials are replaced at no cost. Tracking is sent on every order.
             </p>
           </div>
         </div>
 
-        <div className="mt-8 border-t border-white/10 pt-5">
+        <div className="mt-8 border-t border-line pt-5">
           <AcceptedPayments />
         </div>
 

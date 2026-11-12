@@ -14,48 +14,42 @@ export default function OpenGraphImage() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
-          background: "#070c18",
-          color: "#eef3ff",
+          background: "#f3f8fc",
+          color: "#122033",
           padding: "80px",
         }}
       >
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: 18,
-            marginBottom: 28,
-          }}
-        >
-          <div
-            style={{
-              width: 56,
-              height: 56,
-              borderRadius: 28,
-              background: "#121a2e",
-              color: "#b9cbff",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              fontSize: 28,
-              fontWeight: 700,
-            }}
-          >
-            O
-          </div>
-          <div style={{ fontSize: 22, letterSpacing: 3, color: "#8eabff" }}>
-            RESEARCH USE ONLY
-          </div>
+        <div style={{ display: "flex", alignItems: "center", gap: 22, marginBottom: 28 }}>
+          <svg width="72" height="72" viewBox="0 0 64 64" fill="none">
+            <ellipse
+              cx="32"
+              cy="32"
+              rx="21"
+              ry="9"
+              stroke="#122033"
+              strokeWidth="3.4"
+              transform="rotate(-32 32 32)"
+            />
+            <ellipse
+              cx="32"
+              cy="32"
+              rx="21"
+              ry="9"
+              stroke="#122033"
+              strokeWidth="3.4"
+              transform="rotate(32 32 32)"
+            />
+            <circle cx="32" cy="32" r="4" fill="#0e6794" />
+          </svg>
+          <div style={{ fontSize: 22, letterSpacing: 3, color: "#0c6a96" }}>RESEARCH USE ONLY</div>
         </div>
-        <div style={{ fontSize: 84, fontWeight: 600, letterSpacing: -2, lineHeight: 1 }}>
-          Ovora Labs
-        </div>
+        <div style={{ fontSize: 84, fontWeight: 600, letterSpacing: -2, lineHeight: 1 }}>Ovora Labs</div>
         <div
           style={{
             marginTop: 24,
             fontSize: 32,
             lineHeight: 1.35,
-            color: "#c9d4ec",
+            color: "#3a5168",
             maxWidth: 860,
           }}
         >

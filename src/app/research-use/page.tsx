@@ -100,7 +100,7 @@ export default function ResearchUsePage() {
       <section className="relative w-full min-h-[50vh] lg:min-h-[60vh] overflow-hidden hero-glow">
         <div className="content-container relative z-20 h-full min-h-[50vh] lg:min-h-[60vh] flex items-center justify-center">
           <div className="text-center max-w-3xl mx-auto py-16 lg:py-24 animate-fade-up">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-canvas/80 backdrop-blur-sm border border-black/5 mb-6">
+            <div className="mb-6 inline-flex items-center gap-2 rounded-lg border border-line bg-white/80 px-4 py-2">
               <svg className="w-4 h-4 text-accent" fill="currentColor" viewBox="0 0 20 20">
                 <path
                   fillRule="evenodd"
@@ -110,7 +110,7 @@ export default function ResearchUsePage() {
               </svg>
               <span className="text-sm font-medium text-ink-soft">Laboratory Grade</span>
             </div>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-semibold text-ink leading-[1.05] tracking-tight mb-4 lg:mb-6">
+            <h1 className="mb-4 font-display text-4xl font-medium leading-[1.05] tracking-tight text-ink sm:text-5xl lg:mb-6 lg:text-6xl xl:text-7xl">
               Research Use Only
             </h1>
             <p className="text-lg sm:text-xl lg:text-2xl text-ink/70 leading-relaxed max-w-2xl mx-auto">
@@ -280,13 +280,13 @@ export default function ResearchUsePage() {
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
               <Link
                 href="/store"
-                className="inline-flex items-center justify-center h-12 px-8 rounded-full bg-black text-white text-sm font-medium hover:bg-black/90 transition-colors"
+                className="btn-primary"
               >
                 Browse Products
               </Link>
               <Link
                 href="/disclaimer"
-                className="inline-flex items-center justify-center h-12 px-8 rounded-full border border-black/15 text-ink text-sm font-medium hover:bg-surface-2 transition-colors"
+                className="btn-secondary"
               >
                 Read Full Disclaimer
               </Link>

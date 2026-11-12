@@ -54,7 +54,7 @@ export function CartDrawer({ open, onClose }: Props) {
           <button
             type="button"
             onClick={onClose}
-            className="flex h-10 w-10 items-center justify-center rounded-full text-ink-soft hover:bg-surface-3/70"
+            className="flex h-10 w-10 items-center justify-center rounded-lg text-ink-soft hover:bg-surface-2"
             aria-label="Close cart"
           >
             <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -72,7 +72,7 @@ export function CartDrawer({ open, onClose }: Props) {
             <ul className="space-y-4">
               {items.map((item) => (
                 <li key={item.variantSlug} className="flex gap-3">
-                  <div className="flex h-16 w-14 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-line bg-surface-2">
+                  <div className="specimen-well flex h-16 w-14 shrink-0 items-center justify-center">
                     {item.image ? (
                       <CutoutImage
                         src={item.image}
@@ -85,7 +85,6 @@ export function CartDrawer({ open, onClose }: Props) {
                   <div className="min-w-0 flex-1">
                     <p className="truncate text-sm font-medium text-ink">{item.name}</p>
                     <p className="text-xs text-muted">
-                      {item.dose}
                       {item.dose} · Single vial · Qty {item.quantity}
                     </p>
                   </div>
@@ -124,14 +123,14 @@ export function CartDrawer({ open, onClose }: Props) {
             <Link
               href="/checkout"
               onClick={onClose}
-              className="inline-flex h-12 items-center justify-center rounded-full bg-brand text-sm font-medium text-on-ink hover:bg-brand-hover"
+              className="btn-primary"
             >
               Checkout
             </Link>
             <Link
               href="/cart"
               onClick={onClose}
-              className="inline-flex h-11 items-center justify-center rounded-full border border-line text-sm font-medium text-ink hover:bg-surface-2"
+              className="btn-secondary"
             >
               View cart
             </Link>

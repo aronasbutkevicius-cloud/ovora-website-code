@@ -28,19 +28,19 @@ export function ShipCountdown() {
   return (
     <div className="space-y-5">
       <div>
-        <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-accent">Cutoff</p>
+        <p className="index-label">Cutoff</p>
         <p className="text-sm font-medium text-ink">{headline}</p>
         <p className="text-sm text-ink-soft">Cutoff is 3:30 PM Central, every day.</p>
       </div>
       <div>
-        <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-accent">Ship</p>
+        <p className="index-label">Ship</p>
         <p className="text-sm text-ink-soft">
           {schedule.sameDay ? "Same calendar day" : "Next calendar day"} when ordered before 3:30 PM
           Central. Processing is typically 0–2 business days. Overnight delivery is available.
         </p>
       </div>
       <div>
-        <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-accent">Arrival</p>
+        <p className="index-label">Arrival</p>
         <p className="text-sm text-ink-soft">
           Estimated {arrival.startLabel} – {arrival.endLabel}, counted from the ship date.
         </p>

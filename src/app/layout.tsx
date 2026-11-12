@@ -1,33 +1,22 @@
 import type { Metadata } from "next";
-import { Anek_Telugu, Marcellus, Poppins, Roboto } from "next/font/google";
+import { Fraunces, Outfit } from "next/font/google";
 import { SiteShell } from "@/components/SiteShell";
 import { TidioChat } from "@/components/TidioChat";
 import { getSession } from "@/lib/auth/session";
 import { ogImage, rootDescription, rootTitle, siteName } from "@/lib/site";
 import "./globals.css";
 
-const anek = Anek_Telugu({
-  variable: "--font-anek",
+const fraunces = Fraunces({
+  variable: "--font-fraunces",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  style: ["normal", "italic"],
+  display: "swap",
 });
 
-const poppins = Poppins({
-  variable: "--font-poppins",
+const outfit = Outfit({
+  variable: "--font-outfit",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-});
-
-const roboto = Roboto({
-  variable: "--font-roboto",
-  subsets: ["latin"],
-  weight: ["400", "500", "700"],
-});
-
-const marcellus = Marcellus({
-  variable: "--font-marcellus",
-  subsets: ["latin"],
-  weight: ["400"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -78,9 +67,7 @@ export default async function RootLayout({
       <head>
         <link rel="preconnect" href="https://code.tidio.co" />
       </head>
-      <body
-        className={`${anek.variable} ${poppins.variable} ${roboto.variable} ${marcellus.variable} font-sans antialiased`}
-      >
+      <body className={`${fraunces.variable} ${outfit.variable} font-sans antialiased`}>
         <SiteShell session={session}>{children}</SiteShell>
         <TidioChat />
       </body>

@@ -6,9 +6,10 @@ import { supportEmail } from "@/lib/site";
 
 export function CtaBand() {
   return (
-    <section className="relative py-16 lg:py-20 section-wash overflow-hidden">
-      <div className="content-container text-center max-w-3xl mx-auto relative z-10">
-        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-ink leading-[1.35] mb-6 lg:mb-8 tracking-tight">
+    <section className="relative overflow-hidden py-16 section-wash lg:py-20">
+      <div className="content-container relative z-10 max-w-3xl">
+        <p className="index-label mb-3">Catalog</p>
+        <h2 className="mb-6 font-display text-3xl font-medium leading-[1.2] tracking-tight text-ink sm:text-4xl lg:mb-8 lg:text-5xl">
           All the research peptides you need, with the{" "}
           <span className="relative inline-block">
             <span className="relative z-10">peace of mind</span>
@@ -20,7 +21,7 @@ export function CtaBand() {
         </h2>
         <Link
           href="/store"
-          className="inline-flex items-center justify-center h-12 px-8 rounded-full bg-brand text-on-ink text-sm font-medium hover:bg-brand-hover transition-colors hover-lift"
+          className="btn-primary"
         >
           Shop Now
         </Link>
@@ -39,9 +40,10 @@ export function Newsletter() {
   }
 
   return (
-    <section className="py-12 lg:py-16 bg-surface-2 border-t border-line">
-      <div className="content-container max-w-2xl mx-auto text-center">
-        <h2 className="text-xl lg:text-2xl font-semibold text-ink mb-2">
+    <section className="border-t border-transparent py-12 lg:py-16">
+      <div className="content-container max-w-2xl">
+        <hr className="pearl-rule mb-8" />
+        <h2 className="mb-2 font-display text-2xl font-medium text-ink lg:text-3xl">
           Research updates from Ovora Labs
         </h2>
         <p className="text-sm text-muted mb-6">
@@ -58,11 +60,11 @@ export function Newsletter() {
             required
             placeholder="you@lab.edu"
             autoComplete="email"
-            className="flex-1 h-11 px-4 rounded-full border border-line bg-canvas text-base sm:text-sm outline-none focus:ring-2 focus:ring-accent/25"
+            className="h-11 flex-1 rounded-lg border border-line bg-white px-4 text-base outline-none focus:border-accent sm:text-sm"
           />
           <button
             type="submit"
-            className="h-11 px-6 rounded-full bg-brand text-on-ink text-sm font-medium hover:bg-brand-hover transition-colors"
+            className="btn-primary h-11 min-h-0 px-6 text-sm"
           >
             Subscribe
           </button>

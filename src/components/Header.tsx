@@ -40,7 +40,7 @@ export function Header({ session }: { session: SessionUser | null }) {
           <div className="flex items-center gap-3">
             <button
               type="button"
-              className="lg:hidden flex items-center justify-center w-10 h-10 text-ink-soft hover:text-ink rounded-full hover:bg-surface-3/60 transition-all"
+              className="lg:hidden flex items-center justify-center w-10 h-10 text-ink-soft hover:text-ink rounded-lg hover:bg-surface-2 transition-all"
               aria-label={open ? "Close menu" : "Open menu"}
               aria-expanded={open}
               onClick={() => setOpen((v) => !v)}
@@ -63,10 +63,10 @@ export function Header({ session }: { session: SessionUser | null }) {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`relative px-4 py-2 text-[13px] font-medium transition-colors duration-200 rounded-full ${
+                  className={`relative px-3 py-2 text-[13px] font-medium tracking-wide transition-colors duration-200 ${
                     active
-                      ? "text-ink bg-surface-2 shadow-[inset_0_0_0_1px_var(--border)]"
-                      : "text-ink-soft hover:text-ink hover:bg-surface-3/60"
+                      ? "text-ink after:absolute after:left-3 after:right-3 after:bottom-1 after:h-px after:bg-accent"
+                      : "text-ink-soft hover:text-ink"
                   }`}
                 >
                   {item.label}
@@ -85,21 +85,21 @@ export function Header({ session }: { session: SessionUser | null }) {
                 type="search"
                 name="q"
                 placeholder="Search"
-                className="h-9 w-36 xl:w-48 rounded-full border border-line glass-panel px-3 text-sm text-ink outline-none placeholder:text-placeholder focus:ring-2 focus:ring-accent/30"
+                className="h-9 w-36 xl:w-48 rounded-lg border border-line bg-white/80 px-3 text-sm text-ink outline-none placeholder:text-placeholder focus:border-accent"
               />
             </form>
             {session ? (
               <>
                 <Link
                   href="/account"
-                  className="hidden sm:inline-flex items-center h-9 px-3 rounded-full text-[13px] font-medium text-ink-soft hover:bg-surface-3/60"
+                  className="hidden sm:inline-flex items-center h-9 px-3 rounded-lg text-[13px] font-medium text-ink-soft hover:bg-surface-2"
                 >
                   Account
                 </Link>
                 <button
                   type="button"
                   onClick={() => void signOut()}
-                  className="hidden sm:inline-flex items-center h-9 px-3 rounded-full text-[13px] font-medium text-ink-soft hover:bg-surface-3/60"
+                  className="hidden sm:inline-flex items-center h-9 px-3 rounded-lg text-[13px] font-medium text-ink-soft hover:bg-surface-2"
                 >
                   Sign out
                 </button>
@@ -107,7 +107,7 @@ export function Header({ session }: { session: SessionUser | null }) {
             ) : (
               <Link
                 href="/login"
-                className="hidden sm:inline-flex items-center h-9 px-4 rounded-full bg-brand text-on-ink text-[13px] font-medium hover:bg-brand-hover"
+                className="btn-primary hidden h-9 min-h-0 px-4 text-[13px] sm:inline-flex"
               >
                 Sign in
               </Link>
@@ -115,14 +115,14 @@ export function Header({ session }: { session: SessionUser | null }) {
             <button
               type="button"
               onClick={() => setCartOpen(true)}
-              className="relative flex items-center justify-center w-10 h-10 text-ink-soft hover:text-ink rounded-full hover:bg-surface-3/60 transition-all"
+              className="relative flex items-center justify-center w-10 h-10 text-ink-soft hover:text-ink rounded-lg hover:bg-surface-2 transition-all"
               aria-label="Cart"
             >
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l3-8H6.4M7 13L5.4 5M7 13l-2 9m12-9l2 9M9 22a1 1 0 100-2 1 1 0 000 2zm8 0a1 1 0 100-2 1 1 0 000 2z" />
               </svg>
               {itemCount > 0 && (
-                <span className="absolute -top-0.5 -right-0.5 flex items-center justify-center min-w-[18px] h-[18px] px-1 bg-accent text-white text-[10px] font-semibold rounded-full">
+                <span className="absolute -top-0.5 -right-0.5 flex items-center justify-center min-w-[18px] h-[18px] px-1 bg-brand text-on-ink text-[10px] font-semibold rounded-full">
                   {itemCount > 99 ? "99+" : itemCount}
                 </span>
               )}
@@ -144,7 +144,7 @@ export function Header({ session }: { session: SessionUser | null }) {
                 type="search"
                 name="q"
                 placeholder="Search products"
-                className="w-full h-11 px-4 rounded-full border border-line glass-panel text-base text-ink outline-none placeholder:text-placeholder focus:ring-2 focus:ring-accent/30"
+                className="w-full h-11 px-4 rounded-lg border border-line bg-white text-base text-ink outline-none placeholder:text-placeholder focus:border-accent"
               />
             </form>
             <nav className="flex flex-col">
@@ -153,7 +153,7 @@ export function Header({ session }: { session: SessionUser | null }) {
                 key={item.href}
                 href={item.href}
                 onClick={() => setOpen(false)}
-                className="px-3 py-3 text-sm font-medium text-ink-soft hover:text-ink rounded-xl hover:bg-surface-3/60"
+                className="px-3 py-3 text-sm font-medium text-ink-soft hover:text-ink border-b border-line"
               >
                 {item.label}
               </Link>

@@ -21,7 +21,7 @@ export function MobileCartBar({ session }: { session: SessionUser | null }) {
       <div className="lg:hidden fixed left-[4.75rem] right-3 bottom-3 z-40 pointer-events-none">
         <Link
           href="/cart"
-          className="pointer-events-auto glass-panel flex items-center justify-between gap-3 rounded-2xl px-4 py-3 border border-line"
+          className="pointer-events-auto flex items-center justify-between gap-3 rounded-xl border border-line bg-white/90 px-4 py-3 shadow-[0_12px_30px_rgba(22,70,108,0.12)]"
         >
           <span className="text-sm text-ink-soft">
             {itemCount} vial{itemCount === 1 ? "" : "s"}
