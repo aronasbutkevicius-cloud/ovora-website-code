@@ -14,8 +14,8 @@ export default function OpenGraphImage() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
-          background: "#f7f8fc",
-          color: "#1e2235",
+          background: "#070c18",
+          color: "#eef3ff",
           padding: "80px",
         }}
       >
@@ -23,27 +23,50 @@ export default function OpenGraphImage() {
           style={{
             display: "flex",
             alignItems: "center",
-            gap: 18,
+            gap: 22,
             marginBottom: 28,
           }}
         >
           <div
             style={{
-              width: 56,
-              height: 56,
-              borderRadius: 28,
-              background: "#1e2235",
-              color: "#a8b6e8",
+              width: 96,
+              height: 96,
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              fontSize: 28,
-              fontWeight: 700,
+              position: "relative",
             }}
           >
-            O
+            <div
+              style={{
+                position: "absolute",
+                width: 88,
+                height: 36,
+                border: "4px solid #d5e2ff",
+                borderRadius: 999,
+                transform: "rotate(-32deg)",
+              }}
+            />
+            <div
+              style={{
+                position: "absolute",
+                width: 88,
+                height: 36,
+                border: "4px solid #d5e2ff",
+                borderRadius: 999,
+                transform: "rotate(32deg)",
+              }}
+            />
+            <div
+              style={{
+                width: 16,
+                height: 16,
+                borderRadius: 8,
+                background: "#7ee0ea",
+              }}
+            />
           </div>
-          <div style={{ fontSize: 22, letterSpacing: 3, color: "#5c6fbf" }}>
+          <div style={{ fontSize: 22, letterSpacing: 3, color: "#8eabff" }}>
             RESEARCH USE ONLY
           </div>
         </div>
@@ -55,7 +78,7 @@ export default function OpenGraphImage() {
             marginTop: 24,
             fontSize: 32,
             lineHeight: 1.35,
-            color: "#4a5168",
+            color: "#c9d4ec",
             maxWidth: 860,
           }}
         >

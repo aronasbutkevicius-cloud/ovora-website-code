@@ -10,7 +10,7 @@ import type { Product, ProductFamily } from "@/data/products";
 
 export function ResearcherNotice({ className = "" }: { className?: string }) {
   return (
-    <p className={`text-sm text-[#4a5168] leading-relaxed ${className}`}>
+    <p className={`text-sm text-ink-soft leading-relaxed ${className}`}>
       {QUALIFIED_RESEARCHER_STATEMENT}
     </p>
   );
@@ -36,26 +36,26 @@ export function ProductCompliance({
         <Fact label="Storage" value={storage} wide />
         <Fact label="Purity" value={PURITY_STATEMENT} wide />
       </dl>
-      <p className="text-sm text-[#4a5168] leading-relaxed">
+      <p className="text-sm text-ink-soft leading-relaxed">
         {coaPdf ? (
-          <a href={coaPdf} className="underline text-[#1e2235]" download>
+          <a href={coaPdf} className="underline text-ink" download>
             Download certificate of analysis
           </a>
         ) : (
           <>
             Certificate of analysis available on request. Email{" "}
-            <a href={`mailto:${supportEmail}`} className="underline text-[#1e2235]">
+            <a href={`mailto:${supportEmail}`} className="underline text-ink">
               {supportEmail}
             </a>
             .
           </>
         )}
       </p>
-      <div className="rounded-2xl border border-[#d5dbed] bg-[#eef0f8] p-5 space-y-3 text-sm text-[#4a5168] leading-relaxed">
+      <div className="rounded-2xl border border-line bg-surface-2 p-5 space-y-3 text-sm text-ink-soft leading-relaxed">
         <p>{PRODUCT_USE_STATEMENT}</p>
         <p>{QUALIFIED_RESEARCHER_STATEMENT}</p>
         <p>
-          <span className="font-semibold text-[#1e2235]">FDA Disclaimer. </span>
+          <span className="font-semibold text-ink">FDA Disclaimer. </span>
           {FDA_DISCLAIMER}
         </p>
       </div>
@@ -65,9 +65,9 @@ export function ProductCompliance({
 
 function Fact({ label, value, wide = false }: { label: string; value: string; wide?: boolean }) {
   return (
-    <div className={`bg-[#eef0f8] rounded-xl p-4 border border-[#d5dbed] ${wide ? "sm:col-span-2" : ""}`}>
-      <dt className="text-[#6b7189] mb-1">{label}</dt>
-      <dd className="font-medium text-[#1e2235] leading-relaxed">{value}</dd>
+    <div className={`bg-surface-2 rounded-xl p-4 border border-line ${wide ? "sm:col-span-2" : ""}`}>
+      <dt className="text-muted mb-1">{label}</dt>
+      <dd className="font-medium text-ink leading-relaxed">{value}</dd>
     </div>
   );
 }

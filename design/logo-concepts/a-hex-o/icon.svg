@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img" aria-label="Ovora Labs concept A, hexagonal O">
+  <g stroke="currentColor" stroke-linejoin="round" stroke-linecap="round">
+    <circle cx="32" cy="32" r="22" stroke-width="3.4"/>
+    <path d="M32 17 L44.99 24.5 L44.99 39.5 L32 47 L19.01 39.5 L19.01 24.5 Z" stroke-width="2"/>
+  </g>
+  <g fill="currentColor">
+    <circle cx="32" cy="17" r="2.7"/>
+    <circle cx="44.99" cy="24.5" r="2.7"/>
+    <circle cx="44.99" cy="39.5" r="2.7"/>
+    <circle cx="32" cy="47" r="2.7"/>
+    <circle cx="19.01" cy="39.5" r="2.7"/>
+    <circle cx="19.01" cy="24.5" r="2.7"/>
+  </g>
+</svg>

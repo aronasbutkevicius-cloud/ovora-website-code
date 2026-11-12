@@ -17,6 +17,8 @@ const staticPaths = [
   "/privacy",
 ];
 
+// Signed-in catalog URLs stay out of this file. Canonical compound pages are
+// /products/<compound>, and old per-size slugs redirect there with ?size=.
 export default function sitemap(): MetadataRoute.Sitemap {
   const siteUrl = getSiteUrl();
   const lastModified = new Date();

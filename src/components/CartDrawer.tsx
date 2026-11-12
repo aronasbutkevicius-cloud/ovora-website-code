@@ -5,7 +5,8 @@ import Link from "next/link";
 import { useEffect } from "react";
 import { useCart } from "@/components/CartProvider";
 import { FreeShippingProgress } from "@/components/FreeShippingProgress";
-import { formatPrice } from "@/lib/money";
+import { formatCents, formatPrice, toCents } from "@/lib/money";
+import { lineCentsFor } from "@/lib/storefront";
 import { shippingCost } from "@/lib/shipping";
 
 type Props = {
@@ -38,7 +39,7 @@ export function CartDrawer({ open, onClose }: Props) {
     <div className="fixed inset-0 z-[70]">
       <button
         type="button"
-        className="absolute inset-0 bg-[#1e2235]/40"
+        className="absolute inset-0 bg-brand/40"
         aria-label="Close cart"
         onClick={onClose}
       />
@@ -46,14 +47,14 @@ export function CartDrawer({ open, onClose }: Props) {
         role="dialog"
         aria-modal="true"
         aria-label="Cart"
-        className="absolute right-0 top-0 flex h-full w-full max-w-md flex-col bg-[#f7f8fc] shadow-2xl"
+        className="absolute right-0 top-0 flex h-full w-full max-w-md flex-col bg-canvas shadow-2xl"
       >
-        <div className="flex items-center justify-between border-b border-[#d5dbed] px-5 py-4">
-          <h2 className="text-lg font-semibold text-[#1e2235]">Cart</h2>
+        <div className="flex items-center justify-between border-b border-line px-5 py-4">
+          <h2 className="text-lg font-semibold text-ink">Cart</h2>
           <button
             type="button"
             onClick={onClose}
-            className="flex h-10 w-10 items-center justify-center rounded-full text-[#4a5168] hover:bg-[#e4e8f5]/70"
+            className="flex h-10 w-10 items-center justify-center rounded-full text-ink-soft hover:bg-surface-3/70"
             aria-label="Close cart"
           >
             <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -64,14 +65,14 @@ export function CartDrawer({ open, onClose }: Props) {
 
         <div className="flex-1 overflow-y-auto px-5 py-4">
           {!ready ? (
-            <p className="text-sm text-[#6b7189]">Loading cart…</p>
+            <p className="text-sm text-muted">Loading cart…</p>
           ) : items.length === 0 ? (
-            <p className="text-sm text-[#4a5168]">Your cart is empty.</p>
+            <p className="text-sm text-ink-soft">Your cart is empty.</p>
           ) : (
             <ul className="space-y-4">
               {items.map((item) => (
                 <li key={item.variantSlug} className="flex gap-3">
-                  <div className="flex h-16 w-14 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-[#d5dbed] bg-[#eef0f8]">
+                  <div className="flex h-16 w-14 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-line bg-surface-2">
                     {item.image ? (
                       <CutoutImage
                         src={item.image}
@@ -82,14 +83,14 @@ export function CartDrawer({ open, onClose }: Props) {
                     ) : null}
                   </div>
                   <div className="min-w-0 flex-1">
-                    <p className="truncate text-sm font-medium text-[#1e2235]">{item.name}</p>
-                    <p className="text-xs text-[#6b7189]">
+                    <p className="truncate text-sm font-medium text-ink">{item.name}</p>
+                    <p className="text-xs text-muted">
                       {item.dose}
                       {item.dose} · Single vial · Qty {item.quantity}
                     </p>
                   </div>
-                  <p className="text-sm font-medium text-[#1e2235]">
-                    {formatPrice(item.price * item.quantity)}
+                  <p className="text-sm font-medium text-ink">
+                    {formatCents(lineCentsFor(toCents(item.price), item.quantity, item.form))}
                   </p>
                 </li>
               ))}
@@ -97,24 +98,24 @@ export function CartDrawer({ open, onClose }: Props) {
           )}
         </div>
 
-        <div className="border-t border-[#d5dbed] bg-white px-5 py-4">
+        <div className="border-t border-line glass-panel px-5 py-4">
           {ready && itemCount > 0 && (
             <>
               <FreeShippingProgress subtotal={subtotal} />
               <div className="mt-4 space-y-2 text-sm">
                 <div className="flex justify-between">
-                  <span className="text-[#6b7189]">Subtotal</span>
-                  <span className="text-[#1e2235]">{formatPrice(subtotal)}</span>
+                  <span className="text-muted">Subtotal</span>
+                  <span className="text-ink">{formatPrice(subtotal)}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-[#6b7189]">Shipping (US)</span>
-                  <span className="text-[#1e2235]">
+                  <span className="text-muted">Shipping (US)</span>
+                  <span className="text-ink">
                     {shipping === 0 ? "Free" : formatPrice(shipping)}
                   </span>
                 </div>
-                <div className="flex justify-between border-t border-[#d5dbed] pt-2 text-base font-semibold">
-                  <span className="text-[#1e2235]">Total</span>
-                  <span className="text-[#1e2235]">{formatPrice(total)}</span>
+                <div className="flex justify-between border-t border-line pt-2 text-base font-semibold">
+                  <span className="text-ink">Total</span>
+                  <span className="text-ink">{formatPrice(total)}</span>
                 </div>
               </div>
             </>
@@ -123,14 +124,14 @@ export function CartDrawer({ open, onClose }: Props) {
             <Link
               href="/checkout"
               onClick={onClose}
-              className="inline-flex h-12 items-center justify-center rounded-full bg-[#1e2235] text-sm font-medium text-[#f7f8fc] hover:bg-[#2a3148]"
+              className="inline-flex h-12 items-center justify-center rounded-full bg-brand text-sm font-medium text-on-ink hover:bg-brand-hover"
             >
               Checkout
             </Link>
             <Link
               href="/cart"
               onClick={onClose}
-              className="inline-flex h-11 items-center justify-center rounded-full border border-[#d5dbed] text-sm font-medium text-[#1e2235] hover:bg-[#eef0f8]"
+              className="inline-flex h-11 items-center justify-center rounded-full border border-line text-sm font-medium text-ink hover:bg-surface-2"
             >
               View cart
             </Link>

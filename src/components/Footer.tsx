@@ -1,12 +1,14 @@
 import Link from "next/link";
+import { AcceptedPayments } from "@/components/AcceptedPayments";
+import { Logo } from "@/components/Logo";
 
 export function Footer() {
   return (
-    <footer className="bg-[#1e2235] text-white">
+    <footer className="site-footer">
       <div className="content-container py-14 lg:py-16">
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-10 mb-12">
           <div className="col-span-2 lg:col-span-1">
-            <p className="font-semibold text-lg mb-3 tracking-tight">Ovora Labs</p>
+            <Logo className="mb-3 h-8 w-auto" />
             <p className="text-sm text-white/60 leading-relaxed max-w-xs">
               Research-grade peptides for controlled laboratory studies. Third-party tested, with
               certificates of analysis available on request.
@@ -17,22 +19,22 @@ export function Footer() {
             <p className="text-sm font-semibold mb-4">Shop</p>
             <ul className="space-y-2.5 text-sm text-white/60">
               <li>
-                <Link href="/store" className="hover:text-white transition-colors">
+                <Link href="/store" className="hover:text-accent-on-dark transition-colors">
                   All Products
                 </Link>
               </li>
               <li>
-                <Link href="/store/lyophilized-peptides" className="hover:text-white transition-colors">
+                <Link href="/store/lyophilized-peptides" className="hover:text-accent-on-dark transition-colors">
                   Lyophilized Peptides
                 </Link>
               </li>
               <li>
-                <Link href="/store/laboratory-supplies" className="hover:text-white transition-colors">
+                <Link href="/store/laboratory-supplies" className="hover:text-accent-on-dark transition-colors">
                   Laboratory Supplies
                 </Link>
               </li>
               <li>
-                <Link href="/research-use" className="hover:text-white transition-colors">
+                <Link href="/research-use" className="hover:text-accent-on-dark transition-colors">
                   Research Use Only
                 </Link>
               </li>
@@ -43,22 +45,22 @@ export function Footer() {
             <p className="text-sm font-semibold mb-4">Resources</p>
             <ul className="space-y-2.5 text-sm text-white/60">
               <li>
-                <Link href="/research" className="hover:text-white transition-colors">
+                <Link href="/research" className="hover:text-accent-on-dark transition-colors">
                   Research Library
                 </Link>
               </li>
               <li>
-                <Link href="/coa" className="hover:text-white transition-colors">
+                <Link href="/coa" className="hover:text-accent-on-dark transition-colors">
                   Certificates of Analysis
                 </Link>
               </li>
               <li>
-                <Link href="/quality" className="hover:text-white transition-colors">
+                <Link href="/quality" className="hover:text-accent-on-dark transition-colors">
                   Quality Assurance
                 </Link>
               </li>
               <li>
-                <Link href="/research-use" className="hover:text-white transition-colors">
+                <Link href="/research-use" className="hover:text-accent-on-dark transition-colors">
                   Research Use Only
                 </Link>
               </li>
@@ -69,27 +71,27 @@ export function Footer() {
             <p className="text-sm font-semibold mb-4">Support</p>
             <ul className="space-y-2.5 text-sm text-white/60">
               <li>
-                <Link href="/about" className="hover:text-white transition-colors">
+                <Link href="/about" className="hover:text-accent-on-dark transition-colors">
                   About
                 </Link>
               </li>
               <li>
-                <Link href="/contact" className="hover:text-white transition-colors">
+                <Link href="/contact" className="hover:text-accent-on-dark transition-colors">
                   Contact Us
                 </Link>
               </li>
               <li>
-                <Link href="/faq" className="hover:text-white transition-colors">
+                <Link href="/faq" className="hover:text-accent-on-dark transition-colors">
                   FAQ
                 </Link>
               </li>
               <li>
-                <Link href="/shipping" className="hover:text-white transition-colors">
+                <Link href="/shipping" className="hover:text-accent-on-dark transition-colors">
                   Shipping Info
                 </Link>
               </li>
               <li>
-                <Link href="/returns" className="hover:text-white transition-colors">
+                <Link href="/returns" className="hover:text-accent-on-dark transition-colors">
                   Returns & Refunds
                 </Link>
               </li>
@@ -100,17 +102,17 @@ export function Footer() {
             <p className="text-sm font-semibold mb-4">Legal</p>
             <ul className="space-y-2.5 text-sm text-white/60">
               <li>
-                <Link href="/privacy" className="hover:text-white transition-colors">
+                <Link href="/privacy" className="hover:text-accent-on-dark transition-colors">
                   Privacy Policy
                 </Link>
               </li>
               <li>
-                <Link href="/terms" className="hover:text-white transition-colors">
+                <Link href="/terms" className="hover:text-accent-on-dark transition-colors">
                   Terms of Service
                 </Link>
               </li>
               <li>
-                <Link href="/disclaimer" className="hover:text-white transition-colors">
+                <Link href="/disclaimer" className="hover:text-accent-on-dark transition-colors">
                   Disclaimer
                 </Link>
               </li>
@@ -133,11 +135,13 @@ export function Footer() {
               </strong>
               . Information presented on this website is not a substitute for, or alternative
               to, information from a qualified health care practitioner.{" "}
-              <Link href="/disclaimer" className="underline hover:text-white">
+              <Link href="/disclaimer" className="underline hover:text-accent-on-dark">
                 Read the full disclaimer →
               </Link>
             </p>
           </div>
+
+          <AcceptedPayments className="[&_span]:text-white/80 [&_p]:text-white/50" />
 
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <p className="text-xs text-white/40">

@@ -9,6 +9,8 @@ import {
   useState,
   type ReactNode,
 } from "react";
+import { toCents } from "@/lib/money";
+import { lineCentsFor } from "@/lib/storefront";
 
 export type CartItem = {
   variantSlug: string;
@@ -106,7 +108,11 @@ export function CartProvider({ children }: { children: ReactNode }) {
   );
 
   const subtotal = useMemo(
-    () => items.reduce((sum, item) => sum + item.price * item.quantity, 0),
+    () =>
+      items.reduce(
+        (sum, item) => sum + lineCentsFor(toCents(item.price), item.quantity, item.form) / 100,
+        0,
+      ),
     [items],
   );
 

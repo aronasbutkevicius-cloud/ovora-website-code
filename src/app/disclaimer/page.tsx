@@ -11,7 +11,7 @@ export const metadata: Metadata = pageMetadata({
 
 export default function DisclaimerPage() {
   return (
-    <section className="py-12 lg:py-16 bg-[#f7f8fc]">
+    <section className="py-12 lg:py-16 bg-canvas">
       <div className="content-container">
         <PageHero title="Disclaimer" subtitle="Important information about research-use products." />
         <Prose>

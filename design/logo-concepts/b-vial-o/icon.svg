@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img" aria-label="Ovora Labs concept B, vial O">
+  <g stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="32" cy="38" r="16.5" stroke-width="3.4"/>
+    <path d="M26.2 24 V16.2 Q26.2 11.5 32 11.5 Q37.8 11.5 37.8 16.2 V24" stroke-width="3.4"/>
+    <path d="M22.5 37.5 Q32 33.2 41.5 37.5" stroke-width="2.2"/>
+  </g>
+</svg>

@@ -10,7 +10,7 @@ export const metadata: Metadata = pageMetadata({
 
 export default function ShippingPage() {
   return (
-    <section className="py-12 lg:py-16 bg-[#f7f8fc]">
+    <section className="py-12 lg:py-16 bg-canvas">
       <div className="content-container">
         <PageHero
           title="Shipping Information"

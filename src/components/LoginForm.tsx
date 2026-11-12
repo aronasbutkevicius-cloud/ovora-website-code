@@ -40,37 +40,37 @@ export function LoginForm({ callbackUrl }: { callbackUrl: string }) {
   }
 
   return (
-    <section className="py-16 lg:py-24 bg-[#f7f8fc] min-h-[70vh]">
+    <section className="py-16 lg:py-24 bg-canvas min-h-[70vh]">
       <div className="content-container">
-        <div className="mx-auto w-full max-w-md rounded-3xl border border-[#d5dbed] bg-white p-8 sm:p-10 shadow-[0_20px_60px_rgba(30,34,53,0.06)]">
+        <div className="panel-card mx-auto w-full max-w-md rounded-3xl p-8 sm:p-10">
           <div className="flex justify-center mb-6">
             <Logo className="h-9 w-auto" />
           </div>
-          <h1 className="text-3xl font-semibold text-center text-[#1e2235] tracking-tight mb-2">
+          <h1 className="text-3xl font-semibold text-center text-ink tracking-tight mb-2">
             Researcher sign in
           </h1>
-          <p className="text-center text-sm text-[#6b7189] leading-relaxed mb-8">
+          <p className="text-center text-sm text-muted leading-relaxed mb-8">
             The catalog, prices, and checkout are available only to signed-in researcher accounts.
           </p>
           <form onSubmit={onSubmit} className="space-y-4">
             <label className="block">
-              <span className="block text-sm text-[#4a5168] mb-1.5">Email</span>
+              <span className="block text-sm text-ink-soft mb-1.5">Email</span>
               <input
                 name="email"
                 type="email"
                 autoComplete="email"
                 required
-                className="w-full rounded-xl border border-[#d5dbed] bg-[#f7f8fc] px-3 py-2.5 text-sm text-[#1e2235] outline-none focus:border-[#7a8fd4]"
+                className="w-full rounded-xl border border-line bg-canvas px-3 py-2.5 text-sm text-ink outline-none focus:border-accent"
               />
             </label>
             <label className="block">
-              <span className="block text-sm text-[#4a5168] mb-1.5">Password</span>
+              <span className="block text-sm text-ink-soft mb-1.5">Password</span>
               <input
                 name="password"
                 type="password"
                 autoComplete="current-password"
                 required
-                className="w-full rounded-xl border border-[#d5dbed] bg-[#f7f8fc] px-3 py-2.5 text-sm text-[#1e2235] outline-none focus:border-[#7a8fd4]"
+                className="w-full rounded-xl border border-line bg-canvas px-3 py-2.5 text-sm text-ink outline-none focus:border-accent"
               />
             </label>
             {error && (
@@ -81,14 +81,14 @@ export function LoginForm({ callbackUrl }: { callbackUrl: string }) {
             <button
               type="submit"
               disabled={pending}
-              className="w-full h-12 rounded-full bg-[#1e2235] text-[#f7f8fc] text-sm font-medium hover:bg-[#2a3148] transition-colors disabled:opacity-60"
+              className="w-full h-12 rounded-full bg-brand text-on-ink text-sm font-medium hover:bg-brand-hover transition-colors disabled:opacity-60"
             >
               {pending ? "Signing in…" : "Sign in"}
             </button>
           </form>
-          <p className="mt-6 text-center text-sm text-[#6b7189]">
+          <p className="mt-6 text-center text-sm text-muted">
             New account?{" "}
-            <Link href={`/signup?callbackUrl=${encodeURIComponent(callbackUrl)}`} className="underline text-[#1e2235]">
+            <Link href={`/signup?callbackUrl=${encodeURIComponent(callbackUrl)}`} className="underline text-ink">
               Create a researcher account
             </Link>
           </p>

@@ -52,6 +52,18 @@ export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const preview = Boolean(requestHost(request) && !productionHosts().has(requestHost(request)));
 
+  const productMatch = pathname.match(/^\/products\/([^/]+)\/?$/);
+  const legacyTarget = productMatch
+    ? legacyProductRedirect(decodeURIComponent(productMatch[1] ?? ""))
+    : undefined;
+  if (legacyTarget) {
+    const url = request.nextUrl.clone();
+    const splitAt = legacyTarget.indexOf("?");
+    url.pathname = splitAt === -1 ? legacyTarget : legacyTarget.slice(0, splitAt);
+    url.search = splitAt === -1 ? "" : legacyTarget.slice(splitAt);
+    return applyPreviewHeader(NextResponse.redirect(url, 308), preview);
+  }
+
   if (isProtectedPath(pathname)) {
     const session = await readSessionToken(request.cookies.get(SESSION_COOKIE)?.value);
     if (!session) {
@@ -71,12 +83,17 @@ export async function middleware(request: NextRequest) {
 
     const categoryTarget = legacyCategoryRedirect(pathname);
     const withheldTarget = withheldProductRedirect(pathname);
-    const productMatch = pathname.match(/^\/products\/([^/]+)\/?$/);
-    const legacySlug = productMatch ? legacyProductRedirect(decodeURIComponent(productMatch[1] ?? "")) : undefined;
-    const target = categoryTarget ?? withheldTarget ?? (legacySlug ? `/products/${legacySlug}` : null);
+    const target = categoryTarget ?? withheldTarget ?? null;
     if (target) {
       const url = request.nextUrl.clone();
-      url.pathname = target;
+      const splitAt = target.indexOf("?");
+      if (splitAt === -1) {
+        url.pathname = target;
+        url.search = "";
+      } else {
+        url.pathname = target.slice(0, splitAt);
+        url.search = target.slice(splitAt);
+      }
       return applyPreviewHeader(NextResponse.redirect(url, 308), preview);
     }
   }

@@ -1,5 +1,7 @@
+import { storefront } from "@/lib/storefront";
+
 /** US shipping estimate used by the cart, checkout, and free-shipping bar. */
-export const FREE_SHIPPING_THRESHOLD = 100;
+export const FREE_SHIPPING_THRESHOLD = storefront.freeShippingUsd;
 export const FLAT_SHIPPING_USD = 8.99;
 
 export function shippingCost(subtotal: number) {
