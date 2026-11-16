@@ -105,10 +105,8 @@ export function ProductPurchasePanel({ family, initialSize }: Props) {
                     type="button"
                     aria-pressed={active}
                     onClick={() => chooseSize(option)}
-                    className={`min-w-16 rounded-lg border px-3 py-2 text-sm ${
-                      active
-                        ? "border-accent bg-white text-ink shadow-[inset_0_0_0_1px_var(--accent)]"
-                        : "border-line bg-white/50 text-muted hover:text-ink"
+                    className={`option-glow min-w-16 rounded-lg px-3 py-2 text-sm ${
+                      active ? "text-ink" : "text-muted hover:text-ink"
                     }`}
                   >
                     {option.dose}
@@ -132,9 +130,7 @@ export function ProductPurchasePanel({ family, initialSize }: Props) {
                     type="button"
                     aria-pressed={selected}
                     onClick={() => setQuantity(tier.quantity)}
-                    className={`rounded-xl border px-3 py-3 text-left ${
-                      selected ? "border-accent bg-white" : "border-line bg-white/40 hover:bg-white"
-                    }`}
+                    className="option-glow rounded-xl px-3 py-3 text-left"
                   >
                     <span className="flex items-end gap-1" aria-hidden="true">
                       {Array.from({ length: tier.quantity }).map((_, index) => (

@@ -491,3 +491,204 @@ html.reveal-ready .reveal:not(.is-in) {
     transform: none !important;
   }
 }
+
+/* Product option chips: a quiet cerulean halo, brighter when chosen. */
+@property --glow-pulse {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 0;
+}
+
+@property --glow-base {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0.24;
+}
+
+@property --glow-amp {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0.16;
+}
+
+@property --glow-spread {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 12px;
+}
+
+@property --glow-inset {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 0px;
+}
+
+@property --ring-opacity {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0.72;
+}
+
+@property --option-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+.option-glow {
+  --glow-pulse: 0;
+  --glow-base: 0.24;
+  --glow-amp: 0.16;
+  --glow-spread: 12px;
+  --glow-inset: 0px;
+  --ring-opacity: 0.72;
+  position: relative;
+  isolation: isolate;
+  cursor: pointer;
+  border: 1px solid rgba(78, 176, 216, 0.55);
+  background-color: rgba(255, 255, 255, 0.62);
+  box-shadow:
+    inset 0 0 0 var(--glow-inset) rgba(22, 150, 204, 0.55),
+    0 0 0 1px rgba(126, 210, 242, calc(var(--glow-base) + var(--glow-amp) * var(--glow-pulse))),
+    0 0 var(--glow-spread) rgba(36, 168, 222, calc((var(--glow-base) + var(--glow-amp) * var(--glow-pulse)) * 0.9));
+  animation: option-glow-breathe 3.4s ease-in-out infinite;
+  transition:
+    border-color 0.28s ease,
+    background-color 0.28s ease,
+    color 0.28s ease,
+    --glow-base 0.28s ease,
+    --glow-amp 0.28s ease,
+    --glow-spread 0.28s ease,
+    --glow-inset 0.28s ease,
+    --ring-opacity 0.28s ease;
+}
+
+.option-glow::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  z-index: -1;
+  border-radius: inherit;
+  padding: 1.5px;
+  background: conic-gradient(
+    from var(--option-angle),
+    rgba(150, 214, 238, 0.12) 0deg,
+    rgba(150, 214, 238, 0.04) 80deg,
+    rgba(176, 224, 244, 0.18) 170deg,
+    rgba(70, 190, 236, 0.12) 240deg,
+    rgba(214, 246, 255, 0.95) 300deg,
+    rgba(56, 186, 238, 1) 328deg,
+    rgba(236, 250, 255, 1) 344deg,
+    rgba(28, 156, 214, 0.45) 358deg,
+    rgba(150, 214, 238, 0.12) 360deg
+  );
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  opacity: var(--ring-opacity);
+  pointer-events: none;
+  animation: option-ring-spin 4.8s linear infinite;
+}
+
+.option-glow:nth-child(2) {
+  animation-delay: 0.45s;
+}
+
+.option-glow:nth-child(2)::before {
+  animation-delay: -1.2s;
+}
+
+.option-glow:nth-child(3) {
+  animation-delay: 0.9s;
+}
+
+.option-glow:nth-child(3)::before {
+  animation-delay: -2.4s;
+}
+
+.option-glow:nth-child(4) {
+  animation-delay: 1.35s;
+}
+
+.option-glow:nth-child(4)::before {
+  animation-delay: -0.7s;
+}
+
+.option-glow:nth-child(5) {
+  animation-delay: 1.8s;
+}
+
+.option-glow:nth-child(5)::before {
+  animation-delay: -3.1s;
+}
+
+.option-glow:hover {
+  --glow-base: 0.42;
+  --glow-amp: 0.2;
+  --glow-spread: 16px;
+  --ring-opacity: 0.95;
+  border-color: rgba(22, 150, 206, 0.82);
+  background-color: rgba(255, 255, 255, 0.94);
+}
+
+.option-glow[aria-pressed="true"] {
+  --glow-base: 0.64;
+  --glow-amp: 0.22;
+  --glow-spread: 20px;
+  --glow-inset: 1px;
+  --ring-opacity: 1;
+  border-color: #1494c6;
+  background-color: #ffffff;
+  color: var(--ink);
+}
+
+.option-glow[aria-pressed="true"]:hover {
+  --glow-base: 0.74;
+  --glow-spread: 24px;
+  border-color: #0e86b6;
+}
+
+.option-glow:focus-visible {
+  --glow-base: 0.5;
+  --ring-opacity: 1;
+}
+
+@keyframes option-glow-breathe {
+  0%,
+  100% {
+    --glow-pulse: 0;
+  }
+  50% {
+    --glow-pulse: 1;
+  }
+}
+
+@keyframes option-ring-spin {
+  to {
+    --option-angle: 360deg;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .option-glow,
+  .option-glow::before {
+    animation: none !important;
+  }
+
+  .option-glow {
+    --glow-pulse: 0.45;
+  }
+
+  .option-glow::before {
+    background: rgba(72, 188, 230, 0.78);
+  }
+
+  .option-glow[aria-pressed="true"]::before {
+    background: rgba(16, 148, 206, 0.95);
+  }
+}
