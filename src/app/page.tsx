@@ -1,11 +1,18 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { connection } from "next/server";
 import { Newsletter } from "@/components/CtaBand";
 import { HeroLumen } from "@/components/HeroLumen";
 import { ResearcherNotice } from "@/components/ProductCompliance";
 import { JsonLd } from "@/components/JsonLd";
+import { TopSellers } from "@/components/TopSellers";
+import { getSession } from "@/lib/auth/session";
 import { QUALIFIED_RESEARCHER_STATEMENT } from "@/lib/compliance";
 import { getSiteUrl, pageMetadata, rootDescription, rootTitle, siteName, supportEmail } from "@/lib/site";
+
+// Session-specific HTML. A static homepage could be cached and later served
+// to a signed-out visitor with product names and prices in it.
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = pageMetadata({
   title: rootTitle,
@@ -52,7 +59,10 @@ const questions: Array<[string, string]> = [
   ],
 ];
 
-export default function HomePage() {
+export default async function HomePage() {
+  await connection();
+  const session = await getSession();
+  const signedIn = Boolean(session);
   const siteUrl = getSiteUrl();
 
   return (
@@ -85,10 +95,22 @@ export default function HomePage() {
         }}
       />
 
-      <section className="hero-lumen relative min-h-[calc(100svh-7.25rem)]">
+      <section className={signedIn ? "hero-lumen relative" : "hero-lumen relative min-h-[calc(100svh-7.25rem)]"}>
         <HeroLumen variant="ornament" />
-        <div className="content-container relative z-10 flex min-h-[calc(100svh-7.25rem)] items-end lg:items-center">
-          <div className="w-full max-w-xl pb-20 pt-16 lg:max-w-2xl lg:py-20 animate-fade-up">
+        <div
+          className={
+            signedIn
+              ? "content-container relative z-10"
+              : "content-container relative z-10 flex min-h-[calc(100svh-7.25rem)] items-end lg:items-center"
+          }
+        >
+          <div
+            className={
+              signedIn
+                ? "w-full max-w-xl pb-12 pt-14 lg:max-w-2xl lg:pb-14 lg:pt-16 animate-fade-up"
+                : "w-full max-w-xl pb-20 pt-16 lg:max-w-2xl lg:py-20 animate-fade-up"
+            }
+          >
             <p className="section-kicker">Laboratory grade · United States</p>
             <h1 className="mt-4 font-display text-[2.7rem] font-medium leading-[1.02] tracking-tight text-ink sm:text-6xl lg:text-7xl">
               Research peptides,{" "}
@@ -99,19 +121,29 @@ export default function HomePage() {
               consistency, and third-party verification for qualified laboratories.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Link href="/signup" className="btn-primary">
-                Create a researcher account
-              </Link>
+              {signedIn ? (
+                <Link href="/store" className="btn-primary">
+                  Browse catalog
+                </Link>
+              ) : (
+                <Link href="/signup" className="btn-primary">
+                  Create a researcher account
+                </Link>
+              )}
               <Link href="/research-use" className="btn-secondary">
                 Research Use Only
               </Link>
             </div>
             <p className="mt-6 max-w-md text-sm leading-relaxed text-muted">
-              Catalog access requires a verified researcher account.
+              {signedIn
+                ? "Single-vial research peptides are listed in the catalog."
+                : "Catalog access requires a verified researcher account."}
             </p>
           </div>
         </div>
       </section>
+
+      {signedIn ? <TopSellers /> : null}
 
       <section className="relative border-t border-transparent py-8">
         <div className="content-container">
@@ -189,21 +221,45 @@ export default function HomePage() {
           <div className="reveal">
             <p className="index-label">04 — Members catalog</p>
             <h2 className="mt-3 max-w-xl font-display text-4xl font-medium tracking-tight text-ink lg:text-5xl">
-              Compounds and checkout stay behind a researcher account
+              {signedIn
+                ? "Compounds and checkout are open on your researcher account"
+                : "Compounds and checkout stay behind a researcher account"}
             </h2>
             <p className="mt-5 max-w-xl text-lg leading-relaxed text-ink-soft">
-              {QUALIFIED_RESEARCHER_STATEMENT} Create an account and sign in to view compounds,
-              quantities, and checkout. Prices are not shown on public pages.
+              {signedIn ? (
+                <>
+                  {QUALIFIED_RESEARCHER_STATEMENT} Compounds, quantities, and checkout are available
+                  in the catalog.
+                </>
+              ) : (
+                <>
+                  {QUALIFIED_RESEARCHER_STATEMENT} Create an account and sign in to view compounds,
+                  quantities, and checkout. Prices are not shown on public pages.
+                </>
+              )}
             </p>
             <ResearcherNotice className="mt-4 max-w-xl" />
           </div>
           <div className="folio space-y-4 p-6 reveal">
-            <Link href="/signup" className="btn-primary w-full">
-              Create a researcher account
-            </Link>
-            <Link href="/login" className="btn-secondary w-full">
-              Sign in
-            </Link>
+            {signedIn ? (
+              <>
+                <Link href="/store" className="btn-primary w-full">
+                  Browse catalog
+                </Link>
+                <Link href="/research-use" className="btn-secondary w-full">
+                  Research Use Only
+                </Link>
+              </>
+            ) : (
+              <>
+                <Link href="/signup" className="btn-primary w-full">
+                  Create a researcher account
+                </Link>
+                <Link href="/login" className="btn-secondary w-full">
+                  Sign in
+                </Link>
+              </>
+            )}
           </div>
         </div>
       </section>
@@ -212,15 +268,21 @@ export default function HomePage() {
         <div className="content-container max-w-3xl">
           <h2 className="mb-6 font-display text-3xl font-medium tracking-tight text-ink">Questions from the bench</h2>
           <div>
-            {questions.map(([q, a], index) => (
-              <details key={q} className="group border-t border-line py-5 reveal">
-                <summary className="flex cursor-pointer list-none items-baseline gap-4 font-medium text-ink">
-                  <span className="font-display italic text-accent">0{index + 1}</span>
-                  <span>{q}</span>
-                </summary>
-                <p className="mt-3 pl-10 text-sm leading-relaxed text-ink-soft">{a}</p>
-              </details>
-            ))}
+            {questions.map(([q, a], index) => {
+              const answer =
+                signedIn && q === "Who can view the catalog?"
+                  ? "The catalog and checkout are available on your researcher account. Products are sold only to qualified researchers and licensed laboratories."
+                  : a;
+              return (
+                <details key={q} className="group border-t border-line py-5 reveal">
+                  <summary className="flex cursor-pointer list-none items-baseline gap-4 font-medium text-ink">
+                    <span className="font-display italic text-accent">0{index + 1}</span>
+                    <span>{q}</span>
+                  </summary>
+                  <p className="mt-3 pl-10 text-sm leading-relaxed text-ink-soft">{answer}</p>
+                </details>
+              );
+            })}
             <hr className="pearl-rule" />
           </div>
         </div>

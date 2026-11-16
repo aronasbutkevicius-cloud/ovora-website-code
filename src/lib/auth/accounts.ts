@@ -491,6 +491,59 @@ export async function placeOrder(input: {
   return order;
 }
 
+function orderLinesFromJson(value: unknown): Array<{ variantSlug?: unknown; quantity?: unknown }> {
+  let parsed = value;
+  if (typeof value === "string") {
+    if (value.length === 0) return [];
+    try {
+      parsed = JSON.parse(value);
+    } catch {
+      return [];
+    }
+  }
+  if (!Array.isArray(parsed)) return [];
+  return parsed.filter((line): line is { variantSlug?: unknown; quantity?: unknown } =>
+    Boolean(line) && typeof line === "object",
+  );
+}
+
+function addSoldUnits(totals: Map<string, number>, line: { variantSlug?: unknown; quantity?: unknown }) {
+  if (typeof line.variantSlug !== "string" || line.variantSlug.length === 0) return;
+  if (typeof line.quantity !== "number" || !Number.isInteger(line.quantity)) return;
+  if (line.quantity < 1 || line.quantity > 100_000) return;
+  totals.set(line.variantSlug, (totals.get(line.variantSlug) ?? 0) + line.quantity);
+}
+
+/**
+ * Units sold per catalog variant, from stored order lines only.
+ * Returns null when the account store is disabled or the read fails.
+ * Never includes buyer, address, or payment fields.
+ */
+export async function listSoldVariantQuantities(): Promise<Map<string, number> | null> {
+  const mode = accountStoreMode();
+  if (mode === "disabled") return null;
+  try {
+    if (mode === "file") {
+      const db = await readFileDb();
+      const totals = new Map<string, number>();
+      for (const order of db.orders) {
+        for (const line of order.items) addSoldUnits(totals, line);
+      }
+      return totals;
+    }
+
+    const sql = sqlClient();
+    const rows = (await sql`SELECT items_json FROM orders`) as Array<{ items_json?: unknown }>;
+    const totals = new Map<string, number>();
+    for (const row of rows) {
+      for (const line of orderLinesFromJson(row.items_json)) addSoldUnits(totals, line);
+    }
+    return totals;
+  } catch {
+    return null;
+  }
+}
+
 export type SmsOptInExport = {
   email: string;
   name: string;
