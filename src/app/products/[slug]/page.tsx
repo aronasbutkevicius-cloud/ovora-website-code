@@ -74,7 +74,7 @@ export default async function ProductPage({
   ];
 
   return (
-    <section className="py-12 lg:py-16 bg-canvas">
+    <section className="bg-canvas py-3 lg:py-6">
       <JsonLd
         data={[
           {
@@ -100,7 +100,7 @@ export default async function ProductPage({
         ]}
       />
       <div className="content-container">
-        <div className="mb-6 text-sm text-muted">
+        <div className="mb-2 text-sm text-muted lg:mb-3">
           <Link href="/store" className="hover:text-ink">
             Products
           </Link>
