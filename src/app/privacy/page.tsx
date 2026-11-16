@@ -36,8 +36,9 @@ export default function PrivacyPage() {
           <p>
             If you add a mobile number and check the consent box, we store that number, the time you
             consented, and the exact consent text and version you agreed to. We use this record to
-            send recurring automated promotional text messages and to determine eligibility for a
-            one-time first-order discount. Consent is not a condition of purchase. Message and data
+            send recurring automated promotional text messages. The one-time first-order discount is
+            applied from the account, once, and does not depend on this consent. Consent is not a
+            condition of purchase. Message and data
             rates may apply. Reply STOP to opt out and HELP for help. You may also email{" "}
             <a href={`mailto:${supportEmail}`}>{supportEmail}</a> to opt out. We do not sell phone
             numbers. See the Terms of Service for the message program.

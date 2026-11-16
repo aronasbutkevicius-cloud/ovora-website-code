@@ -39,7 +39,7 @@ export const SMS_CONSENT_TEXT =
   "I agree to receive recurring automated promotional text messages from Ovora Labs at this number. Consent is not a condition of purchase. Msg & data rates may apply. Reply STOP to opt out, HELP for help.";
 
 export const FIRST_ORDER_OFFER =
-  "Get 15% off your first order: add your phone number to receive promotional updates.";
+  "15% off your first order is applied automatically, once, on the first order for this account.";
 
 export const FIRST_ORDER_RATE = 0.15;
 

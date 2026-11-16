@@ -39,9 +39,9 @@ export default function TermsPage() {
             If you opt in, you agree to receive recurring automated promotional text messages from
             Ovora Labs at the mobile number you provide. Consent is not a condition of purchase.
             Message and data rates may apply. Message frequency varies. Reply STOP to opt out and
-            HELP for help. A first-order discount tied to this opt-in is available once per account,
-            only before any order is placed, and cannot be reused on another account with the same
-            phone number. The Privacy Policy describes how the number and consent record are stored.
+            HELP for help. A 15% first-order discount is applied automatically once per account,
+            only on the first order, and cannot be reused on another account with the same phone
+            number. The Privacy Policy describes how the number and consent record are stored.
           </p>
           <h2>Limitation of liability</h2>
           <p>
