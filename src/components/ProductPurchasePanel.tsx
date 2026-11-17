@@ -73,27 +73,24 @@ export function ProductPurchasePanel({ family, initialSize }: Props) {
 
   return (
     <div>
-      <div className="grid grid-cols-[9.25rem_minmax(0,1fr)] items-center gap-x-3 gap-y-4 lg:grid-cols-12 lg:items-stretch lg:gap-8">
-      <div className="relative h-full self-stretch lg:col-span-4 lg:row-span-2">
-        <div className="specimen-well relative flex h-40 items-end justify-center overflow-visible lg:absolute lg:inset-0 lg:h-full">
+      <div className="lg:grid lg:grid-cols-12 lg:items-stretch lg:gap-8">
+      <div className="flex flex-col lg:col-span-5">
+        <p className="index-label">{isSupply ? "Laboratory supply" : "Single vial"} · Research use only</p>
+        <h1 className="mt-1 font-display text-4xl font-bold leading-[1.02] tracking-tight text-ink lg:text-6xl">
+          {family.name}
+        </h1>
+        <div className="specimen-well relative mt-3 flex h-80 items-end justify-center overflow-visible sm:h-96 lg:mt-4 lg:h-auto lg:min-h-[30rem] lg:flex-1">
           <ProductVisual
             key={variant.slug}
             product={variant}
-            className="relative z-10 h-[92%] w-auto max-w-[88%] lg:h-[78%] lg:max-w-[84%]"
-            sizes="(max-width: 1024px) 42vw, 420px"
+            className="relative z-10 h-[94%] w-auto max-w-[86%] lg:h-[92%] lg:max-w-[92%]"
+            sizes="(max-width: 1024px) 80vw, 520px"
             priority
           />
         </div>
       </div>
 
-      <div className="min-w-0 self-center lg:col-span-8 lg:self-start">
-        <p className="index-label">{isSupply ? "Laboratory supply" : "Single vial"} · Research use only</p>
-        <h1 className="mt-1 font-display text-2xl font-medium leading-tight tracking-tight text-ink lg:text-5xl">
-          {family.name}
-        </h1>
-      </div>
-
-      <div className="col-span-2 flex flex-col gap-4 lg:col-span-8 lg:col-start-5 lg:self-start">
+      <div className="mt-4 flex flex-col gap-3 lg:col-span-7 lg:mt-0 lg:self-start">
 
         {family.variants.length > 1 && (
           <div>
