@@ -76,7 +76,7 @@ export function ProductPurchasePanel({ family, initialSize }: Props) {
       <div className="lg:grid lg:grid-cols-12 lg:items-stretch lg:gap-8">
       <div className="flex flex-col lg:col-span-5">
         <p className="index-label">{isSupply ? "Laboratory supply" : "Single vial"} · Research use only</p>
-        <h1 className="mt-1 font-display text-4xl font-bold leading-[1.02] tracking-tight text-ink lg:text-6xl">
+        <h1 className="mt-1 font-display text-3xl font-semibold leading-[1.02] tracking-tight text-ink lg:text-5xl">
           {family.name}
         </h1>
         <div className="specimen-well relative mt-3 flex h-80 items-end justify-center overflow-visible sm:h-96 lg:mt-2 lg:h-[29rem] lg:w-full lg:items-end">
