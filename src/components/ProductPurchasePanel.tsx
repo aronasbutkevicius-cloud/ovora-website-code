@@ -79,12 +79,12 @@ export function ProductPurchasePanel({ family, initialSize }: Props) {
         <h1 className="mt-1 font-display text-4xl font-bold leading-[1.02] tracking-tight text-ink lg:text-6xl">
           {family.name}
         </h1>
-        <div className="specimen-well relative mt-3 flex h-80 items-end justify-center overflow-visible sm:h-96 lg:mt-4 lg:h-auto lg:min-h-[30rem] lg:flex-1">
+        <div className="specimen-well relative mt-3 flex h-80 items-end justify-center overflow-visible sm:h-96 lg:mt-2 lg:h-[29rem] lg:w-full lg:items-end">
           <ProductVisual
             key={variant.slug}
             product={variant}
-            className="relative z-10 h-[94%] w-auto max-w-[86%] lg:h-[92%] lg:max-w-[92%]"
-            sizes="(max-width: 1024px) 80vw, 520px"
+            className="relative z-10 h-[94%] w-auto max-w-[86%] lg:h-full lg:max-h-full lg:max-w-[78%]"
+            sizes="(max-width: 1024px) 80vw, 420px"
             priority
           />
         </div>
