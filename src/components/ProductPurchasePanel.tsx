@@ -72,31 +72,30 @@ export function ProductPurchasePanel({ family, initialSize }: Props) {
   }
 
   return (
-    <div className="grid items-start gap-10 lg:grid-cols-12 lg:gap-14">
-      <div className="lg:col-span-5">
-        <div className="specimen-well relative flex min-h-[520px] items-end justify-center overflow-visible">
+    <div>
+      <div className="lg:grid lg:grid-cols-12 lg:items-stretch lg:gap-8">
+      <div className="flex flex-col lg:col-span-5">
+        <p className="index-label">{isSupply ? "Laboratory supply" : "Single vial"} · Research use only</p>
+        <h1 className="mt-1 font-display text-3xl font-semibold leading-[1.02] tracking-tight text-ink lg:text-5xl">
+          {family.name}
+        </h1>
+        <div className="specimen-well relative mt-3 flex h-80 items-end justify-center overflow-visible sm:h-96 lg:mt-2 lg:h-[29rem] lg:w-full lg:items-end">
           <ProductVisual
             key={variant.slug}
             product={variant}
-            className="relative z-10 h-[460px] w-auto max-w-[78%]"
+            className="relative z-10 h-[94%] w-auto max-w-[86%] lg:h-full lg:max-h-full lg:max-w-[78%]"
             sizes="(max-width: 1024px) 80vw, 420px"
             priority
           />
         </div>
-        <p className="index-label mt-4 text-center">Specimen {variant.slug}</p>
       </div>
 
-      <div className="lg:col-span-7">
-        <p className="index-label">{isSupply ? "Laboratory supply" : "Single vial"} · Research use only</p>
-        <h1 className="mt-3 font-display text-5xl font-medium tracking-tight text-ink lg:text-6xl">
-          {family.name}
-        </h1>
-        <p className="mt-4 max-w-xl text-base leading-relaxed text-ink-soft">{variant.description}</p>
+      <div className="mt-4 flex flex-col gap-3 lg:col-span-7 lg:mt-0 lg:self-start">
 
         {family.variants.length > 1 && (
-          <div className="mt-8">
+          <div>
             <p className="index-label">Vial size</p>
-            <div className="mt-3 flex flex-wrap gap-2" role="group" aria-label="Vial size">
+            <div className="mt-2 flex flex-wrap gap-2" role="group" aria-label="Vial size">
               {family.variants.map((option) => {
                 const active = option.slug === variant.slug;
                 return (
@@ -105,7 +104,7 @@ export function ProductPurchasePanel({ family, initialSize }: Props) {
                     type="button"
                     aria-pressed={active}
                     onClick={() => chooseSize(option)}
-                    className={`option-glow min-w-16 rounded-lg px-3 py-2 text-sm ${
+                    className={`option-glow min-w-12 rounded-lg px-2 py-1.5 text-sm lg:min-w-16 lg:px-3 lg:py-2 ${
                       active ? "text-ink" : "text-muted hover:text-ink"
                     }`}
                   >
@@ -118,9 +117,9 @@ export function ProductPurchasePanel({ family, initialSize }: Props) {
         )}
 
         {tiers.length > 0 && (
-          <div className="mt-8">
+          <div>
             <p className="index-label">Quantity</p>
-            <div className="mt-3 grid grid-cols-3 gap-3">
+            <div className="mt-2 grid grid-cols-3 gap-2">
               {tiers.map((tier) => {
                 const selected = quantity === tier.quantity;
                 const each = lineCentsFor(toCents(variant.price), tier.quantity, family.form);
@@ -130,18 +129,10 @@ export function ProductPurchasePanel({ family, initialSize }: Props) {
                     type="button"
                     aria-pressed={selected}
                     onClick={() => setQuantity(tier.quantity)}
-                    className="option-glow rounded-xl px-3 py-3 text-left"
+                    className="option-glow rounded-xl px-2.5 py-2 text-left"
                   >
-                    <span className="flex items-end gap-1" aria-hidden="true">
-                      {Array.from({ length: tier.quantity }).map((_, index) => (
-                        <span
-                          key={index}
-                          className={`block w-2 rounded-sm ${selected ? "h-7 bg-accent" : "h-5 bg-accent-mid/70"}`}
-                        />
-                      ))}
-                    </span>
-                    {tier.badge && <span className="index-label mt-2 block">{tier.badge}</span>}
-                    <span className="mt-1 block text-sm text-ink">
+                    {tier.badge && <span className="index-label block">{tier.badge}</span>}
+                    <span className="mt-0.5 block text-sm text-ink">
                       {tier.quantity} vial{tier.quantity === 1 ? "" : "s"}
                     </span>
                     <span className="block text-xs text-ink-soft">
@@ -155,12 +146,12 @@ export function ProductPurchasePanel({ family, initialSize }: Props) {
           </div>
         )}
 
-        <div className="mt-8 flex flex-wrap items-end justify-between gap-4 border-y border-line py-5">
+        <div className="flex flex-wrap items-end justify-between gap-3 border-y border-line py-3">
           <div>
             {showCompare && (
               <p className="text-sm text-muted line-through">{formatPrice(variant.compareAtPrice ?? 0)}</p>
             )}
-            <p className="font-display text-4xl font-medium tracking-tight text-ink">{formatPrice(variant.price)}</p>
+            <p className="font-display text-3xl font-medium tracking-tight text-ink lg:text-4xl">{formatPrice(variant.price)}</p>
             <p className="index-label mt-1">USD per vial</p>
             {applied.rate > 0 && (
               <p className="mt-1 text-xs text-accent">{Math.round(applied.rate * 100)}% off this quantity</p>
@@ -181,11 +172,11 @@ export function ProductPurchasePanel({ family, initialSize }: Props) {
           </label>
         </div>
 
-        <button type="button" onClick={handleAdd} className="btn-primary mt-5 w-full">
+        <button type="button" onClick={handleAdd} className="btn-primary w-full">
           {added ? "Added to cart" : `Add ${quantity} · ${formatCents(totalCents)}`}
         </button>
         {added && (
-          <p className="mt-3 text-sm text-accent">
+          <p className="mt-2 text-sm text-accent">
             {variant.dose} added.{" "}
             <Link href="/cart" className="underline">
               View cart
@@ -193,7 +184,15 @@ export function ProductPurchasePanel({ family, initialSize }: Props) {
           </p>
         )}
 
-        <div className="mt-10">
+        <ShipCountdown variant="callout" />
+        <AcceptedPayments />
+      </div>
+      </div>
+
+      <div className="mt-10 max-w-3xl">
+        <p className="max-w-xl text-base leading-relaxed text-ink-soft">{variant.description}</p>
+
+        <div className="mt-8">
           <p className="index-label">Datasheet</p>
           <table className="mt-3 w-full border-collapse text-sm">
             <tbody>
@@ -229,7 +228,7 @@ export function ProductPurchasePanel({ family, initialSize }: Props) {
           </table>
         </div>
 
-        <div className="folio mt-10 px-6 py-6">
+        <div className="folio mt-8 px-6 py-6">
           <ShipCountdown />
           <div className="mt-5 border-t border-line pt-5">
             <p className="index-label">Protection</p>
@@ -238,10 +237,6 @@ export function ProductPurchasePanel({ family, initialSize }: Props) {
               included. Damaged vials are replaced at no cost. Tracking is sent on every order.
             </p>
           </div>
-        </div>
-
-        <div className="mt-8 border-t border-line pt-5">
-          <AcceptedPayments />
         </div>
 
         <p className="mt-6 text-xs leading-relaxed text-muted">

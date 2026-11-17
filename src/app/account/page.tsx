@@ -37,10 +37,10 @@ export default async function AccountPage() {
         <div className="mb-6 rounded-2xl border border-line bg-surface-2 p-5 text-sm text-ink-soft leading-relaxed">
           <p className="font-medium text-ink mb-1">{FIRST_ORDER_OFFER}</p>
           {discount === "eligible" && (
-            <p>Your account is eligible. The 15% line appears in cart and checkout totals.</p>
+            <p>Your account is eligible. Cart and checkout totals include the 15% line until the first order is placed.</p>
           )}
           {discount === "needs_opt_in" && (
-            <p>Add a mobile number and check the consent box. The discount is calculated on the server.</p>
+            <p>The discount is calculated on the server for the first order on this account.</p>
           )}
           {discount === "used" && (
             <p>This first-order discount has already been used on this account.</p>

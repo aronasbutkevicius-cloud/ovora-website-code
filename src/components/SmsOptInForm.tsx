@@ -38,7 +38,7 @@ export function SmsOptInForm({
         setPending(false);
         return;
       }
-      setSaved(`Saved ${data.phoneE164}. The first-order offer will appear on an eligible cart.`);
+      setSaved(`Saved ${data.phoneE164}. Promotional texts can be sent to this number.`);
       setPending(false);
       router.refresh();
       onSaved?.();

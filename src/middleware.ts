@@ -99,6 +99,13 @@ export async function middleware(request: NextRequest) {
   }
 
   const response = NextResponse.next();
+  // The homepage HTML changes with the session cookie. Do not let a shared
+  // cache store either variant and serve products to a signed-out visitor.
+  if (pathname === "/") {
+    response.headers.set("Cache-Control", "private, no-store, max-age=0, must-revalidate");
+    response.headers.set("CDN-Cache-Control", "no-store");
+    response.headers.set("Vercel-CDN-Cache-Control", "no-store");
+  }
   if (preview) {
     response.headers.set("X-Robots-Tag", "noindex, nofollow");
     return response;

@@ -7,6 +7,7 @@ import { Header } from "./Header";
 import { MobileCartBar } from "./MobileCartBar";
 import { Reveal } from "./Reveal";
 import { CtaBand, Newsletter } from "./CtaBand";
+import { FirstOrderOffer } from "./FirstOrderOffer";
 import type { SessionUser } from "@/lib/auth/token";
 
 export function SiteShell({
@@ -35,6 +36,7 @@ export function SiteShell({
       {!home && <Newsletter />}
       <Footer />
       <MobileCartBar session={session} />
+      {!session ? <FirstOrderOffer /> : null}
     </CartProvider>
   );
 }

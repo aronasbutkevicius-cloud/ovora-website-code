@@ -47,7 +47,7 @@ export type StoredOrder = {
 export type StoredRedemption = {
   id: string;
   userId: string;
-  phoneE164: string;
+  phoneE164: string | null;
   orderId: string;
   createdAt: string;
 };
@@ -132,11 +132,12 @@ function ensureSchema() {
       CREATE TABLE IF NOT EXISTS discount_redemptions (
         id TEXT PRIMARY KEY,
         user_id TEXT NOT NULL UNIQUE,
-        phone_e164 TEXT NOT NULL UNIQUE,
+        phone_e164 TEXT UNIQUE,
         order_id TEXT NOT NULL UNIQUE,
         created_at TIMESTAMPTZ NOT NULL
       )
     `;
+    await sql`ALTER TABLE discount_redemptions ALTER COLUMN phone_e164 DROP NOT NULL`;
   })();
   return schemaPromise;
 }
@@ -383,11 +384,17 @@ async function phoneHasRedemption(phoneE164: string) {
   return rows.length > 0;
 }
 
+function isUniqueViolation(error: unknown) {
+  const message = error instanceof Error ? error.message : "";
+  const lower = message.toLowerCase();
+  return lower.includes("unique") || lower.includes("duplicate");
+}
+
 export async function getDiscountState(userId: string): Promise<DiscountState> {
   const user = await findUserById(userId);
-  if (!user?.phoneE164 || !user.smsConsentAt) return "needs_opt_in";
+  if (!user) return "used";
   if ((await userHasOrder(userId)) || (await userHasRedemption(userId))) return "used";
-  if (await phoneHasRedemption(user.phoneE164)) return "used";
+  if (user.phoneE164 && (await phoneHasRedemption(user.phoneE164))) return "used";
   return "eligible";
 }
 
@@ -419,23 +426,24 @@ export async function placeOrder(input: {
   const user = await findUserById(input.userId);
   if (!user) throw new Error("USER_MISSING");
 
+  const clearDiscount = () => {
+    order.discountCents = 0;
+    order.totalCents = order.subtotalCents + order.shippingCents;
+  };
+
   if (accountStoreMode() === "file") {
     const db = await readFileDb();
-    let apply = input.applyDiscount && order.discountCents > 0 && Boolean(user.phoneE164);
-    if (apply && user.phoneE164) {
-      const already =
-        db.orders.some((entry) => entry.userId === input.userId) ||
-        db.redemptions.some(
-          (entry) => entry.userId === input.userId || entry.phoneE164 === user.phoneE164,
-        );
-      if (already) apply = false;
-    }
-    if (!apply) {
-      order.discountCents = 0;
-      order.totalCents = order.subtotalCents + order.shippingCents;
-    }
+    const phoneTaken =
+      Boolean(user.phoneE164) &&
+      db.redemptions.some((entry) => entry.phoneE164 === user.phoneE164);
+    const already =
+      db.orders.some((entry) => entry.userId === input.userId) ||
+      db.redemptions.some((entry) => entry.userId === input.userId) ||
+      phoneTaken;
+    const apply = input.applyDiscount && order.discountCents > 0 && !already;
+    if (!apply) clearDiscount();
     db.orders.push(order);
-    if (apply && user.phoneE164) {
+    if (apply) {
       db.redemptions.push({
         id: crypto.randomUUID(),
         userId: input.userId,
@@ -451,14 +459,15 @@ export async function placeOrder(input: {
   await ensureSchema();
   const sql = sqlClient();
   const state = await getDiscountState(input.userId);
-  const apply = input.applyDiscount && order.discountCents > 0 && state === "eligible" && user.phoneE164;
+  const apply = input.applyDiscount && order.discountCents > 0 && state === "eligible";
   if (!apply) {
-    order.discountCents = 0;
-    order.totalCents = order.subtotalCents + order.shippingCents;
+    clearDiscount();
+    await insertOrder(sql, order);
+    return order;
   }
 
-  if (apply && user.phoneE164) {
-    const redemptionId = crypto.randomUUID();
+  const redemptionId = crypto.randomUUID();
+  try {
     await sql.transaction([
       sql`
         INSERT INTO orders (
@@ -476,8 +485,18 @@ export async function placeOrder(input: {
       `,
     ]);
     return order;
+  } catch (error) {
+    if (!isUniqueViolation(error)) throw error;
+    clearDiscount();
+    await insertOrder(sql, order);
+    return order;
   }
+}
 
+async function insertOrder(
+  sql: ReturnType<typeof sqlClient>,
+  order: StoredOrder,
+) {
   await sql`
     INSERT INTO orders (
       id, user_id, items_json, subtotal_cents, discount_cents, shipping_cents,
@@ -488,7 +507,59 @@ export async function placeOrder(input: {
       ${order.totalCents}, ${order.researchPurpose}, ${order.status}, ${order.createdAt}
     )
   `;
-  return order;
+}
+
+function orderLinesFromJson(value: unknown): Array<{ variantSlug?: unknown; quantity?: unknown }> {
+  let parsed = value;
+  if (typeof value === "string") {
+    if (value.length === 0) return [];
+    try {
+      parsed = JSON.parse(value);
+    } catch {
+      return [];
+    }
+  }
+  if (!Array.isArray(parsed)) return [];
+  return parsed.filter((line): line is { variantSlug?: unknown; quantity?: unknown } =>
+    Boolean(line) && typeof line === "object",
+  );
+}
+
+function addSoldUnits(totals: Map<string, number>, line: { variantSlug?: unknown; quantity?: unknown }) {
+  if (typeof line.variantSlug !== "string" || line.variantSlug.length === 0) return;
+  if (typeof line.quantity !== "number" || !Number.isInteger(line.quantity)) return;
+  if (line.quantity < 1 || line.quantity > 100_000) return;
+  totals.set(line.variantSlug, (totals.get(line.variantSlug) ?? 0) + line.quantity);
+}
+
+/**
+ * Units sold per catalog variant, from stored order lines only.
+ * Returns null when the account store is disabled or the read fails.
+ * Never includes buyer, address, or payment fields.
+ */
+export async function listSoldVariantQuantities(): Promise<Map<string, number> | null> {
+  const mode = accountStoreMode();
+  if (mode === "disabled") return null;
+  try {
+    if (mode === "file") {
+      const db = await readFileDb();
+      const totals = new Map<string, number>();
+      for (const order of db.orders) {
+        for (const line of order.items) addSoldUnits(totals, line);
+      }
+      return totals;
+    }
+
+    const sql = sqlClient();
+    const rows = (await sql`SELECT items_json FROM orders`) as Array<{ items_json?: unknown }>;
+    const totals = new Map<string, number>();
+    for (const row of rows) {
+      for (const line of orderLinesFromJson(row.items_json)) addSoldUnits(totals, line);
+    }
+    return totals;
+  } catch {
+    return null;
+  }
 }
 
 export type SmsOptInExport = {
