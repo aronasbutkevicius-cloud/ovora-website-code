@@ -73,3 +73,54 @@ export const logoMarkOptions = [
   { id: "C", name: "Orbit", Mark: LogoMarkC },
   { id: "D", name: "Prism", Mark: LogoMarkD },
 ] as const;
+
+function Logotype({
+  children,
+  className,
+}: {
+  children: ReactNode;
+  className: string;
+}) {
+  return <p className={`font-semibold leading-none text-ink ${className}`}>{children}</p>;
+}
+
+/** Ovora Labs in one sans, wide tracking, with a cerulean point in the O. */
+export function LogoTypeE({ className = "" }: { className?: string }) {
+  return (
+    <Logotype className={`font-sans tracking-[0.14em] ${className}`}>
+      <span className="relative inline-block">
+        O
+        <span className="absolute left-1/2 top-1/2 h-[0.22em] w-[0.22em] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#7ec4e4]" />
+      </span>
+      vora Labs
+    </Logotype>
+  );
+}
+
+/** Standalone capitals. */
+export function LogoTypeF({ className = "" }: { className?: string }) {
+  return (
+    <Logotype className={`font-sans tracking-[0.28em] ${className}`}>
+      <span className="border-b-[0.08em] border-[#1494c6] pb-[0.08em]">OVORA</span>
+    </Logotype>
+  );
+}
+
+/** Standalone name in the site display face. */
+export function LogoTypeG({ className = "" }: { className?: string }) {
+  return (
+    <Logotype className={`font-display tracking-tight ${className}`}>
+      <span className="relative inline-block">
+        O
+        <span className="absolute -bottom-[0.06em] left-[0.12em] right-[0.12em] h-[0.06em] rounded-full bg-[#0c6a96]" />
+      </span>
+      vora
+    </Logotype>
+  );
+}
+
+export const logoTypeOptions = [
+  { id: "E", name: "Ovora Labs", Type: LogoTypeE },
+  { id: "F", name: "OVORA", Type: LogoTypeF },
+  { id: "G", name: "Ovora", Type: LogoTypeG },
+] as const;
