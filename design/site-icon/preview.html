@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Site icon options</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: #f4f8fb;
+      color: #122033;
+      font-family: system-ui, sans-serif;
+      padding: 36px 40px 48px;
+    }
+    h1 { margin: 0; font-size: 28px; font-weight: 560; letter-spacing: -0.03em; }
+    p.lead { margin: 8px 0 28px; max-width: 760px; color: #3a5168; font-size: 14px; line-height: 1.45; }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+    article {
+      background: #fff;
+      border: 1px solid rgba(18, 72, 110, 0.14);
+      border-radius: 16px;
+      padding: 18px 18px 16px;
+    }
+    .kicker { margin: 0; font-size: 11px; font-weight: 650; letter-spacing: 0.16em; text-transform: uppercase; color: #0c6a96; }
+    h2 { margin: 4px 0 2px; font-size: 22px; font-weight: 560; }
+    .note { margin: 0 0 14px; color: #3a5168; font-size: 13px; }
+    .sizes { display: flex; align-items: flex-end; gap: 22px; }
+    figure { margin: 0; text-align: center; }
+    figcaption { margin-top: 6px; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #5c7288; }
+    img { display: block; image-rendering: auto; }
+    .stage {
+      background:
+        linear-gradient(45deg, #e7eef3 25%, transparent 25%),
+        linear-gradient(-45deg, #e7eef3 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, #e7eef3 75%),
+        linear-gradient(-45deg, transparent 75%, #e7eef3 75%);
+      background-size: 12px 12px;
+      background-position: 0 0, 0 6px, 6px -6px, -6px 0;
+      background-color: #fff;
+      border-radius: 12px;
+      padding: 10px;
+    }
+    .tabs { margin-top: 28px; }
+    .bar {
+      display: flex;
+      align-items: flex-end;
+      gap: 4px;
+      background: #dee1e6;
+      border-radius: 12px;
+      padding: 10px 12px 0;
+      width: max-content;
+    }
+    .tab {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      height: 36px;
+      padding: 0 12px 0 10px;
+      background: #fff;
+      border-radius: 10px 10px 0 0;
+      font-size: 13px;
+      color: #202124;
+      min-width: 168px;
+    }
+    .tab span { flex: 1; white-space: nowrap; }
+    .x { color: #5f6368; font-size: 16px; font-weight: 400; }
+  </style>
+</head>
+<body>
+  <h1>Site icon options</h1>
+  <p class="lead">Favicon only. A geometric O with a black peptide vial inside. These are not on the website.</p>
+  <div class="grid">
+    <article>
+      <p class="kicker">Option A</p>
+      <h2>Navy ring</h2>
+      <p class="note">Navy ring, black vial, clear background.</p>
+      <div class="sizes">
+        <figure><div class="stage"><img src="a-navy-ring.svg" width="180" height="180" alt=""></div><figcaption>180</figcaption></figure>
+        <figure><div class="stage"><img src="a-navy-ring.svg" width="32" height="32" alt=""></div><figcaption>32</figcaption></figure>
+        <figure><div class="stage"><img src="a-navy-ring.svg" width="16" height="16" alt=""></div><figcaption>16</figcaption></figure>
+      </div>
+    </article>
+    <article>
+      <p class="kicker">Option B</p>
+      <h2>All black</h2>
+      <p class="note">Ring and vial both black.</p>
+      <div class="sizes">
+        <figure><div class="stage"><img src="b-all-black.svg" width="180" height="180" alt=""></div><figcaption>180</figcaption></figure>
+        <figure><div class="stage"><img src="b-all-black.svg" width="32" height="32" alt=""></div><figcaption>32</figcaption></figure>
+        <figure><div class="stage"><img src="b-all-black.svg" width="16" height="16" alt=""></div><figcaption>16</figcaption></figure>
+      </div>
+    </article>
+    <article>
+      <p class="kicker">Option C</p>
+      <h2>Overlap</h2>
+      <p class="note">Black vial sits slightly in front of the navy ring.</p>
+      <div class="sizes">
+        <figure><div class="stage"><img src="c-overlap.svg" width="180" height="180" alt=""></div><figcaption>180</figcaption></figure>
+        <figure><div class="stage"><img src="c-overlap.svg" width="32" height="32" alt=""></div><figcaption>32</figcaption></figure>
+        <figure><div class="stage"><img src="c-overlap.svg" width="16" height="16" alt=""></div><figcaption>16</figcaption></figure>
+      </div>
+    </article>
+    <article>
+      <p class="kicker">Option D</p>
+      <h2>Light tile</h2>
+      <p class="note">Navy ring and black vial on a light-blue rounded square.</p>
+      <div class="sizes">
+        <figure><div class="stage"><img src="d-light-tile.svg" width="180" height="180" alt=""></div><figcaption>180</figcaption></figure>
+        <figure><div class="stage"><img src="d-light-tile.svg" width="32" height="32" alt=""></div><figcaption>32</figcaption></figure>
+        <figure><div class="stage"><img src="d-light-tile.svg" width="16" height="16" alt=""></div><figcaption>16</figcaption></figure>
+      </div>
+    </article>
+  </div>
+  <section class="tabs">
+    <h2 style="font-size:20px;font-weight:560;margin:0 0 10px">Browser tab</h2>
+    <div class="bar">
+      <div class="tab"><img src="a-navy-ring.svg" width="16" height="16" alt=""><span>Ovora Labs</span><b class="x">×</b></div>
+      <div class="tab"><img src="b-all-black.svg" width="16" height="16" alt=""><span>Ovora Labs</span><b class="x">×</b></div>
+      <div class="tab"><img src="c-overlap.svg" width="16" height="16" alt=""><span>Ovora Labs</span><b class="x">×</b></div>
+      <div class="tab"><img src="d-light-tile.svg" width="16" height="16" alt=""><span>Ovora Labs</span><b class="x">×</b></div>
+    </div>
+  </section>
+</body>
+</html>
