@@ -10,7 +10,7 @@ export function PageHero({
   return (
     <div className="mb-12 max-w-3xl">
       <hr className="pearl-rule mb-6" />
-      <h1 className="mb-3 font-display text-4xl font-medium tracking-tight text-ink lg:text-6xl">
+      <h1 className="mb-3 font-display text-4xl font-semibold tracking-tight text-ink lg:text-6xl">
         {title}
       </h1>
       {subtitle && <p className="text-lg leading-relaxed text-ink-soft">{subtitle}</p>}

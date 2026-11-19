@@ -58,7 +58,7 @@ export function StoreProductCard({ family }: { family: ProductFamily }) {
           {family.form === "liquid" ? "Supply" : "Single vial"} · {doses}
         </p>
         <div className="mt-2 flex items-baseline justify-between gap-3">
-          <h2 className="font-display text-2xl font-medium tracking-tight text-ink">
+          <h2 className="font-display text-2xl font-semibold tracking-tight text-ink">
             <Link href={href}>{family.name}</Link>
           </h2>
           <p className="shrink-0 text-sm font-medium text-ink">

@@ -47,7 +47,7 @@ export function LoginForm({ callbackUrl }: { callbackUrl: string }) {
         <div className="relative z-10 flex h-full min-h-[42vh] items-end p-8 pb-16 lg:p-12 lg:pb-16">
           <div>
             <Logo className="mb-6 text-[1.85rem]" />
-            <p className="max-w-sm font-display text-4xl font-medium leading-tight text-ink">
+            <p className="max-w-sm font-display text-4xl font-semibold leading-tight text-ink">
               The catalog opens after sign-in.
             </p>
           </div>
@@ -56,7 +56,7 @@ export function LoginForm({ callbackUrl }: { callbackUrl: string }) {
       <div className="flex items-center px-5 py-12 sm:px-10">
         <div className="mx-auto w-full max-w-md">
           <p className="index-label">Researcher access</p>
-          <h1 className="mt-2 font-display text-4xl font-medium tracking-tight text-ink">Sign in</h1>
+          <h1 className="mt-2 font-display text-4xl font-semibold tracking-tight text-ink">Sign in</h1>
           <p className="mb-8 mt-3 text-sm leading-relaxed text-muted">
             The catalog, prices, and checkout are available only to signed-in researcher accounts.
           </p>

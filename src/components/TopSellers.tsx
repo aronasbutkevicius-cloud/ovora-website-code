@@ -42,7 +42,7 @@ function TopSellerCard({ family }: { family: ProductFamily }) {
             {kind} · {doseOptionsLabel(family)}
           </span>
           <span className="mt-2 flex items-baseline justify-between gap-3">
-            <span className="font-display text-2xl font-medium tracking-tight text-ink">{family.name}</span>
+            <span className="font-display text-2xl font-semibold tracking-tight text-ink">{family.name}</span>
             <span className="shrink-0 text-sm font-medium text-ink">{price}</span>
           </span>
           <span className="mt-4 flex items-center justify-between gap-3 border-t border-line pt-3">
@@ -76,7 +76,7 @@ export async function TopSellers() {
             <p className="index-label">Catalog</p>
             <h2
               id="top-sellers-heading"
-              className="mt-3 font-display text-4xl font-medium tracking-tight text-ink lg:text-5xl"
+              className="mt-3 font-display text-4xl font-semibold tracking-tight text-ink lg:text-5xl"
             >
               Top sellers
             </h2>

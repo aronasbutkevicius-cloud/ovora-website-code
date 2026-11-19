@@ -50,7 +50,7 @@ function Section({
   return (
     <div className="mb-16">
       <div className="mb-8">
-        <h2 className="mb-2 font-display text-3xl font-medium tracking-tight text-ink">
+        <h2 className="mb-2 font-display text-3xl font-semibold tracking-tight text-ink">
           {title}
         </h2>
         <p className="text-sm text-muted">{subtitle}</p>
@@ -114,7 +114,7 @@ export function StoreCatalog({
 
         <div>
           <div className="mb-8 max-w-3xl">
-            <h1 className="mb-3 font-display text-4xl font-medium tracking-tight text-ink lg:text-6xl">
+            <h1 className="mb-3 font-display text-4xl font-semibold tracking-tight text-ink lg:text-6xl">
               {active ? active.sectionTitle : "All Products"}
             </h1>
             <p className="text-lg text-ink-soft">

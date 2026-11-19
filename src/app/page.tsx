@@ -112,7 +112,7 @@ export default async function HomePage() {
             }
           >
             <p className="section-kicker">Laboratory grade · United States</p>
-            <h1 className="mt-4 font-display text-[2.7rem] font-medium leading-[1.02] tracking-tight text-ink sm:text-6xl lg:text-7xl">
+            <h1 className="mt-4 font-display text-[2.7rem] font-semibold leading-[1.02] tracking-tight text-ink sm:text-6xl lg:text-7xl">
               Research peptides,{" "}
               <em className="font-medium text-accent-deep">held in the light.</em>
             </h1>
@@ -168,16 +168,16 @@ export default async function HomePage() {
         <div className="content-container grid items-start gap-10 lg:grid-cols-12">
           <div className="lg:sticky lg:top-28 lg:col-span-4 reveal">
             <p className="index-label">02 — The bench</p>
-            <h2 className="mt-3 font-display text-4xl font-medium tracking-tight text-ink lg:text-5xl">
+            <h2 className="mt-3 font-display text-4xl font-semibold tracking-tight text-ink lg:text-5xl">
               How a batch earns a place in the catalog
             </h2>
           </div>
           <ol className="lg:col-span-8">
             {features.map((step, index) => (
               <li key={step.title} className="grid grid-cols-[auto_1fr] gap-5 border-t border-line py-7 reveal">
-                <span className="font-display text-3xl italic text-accent">0{index + 1}</span>
+                <span className="font-display text-3xl text-accent">0{index + 1}</span>
                 <div>
-                  <h3 className="font-display text-2xl font-medium text-ink">{step.title}</h3>
+                  <h3 className="font-display text-2xl font-semibold text-ink">{step.title}</h3>
                   <p className="mt-2 max-w-xl text-sm leading-relaxed text-ink-soft">{step.body}</p>
                 </div>
               </li>
@@ -191,7 +191,7 @@ export default async function HomePage() {
           <div className="folio grid items-center gap-10 p-8 lg:grid-cols-2 lg:p-12 reveal">
             <div>
               <p className="index-label">03 — Documentation</p>
-              <p className="mt-3 font-display text-7xl font-medium tracking-tight text-ink lg:text-8xl">≥99%</p>
+              <p className="mt-3 font-display text-7xl font-semibold tracking-tight text-ink lg:text-8xl">≥99%</p>
               <p className="mt-4 max-w-md text-lg leading-relaxed text-ink-soft">
                 HPLC tested for purity verification. A certificate of analysis is available on request
                 for every batch. Files appear on the certificate page when they are uploaded.
@@ -220,7 +220,7 @@ export default async function HomePage() {
         <div className="content-container grid items-center gap-10 lg:grid-cols-[1.1fr_0.9fr]">
           <div className="reveal">
             <p className="index-label">04 — Members catalog</p>
-            <h2 className="mt-3 max-w-xl font-display text-4xl font-medium tracking-tight text-ink lg:text-5xl">
+            <h2 className="mt-3 max-w-xl font-display text-4xl font-semibold tracking-tight text-ink lg:text-5xl">
               {signedIn
                 ? "Compounds and checkout are open on your researcher account"
                 : "Compounds and checkout stay behind a researcher account"}
@@ -266,7 +266,7 @@ export default async function HomePage() {
 
       <section className="relative pb-8 lg:pb-12">
         <div className="content-container max-w-3xl">
-          <h2 className="mb-6 font-display text-3xl font-medium tracking-tight text-ink">Questions from the bench</h2>
+          <h2 className="mb-6 font-display text-3xl font-semibold tracking-tight text-ink">Questions from the bench</h2>
           <div>
             {questions.map(([q, a], index) => {
               const answer =
@@ -276,7 +276,7 @@ export default async function HomePage() {
               return (
                 <details key={q} className="group border-t border-line py-5 reveal">
                   <summary className="flex cursor-pointer list-none items-baseline gap-4 font-medium text-ink">
-                    <span className="font-display italic text-accent">0{index + 1}</span>
+                    <span className="font-display text-accent">0{index + 1}</span>
                     <span>{q}</span>
                   </summary>
                   <p className="mt-3 pl-10 text-sm leading-relaxed text-ink-soft">{answer}</p>
