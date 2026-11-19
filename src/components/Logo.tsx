@@ -15,6 +15,7 @@ export function Logo({ className = "text-2xl" }: { className?: string }) {
         <circle cx="50" cy="50" r="33" fill="none" stroke="currentColor" strokeWidth="33" />
       </svg>
       <span className="ml-[0.02em] tracking-[-0.045em]">vora</span>
+      <span className="ml-[0.42em] font-medium text-[max(9px,0.33em)] tracking-normal text-ink-soft">labs</span>
     </Link>
   );
 }
