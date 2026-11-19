@@ -1,30 +1,29 @@
 import Link from "next/link";
 
-const wordmarkFont =
-  "var(--font-sans), Outfit, system-ui, sans-serif";
-
-export function Logo({ className = "h-8 w-auto" }: { className?: string }) {
+export function Logo({ className = "text-2xl" }: { className?: string }) {
   return (
-    <Link href="/" className="inline-flex items-center rounded-sm" aria-label="Ovora Labs home">
-      <svg className={className} viewBox="0 0 186 40" fill="none" xmlns="http://www.w3.org/2000/svg" role="img">
-        <title>Ovora Labs</title>
-        <g stroke="var(--ink)" fill="none" strokeLinecap="round">
-          <ellipse cx="20" cy="20" rx="13.4" ry="5.6" strokeWidth="2.35" transform="rotate(-32 20 20)" />
-          <ellipse cx="20" cy="20" rx="13.4" ry="5.6" strokeWidth="2.35" transform="rotate(32 20 20)" />
-        </g>
-        <circle cx="20" cy="20" r="3.1" fill="var(--brand)" />
-        <text
-          x="46"
-          y="26"
-          fill="var(--ink)"
-          fontFamily={wordmarkFont}
-          fontSize="18"
-          fontWeight="600"
-          letterSpacing="-0.3"
-        >
-          Ovora Labs
-        </text>
-      </svg>
+    <Link
+      href="/"
+      aria-label="Ovora Labs home"
+      className={`inline-flex items-center rounded-sm font-sans font-extrabold lowercase leading-none tracking-[-0.045em] text-ink ${className}`}
+    >
+      <span aria-hidden className="relative inline-block h-[1em] w-[0.68em] align-baseline">
+        <svg viewBox="0 0 100 100" className="absolute left-1/2 h-[0.62em] w-[0.62em] -translate-x-1/2 bottom-[-0.02em]" aria-hidden="true">
+          <circle
+            cx="50"
+            cy="50"
+            r="31"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="34"
+            strokeLinecap="round"
+            pathLength="100"
+            strokeDasharray="86 14"
+            strokeDashoffset="25"
+          />
+        </svg>
+      </span>
+      <span aria-hidden>vora</span>
     </Link>
   );
 }

@@ -53,7 +53,7 @@ export function Header({ session }: { session: SessionUser | null }) {
                 )}
               </svg>
             </button>
-            <Logo className="h-7 sm:h-8 lg:h-9 w-auto" />
+            <Logo className="text-[1.35rem] sm:text-[1.5rem] lg:text-[1.7rem]" />
           </div>
 
           <nav className="hidden lg:flex items-center gap-1">

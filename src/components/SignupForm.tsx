@@ -52,7 +52,7 @@ export function SignupForm({ configured }: { configured: boolean }) {
       </div>
       <div className="content-container -mt-10 pb-16">
         <div className="folio relative z-10 mx-auto w-full max-w-xl p-8 sm:p-10">
-          <Logo className="mb-6 h-9 w-auto" />
+          <Logo className="mb-6 text-[1.85rem]" />
           <h1 className="mb-2 font-display text-4xl font-medium tracking-tight text-ink">
             Create a researcher account
           </h1>

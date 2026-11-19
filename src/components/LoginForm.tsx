@@ -46,7 +46,7 @@ export function LoginForm({ callbackUrl }: { callbackUrl: string }) {
         <HeroLumen />
         <div className="relative z-10 flex h-full min-h-[42vh] items-end p-8 pb-16 lg:p-12 lg:pb-16">
           <div>
-            <Logo className="mb-6 h-9 w-auto" />
+            <Logo className="mb-6 text-[1.85rem]" />
             <p className="max-w-sm font-display text-4xl font-medium leading-tight text-ink">
               The catalog opens after sign-in.
             </p>
