@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { CartDrawer } from "./CartDrawer";
 import { useCart } from "./CartProvider";
 import { Logo } from "./Logo";
@@ -21,77 +21,7 @@ export function Header({ session }: { session: SessionUser | null }) {
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
-  const [hidden, setHidden] = useState(false);
-  const [reduceMotion, setReduceMotion] = useState(false);
-  const hiddenRef = useRef(false);
-  const menuOpenRef = useRef(false);
   const { itemCount } = useCart();
-  menuOpenRef.current = open;
-
-  useEffect(() => {
-    if (!open) return;
-    hiddenRef.current = false;
-    setHidden(false);
-  }, [open]);
-
-  useEffect(() => {
-    const media = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const apply = () => setReduceMotion(media.matches);
-    apply();
-    media.addEventListener("change", apply);
-    return () => media.removeEventListener("change", apply);
-  }, []);
-
-  useEffect(() => {
-    const threshold = 10;
-    let lastY = window.scrollY;
-    let accum = 0;
-    let frame = 0;
-
-    const apply = (next: boolean) => {
-      if (hiddenRef.current === next) return;
-      hiddenRef.current = next;
-      setHidden(next);
-    };
-
-    const update = () => {
-      frame = 0;
-      const y = Math.max(0, window.scrollY);
-      const delta = y - lastY;
-      lastY = y;
-
-      if (menuOpenRef.current || y < 80) {
-        accum = 0;
-        apply(false);
-        return;
-      }
-      if (delta === 0) return;
-      if (accum !== 0 && Math.sign(delta) !== Math.sign(accum)) accum = 0;
-      accum += delta;
-      if (accum > threshold) {
-        apply(true);
-        accum = 0;
-      } else if (accum < -threshold) {
-        apply(false);
-        accum = 0;
-      }
-    };
-
-    const onScroll = () => {
-      if (frame) return;
-      frame = window.requestAnimationFrame(() => {
-        frame = 0;
-        update();
-        if (Math.abs(window.scrollY - lastY) > 1) onScroll();
-      });
-    };
-
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      if (frame) window.cancelAnimationFrame(frame);
-    };
-  }, []);
 
   async function signOut() {
     await fetch("/api/auth/logout", { method: "POST" });
@@ -101,15 +31,7 @@ export function Header({ session }: { session: SessionUser | null }) {
   }
 
   return (
-    <header className={`sticky top-0 inset-x-0 z-50 ${hidden ? "pointer-events-none" : ""}`}>
-      <div
-        className={hidden ? "pointer-events-none" : undefined}
-        style={{
-          transform: hidden ? "translateY(-100%)" : "translateY(0)",
-          transition: reduceMotion ? "none" : "transform 220ms ease-out",
-        }}
-        inert={hidden ? true : undefined}
-      >
+    <header className="relative z-50">
       <p className="site-banner px-4 py-2 text-center text-xs leading-snug sm:text-sm">
         {SITE_BANNER}
       </p>
@@ -131,7 +53,7 @@ export function Header({ session }: { session: SessionUser | null }) {
                 )}
               </svg>
             </button>
-            <Logo className="h-7 sm:h-8 lg:h-9 w-auto" />
+            <Logo className="text-[1.35rem] sm:text-[1.5rem] lg:text-[1.7rem]" />
           </div>
 
           <nav className="hidden lg:flex items-center gap-1">
@@ -253,10 +175,7 @@ export function Header({ session }: { session: SessionUser | null }) {
           </div>
         </div>
       )}
-      </div>
-      <div className={hidden ? "pointer-events-auto" : undefined}>
-        <CartDrawer open={cartOpen} onClose={() => setCartOpen(false)} />
-      </div>
+      <CartDrawer open={cartOpen} onClose={() => setCartOpen(false)} />
     </header>
   );
 }

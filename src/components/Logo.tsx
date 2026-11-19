@@ -1,35 +1,21 @@
 import Link from "next/link";
 
-export function Logo({ className = "h-8 w-auto" }: { className?: string }) {
+export function Logo({ className = "text-2xl" }: { className?: string }) {
   return (
-    <Link href="/" className="flex items-center rounded-sm" aria-label="Ovora Labs home">
-      <svg className={className} viewBox="0 0 248 40" fill="none" xmlns="http://www.w3.org/2000/svg" role="img">
-        <title>Ovora Labs</title>
-        <g stroke="var(--ink)" fill="none" strokeLinecap="round">
-          <ellipse cx="20" cy="20" rx="13.4" ry="5.6" strokeWidth="2.35" transform="rotate(-32 20 20)" />
-          <ellipse cx="20" cy="20" rx="13.4" ry="5.6" strokeWidth="2.35" transform="rotate(32 20 20)" />
-        </g>
-        <circle cx="20" cy="20" r="3.1" fill="var(--brand)" />
-        <text y="26" fill="var(--ink)">
-          <tspan
-            x="44"
-            fontFamily="var(--font-fraunces), Fraunces, Georgia, serif"
-            fontSize="22"
-            fontWeight="560"
-          >
-            Ovora
-          </tspan>
-          <tspan
-            dx="12"
-            fill="var(--ink-soft)"
-            fontFamily="var(--font-outfit), Outfit, sans-serif"
-            fontSize="16"
-            fontWeight="500"
-          >
-            Labs
-          </tspan>
-        </text>
+    <Link
+      href="/"
+      aria-label="Ovora Labs home"
+      className={`inline-flex items-baseline rounded-sm font-sans font-extrabold lowercase leading-none text-ink ${className}`}
+    >
+      <svg
+        viewBox="0 0 100 100"
+        className="h-[0.53em] w-[0.53em] shrink-0 translate-y-[0.015em] overflow-visible"
+        aria-hidden="true"
+      >
+        <circle cx="50" cy="50" r="33" fill="none" stroke="currentColor" strokeWidth="33" />
       </svg>
+      <span className="ml-[0.02em] tracking-[-0.045em]">vora</span>
+      <span className="ml-[0.42em] font-medium text-[max(9px,0.33em)] tracking-normal text-ink-soft">labs</span>
     </Link>
   );
 }
