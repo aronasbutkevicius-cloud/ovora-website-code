@@ -1,22 +1,16 @@
 import type { Metadata } from "next";
-import { Fraunces, Outfit } from "next/font/google";
+import { Outfit } from "next/font/google";
 import { SiteShell } from "@/components/SiteShell";
 import { TidioChat } from "@/components/TidioChat";
 import { getSession } from "@/lib/auth/session";
 import { ogImage, rootDescription, rootTitle, siteName } from "@/lib/site";
 import "./globals.css";
 
-const fraunces = Fraunces({
-  variable: "--font-fraunces",
-  subsets: ["latin"],
-  style: ["normal", "italic"],
-  display: "swap",
-});
-
 const outfit = Outfit({
   variable: "--font-outfit",
   subsets: ["latin"],
   display: "swap",
+  adjustFontFallback: true,
 });
 
 export const metadata: Metadata = {
@@ -30,10 +24,10 @@ export const metadata: Metadata = {
   alternates: { canonical: "/" },
   icons: {
     icon: [
-      { url: "/favicon.ico" },
-      { url: "/icon.svg", type: "image/svg+xml" },
+      { url: "/favicon.ico?v=2", sizes: "48x48" },
+      { url: "/icon.svg?v=2", type: "image/svg+xml" },
     ],
-    apple: [{ url: "/apple-icon.png" }],
+    apple: [{ url: "/apple-icon.png?v=2", sizes: "180x180" }],
   },
   openGraph: {
     type: "website",
@@ -67,7 +61,7 @@ export default async function RootLayout({
       <head>
         <link rel="preconnect" href="https://code.tidio.co" />
       </head>
-      <body className={`${fraunces.variable} ${outfit.variable} font-sans antialiased`}>
+      <body className={`${outfit.variable} font-sans font-normal antialiased`}>
         <SiteShell session={session}>{children}</SiteShell>
         <TidioChat />
       </body>

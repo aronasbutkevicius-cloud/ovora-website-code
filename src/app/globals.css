@@ -55,11 +55,11 @@
   --color-warm-surface: var(--surface-2);
   --color-line: var(--border);
   --font-sans: var(--font-outfit), "Outfit", system-ui, sans-serif;
-  --font-display: var(--font-fraunces), "Fraunces", Georgia, serif;
+  --font-display: var(--font-outfit), "Outfit", system-ui, sans-serif;
   --font-poppins: var(--font-outfit), "Outfit", system-ui, sans-serif;
-  --font-anek: var(--font-fraunces), "Fraunces", Georgia, serif;
+  --font-anek: var(--font-outfit), "Outfit", system-ui, sans-serif;
   --font-roboto: var(--font-outfit), "Outfit", system-ui, sans-serif;
-  --font-marcellus: var(--font-fraunces), "Fraunces", Georgia, serif;
+  --font-marcellus: var(--font-outfit), "Outfit", system-ui, sans-serif;
 }
 
 html {
@@ -72,7 +72,9 @@ body {
     radial-gradient(ellipse 70% 42% at 0% -10%, rgba(126, 196, 228, 0.28), transparent 60%),
     radial-gradient(ellipse 50% 36% at 100% 0%, rgba(232, 214, 255, 0.32), transparent 58%);
   color: var(--foreground);
-  font-family: var(--font-sans);
+  font-family: var(--font-outfit), "Outfit", system-ui, sans-serif;
+  font-weight: 400;
+  line-height: 1.6;
   overflow-x: clip;
   text-rendering: optimizeLegibility;
 }
@@ -90,11 +92,12 @@ body::before {
 
 h1,
 h2,
+h3,
 .font-display,
 .font-anek,
 .font-marcellus {
-  font-family: var(--font-display);
-  font-optical-sizing: auto;
+  font-family: var(--font-outfit), "Outfit", system-ui, sans-serif;
+  font-weight: 600;
 }
 
 ::selection {
@@ -119,7 +122,7 @@ h2,
 }
 
 .index-label {
-  font-family: var(--font-sans);
+  font-family: var(--font-outfit), "Outfit", system-ui, sans-serif;
   font-size: 0.68rem;
   font-weight: 600;
   letter-spacing: 0.18em;
@@ -128,8 +131,8 @@ h2,
 }
 
 .section-kicker {
-  font-family: var(--font-display);
-  font-style: italic;
+  font-family: var(--font-outfit), "Outfit", system-ui, sans-serif;
+  font-style: normal;
   font-size: 1.05rem;
   letter-spacing: 0;
   text-transform: none;
@@ -457,12 +460,12 @@ html.reveal-ready .reveal:not(.is-in) {
 }
 
 .font-anek {
-  font-family: var(--font-display);
+  font-family: var(--font-outfit), "Outfit", system-ui, sans-serif;
 }
 
 .font-poppins,
 .font-roboto {
-  font-family: var(--font-sans);
+  font-family: var(--font-outfit), "Outfit", system-ui, sans-serif;
 }
 
 @media (max-width: 640px) {

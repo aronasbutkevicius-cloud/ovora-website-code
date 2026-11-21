@@ -111,7 +111,7 @@ export function FirstOrderOffer() {
           </svg>
         </button>
         <p className="index-label pr-10">Researcher account</p>
-        <h2 id={titleId} className="mt-3 font-display text-3xl font-medium leading-tight tracking-tight text-ink">
+        <h2 id={titleId} className="mt-3 font-display text-3xl font-semibold leading-tight tracking-tight text-ink">
           15% off your first order when you create an account.
         </h2>
         <p id={copyId} className="mt-3 text-sm leading-relaxed text-ink-soft">

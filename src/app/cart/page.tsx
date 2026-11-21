@@ -21,7 +21,7 @@ export default function CartPage() {
     <section className="py-12 lg:py-16 bg-canvas min-h-[60vh]">
       <div className="content-container">
         <div className="max-w-3xl mb-10">
-          <h1 className="mb-3 font-display text-4xl font-medium tracking-tight text-ink lg:text-6xl">
+          <h1 className="mb-3 font-display text-4xl font-semibold tracking-tight text-ink lg:text-6xl">
             Cart
           </h1>
           <p className="text-muted">

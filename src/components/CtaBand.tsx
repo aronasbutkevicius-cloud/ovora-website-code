@@ -9,7 +9,7 @@ export function CtaBand() {
     <section className="relative overflow-hidden py-16 section-wash lg:py-20">
       <div className="content-container relative z-10 max-w-3xl">
         <p className="index-label mb-3">Catalog</p>
-        <h2 className="mb-6 font-display text-3xl font-medium leading-[1.2] tracking-tight text-ink sm:text-4xl lg:mb-8 lg:text-5xl">
+        <h2 className="mb-6 font-display text-3xl font-semibold leading-[1.2] tracking-tight text-ink sm:text-4xl lg:mb-8 lg:text-5xl">
           All the research peptides you need, with the{" "}
           <span className="relative inline-block">
             <span className="relative z-10">peace of mind</span>
@@ -43,7 +43,7 @@ export function Newsletter() {
     <section className="border-t border-transparent py-12 lg:py-16">
       <div className="content-container max-w-2xl">
         <hr className="pearl-rule mb-8" />
-        <h2 className="mb-2 font-display text-2xl font-medium text-ink lg:text-3xl">
+        <h2 className="mb-2 font-display text-2xl font-semibold text-ink lg:text-3xl">
           Research updates from Ovora Labs
         </h2>
         <p className="text-sm text-muted mb-6">

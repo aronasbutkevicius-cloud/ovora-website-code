@@ -110,7 +110,7 @@ export default function ResearchUsePage() {
               </svg>
               <span className="text-sm font-medium text-ink-soft">Laboratory Grade</span>
             </div>
-            <h1 className="mb-4 font-display text-4xl font-medium leading-[1.05] tracking-tight text-ink sm:text-5xl lg:mb-6 lg:text-6xl xl:text-7xl">
+            <h1 className="mb-4 font-display text-4xl font-semibold leading-[1.05] tracking-tight text-ink sm:text-5xl lg:mb-6 lg:text-6xl xl:text-7xl">
               Research Use Only
             </h1>
             <p className="text-lg sm:text-xl lg:text-2xl text-ink/70 leading-relaxed max-w-2xl mx-auto">
