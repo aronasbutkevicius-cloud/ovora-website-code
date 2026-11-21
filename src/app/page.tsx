@@ -75,7 +75,7 @@ export default async function HomePage() {
               "@type": "Organization",
               name: siteName,
               url: siteUrl,
-              logo: `${siteUrl}/apple-icon.png`,
+              logo: `${siteUrl}/apple-icon.png?v=2`,
               email: supportEmail,
               contactPoint: {
                 "@type": "ContactPoint",
