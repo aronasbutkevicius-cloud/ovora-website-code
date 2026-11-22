@@ -53,7 +53,7 @@ export function StoreProductCard({ family }: { family: ProductFamily }) {
           <span className="index-label absolute top-4 left-4">Compare-at</span>
         )}
       </Link>
-      <div className="flex flex-1 flex-col px-3 pb-3 pt-3 sm:px-5 sm:pb-5 sm:pt-4">
+      <div className="flex flex-1 flex-col px-6 pb-10 pt-3 sm:px-7 sm:pb-11 sm:pt-4">
         <p className="index-label break-words leading-snug">
           {family.form === "liquid" ? "Supply" : "Single vial"} · {doses}
         </p>
