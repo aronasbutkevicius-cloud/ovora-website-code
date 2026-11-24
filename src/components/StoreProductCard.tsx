@@ -53,7 +53,7 @@ export function StoreProductCard({ family }: { family: ProductFamily }) {
           <span className="index-label absolute top-4 left-4">Compare-at</span>
         )}
       </Link>
-      <div className="flex flex-1 flex-col px-3 pb-3 pt-3 sm:px-5 sm:pb-5 sm:pt-4">
+      <div className="flex flex-1 flex-col px-6 pb-10 pt-3 sm:px-7 sm:pb-11 sm:pt-4">
         <p className="index-label break-words leading-snug">
           {family.form === "liquid" ? "Supply" : "Single vial"} · {doses}
         </p>
@@ -65,12 +65,16 @@ export function StoreProductCard({ family }: { family: ProductFamily }) {
             {multi ? `From ${formatPrice(startingPrice(family))}` : formatPrice(preview.price)}
           </p>
         </div>
-        <div className="mt-3 flex flex-wrap items-center justify-between gap-x-2 gap-y-2 border-t border-line pt-3 sm:mt-4 sm:gap-3">
-          <Link href={`/coa#coa-${preview.slug}`} className="rounded-md border border-line bg-white px-2 py-1 text-[10px] font-semibold tracking-wide text-accent sm:px-2.5 sm:text-[11px]">
+        <div className="mt-3 flex flex-col gap-2 border-t border-line pt-3 sm:mt-4 sm:flex-row sm:items-center sm:justify-between sm:gap-3">
+          <Link href={`/coa#coa-${preview.slug}`} className="w-fit rounded-md border border-line bg-white px-2 py-1 text-[10px] font-semibold tracking-wide text-accent sm:px-2.5 sm:text-[11px]">
             ≥99% · COA
           </Link>
-          <button type="button" onClick={addDefault} className="text-xs font-medium text-accent hover:text-ink sm:text-sm">
-            {added ? "Added" : "Add vial"}
+          <button
+            type="button"
+            onClick={addDefault}
+            className="inline-flex h-8 w-full items-center justify-center rounded-full bg-brand px-3 text-xs font-semibold text-on-ink shadow-[inset_0_1px_0_rgba(255,255,255,0.35)] hover:bg-brand-hover sm:w-auto"
+          >
+            {added ? "Added" : "Add to cart"}
           </button>
         </div>
       </div>
